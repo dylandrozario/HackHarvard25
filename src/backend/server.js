@@ -2,6 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import fs from 'fs/promises';
 import { generateVerifiedPromises } from './services/dataGenerator.js';
+import { crossVerifyPromise } from './services/crossVertification.js';
 import { analyzePromise } from './services/gemini.js';
 import { verifyPromise } from './services/perplexity.js';
 
@@ -20,7 +21,8 @@ app.get('/', (req, res) => {
       'GET /api/promises': 'Get all cached promises',
       'GET /api/promises/generate': 'Generate new verified promises',
       'POST /api/analyze-promise': 'Analyze specific promise',
-      'GET /api/stats': 'Get dashboard statistics'
+      'GET /api/stats': 'Get dashboard statistics',
+      'POST /api/cross-verify': 'Cross-verify a promise using both AI services'
     }
   });
 });
@@ -108,6 +110,37 @@ app.get('/api/stats', async (req, res) => {
     
   } catch (error) {
     res.status(500).json({ error: error.message });
+  }
+});
+
+app.post('/api/cross-verify', async (req, res) => {
+  try {
+    const { promise } = req.body;
+    
+    // Validate input
+    if (!promise) {
+      return res.status(400).json({ 
+        error: 'Promise text is required',
+        details: 'Please provide a promise to verify'
+      });
+    }
+    
+    console.log('🔄 Cross-verifying promise:', promise.substring(0, 50) + '...');
+    
+    // Run cross-verification
+    const result = await crossVerifyPromise(promise);
+    
+    console.log('✅ Cross-verification complete. Agreement:', result.agreementScore + '%');
+    
+    res.json(result);
+    
+  } catch (error) {
+    console.error('❌ Cross-verification error:', error);
+    res.status(500).json({ 
+      error: 'Cross-verification failed',
+      details: error.message,
+      stack: process.env.NODE_ENV === 'development' ? error.stack : undefined
+    });
   }
 });
 
