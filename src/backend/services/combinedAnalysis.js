@@ -102,6 +102,7 @@ Return ONLY valid JSON (no markdown, no code blocks):
   "president": "${presidentName}",
   "overallScore": 75,
   "overallRating": 4,
+  "summary": "1-2 sentence overview of the president's promise-keeping performance",
   "promiseBreakdown": {
     "total": ${promises.length},
     "kept": 0,
