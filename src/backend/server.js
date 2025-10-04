@@ -1,9 +1,15 @@
 import express from 'express';
 import cors from 'cors';
 import fs from 'fs/promises';
+import { execSync } from 'child_process';
+import path from 'path';
+import { fileURLToPath } from 'url';
 import { generateVerifiedPromises } from './services/dataGenerator.js';
 import { analyzePromise } from './services/gemini.js';
 import { verifyPromise } from './services/perplexity.js';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const app = express();
 app.use(cors());
@@ -20,7 +26,8 @@ app.get('/', (req, res) => {
       'GET /api/promises': 'Get all cached promises',
       'GET /api/promises/generate': 'Generate new verified promises',
       'POST /api/analyze-promise': 'Analyze specific promise',
-      'GET /api/stats': 'Get dashboard statistics'
+      'GET /api/stats': 'Get dashboard statistics',
+      'GET /api/system-prompt': 'Get VoteVerify system prompt for analysis'
     }
   });
 });
@@ -80,6 +87,49 @@ app.post('/api/analyze-promise', async (req, res) => {
     
   } catch (error) {
     res.status(500).json({ error: error.message });
+  }
+});
+
+// Get VoteVerify system prompt
+app.get('/api/system-prompt', (req, res) => {
+  try {
+    const pythonScriptPath = path.join(__dirname, 'services', 'system_prompt.py');
+    
+    // Execute Python script to get system prompt
+    const result = execSync(
+      `python3 -c "import sys; sys.path.insert(0, '${path.join(__dirname, 'services')}'); from system_prompt import get_system_prompt; print(get_system_prompt())"`,
+      { 
+        encoding: 'utf8',
+        maxBuffer: 10 * 1024 * 1024 // 10MB buffer for large prompt
+      }
+    );
+    
+    const systemPrompt = result.trim();
+    
+    res.json({
+      success: true,
+      systemPrompt: systemPrompt,
+      length: systemPrompt.length,
+      metadata: {
+        version: '1.0.0',
+        type: 'VoteVerify Comprehensive Analysis System',
+        features: [
+          'Dual scoring system (1-5 and 0-100)',
+          'Fuzzy matching algorithm',
+          'Citation requirements',
+          'URL generation',
+          'Backend integration (Perplexity + Gemini)',
+          'Credibility assessment'
+        ]
+      }
+    });
+    
+  } catch (error) {
+    console.error('Error fetching system prompt:', error);
+    res.status(500).json({ 
+      error: 'Failed to fetch system prompt',
+      message: error.message 
+    });
   }
 });
 
