@@ -284,4 +284,12 @@ style.textContent = `
 `;
 document.head.appendChild(style);
 
+// Function to redirect to compare page with politician name
+function redirectToCompare(politicianName) {
+    // Encode the politician name for URL parameter
+    const encodedName = encodeURIComponent(politicianName);
+    // Redirect to compare.html with politician name as parameter
+    window.location.href = `compare.html?politician=${encodedName}`;
+}
+
 console.log('GovCheck website initialized successfully!');

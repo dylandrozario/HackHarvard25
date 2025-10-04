@@ -117,23 +117,23 @@
                 </p>
                 <div class="document-tags-container">
                     <div class="document-tags">
-                        <div class="document-tag">President Trump</div>
-                        <div class="document-tag">Vice President Vance</div>
-                        <div class="document-tag">Joe Biden</div>
-                        <div class="document-tag">Kamala Harris</div>
-                        <div class="document-tag">Gavin Newsom</div>
-                        <div class="document-tag">Mike Pence</div>
-                        <div class="document-tag">Nikki Haley</div>
-                        <div class="document-tag">Robert F. Kennedy Jr.</div>
+                        <div class="document-tag" onclick="redirectToCompare('President Trump')">President Trump</div>
+                        <div class="document-tag" onclick="redirectToCompare('Vice President Vance')">Vice President Vance</div>
+                        <div class="document-tag" onclick="redirectToCompare('Joe Biden')">Joe Biden</div>
+                        <div class="document-tag" onclick="redirectToCompare('Kamala Harris')">Kamala Harris</div>
+                        <div class="document-tag" onclick="redirectToCompare('Gavin Newsom')">Gavin Newsom</div>
+                        <div class="document-tag" onclick="redirectToCompare('Mike Pence')">Mike Pence</div>
+                        <div class="document-tag" onclick="redirectToCompare('Nikki Haley')">Nikki Haley</div>
+                        <div class="document-tag" onclick="redirectToCompare('Robert F. Kennedy Jr.')">Robert F. Kennedy Jr.</div>
                         <!-- Duplicate for seamless loop -->
-                        <div class="document-tag">President Biden</div>
-                        <div class="document-tag">Donald Trump</div>
-                        <div class="document-tag">Vice President Harris</div>
-                        <div class="document-tag">Ron DeSantis</div>
-                        <div class="document-tag">Gavin Newsom</div>
-                        <div class="document-tag">Mike Pence</div>
-                        <div class="document-tag">Nikki Haley</div>
-                        <div class="document-tag">Robert F. Kennedy Jr.</div>
+                        <div class="document-tag" onclick="redirectToCompare('President Biden')">President Biden</div>
+                        <div class="document-tag" onclick="redirectToCompare('Donald Trump')">Donald Trump</div>
+                        <div class="document-tag" onclick="redirectToCompare('Vice President Harris')">Vice President Harris</div>
+                        <div class="document-tag" onclick="redirectToCompare('Ron DeSantis')">Ron DeSantis</div>
+                        <div class="document-tag" onclick="redirectToCompare('Gavin Newsom')">Gavin Newsom</div>
+                        <div class="document-tag" onclick="redirectToCompare('Mike Pence')">Mike Pence</div>
+                        <div class="document-tag" onclick="redirectToCompare('Nikki Haley')">Nikki Haley</div>
+                        <div class="document-tag" onclick="redirectToCompare('Robert F. Kennedy Jr.')">Robert F. Kennedy Jr.</div>
                     </div>
                 </div>
             </div>
@@ -185,11 +185,6 @@
             </div>
             
             <div class="code-block">
-                <div class="code-comment">// Fact-checking results from recent government document analysis</div>
-                <br />
-                <span class="code-keyword">const</span> <span class="code-variable">factCheckResults</span> = <span class="code-keyword">await</span> <span class="code-variable">govCheck</span>.<span class="code-object-key">analyze</span>(<span class="code-string">'budget_proposal_2024.pdf'</span>);
-                <br /><br />
-                
                 <div class="result-item verified">
                     <div class="result-status verified">✅ VERIFIED</div>
                     <div class="result-text">"The unemployment rate has decreased by 2% this quarter"</div>
