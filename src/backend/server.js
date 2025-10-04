@@ -7,6 +7,7 @@ import { fileURLToPath } from 'url';
 import { generateVerifiedPromises } from './services/dataGenerator.js';
 import { analyzePromise } from './services/gemini.js';
 import { verifyPromise } from './services/perplexity.js';
+import { analyzeCombinedPromises, getPromiseStatistics } from './services/combinedAnalysis.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -23,9 +24,11 @@ app.get('/', (req, res) => {
     name: 'Votify API - Political Promise Tracker',
     version: '1.0.0',
     endpoints: {
-      'GET /api/promises': 'Get all cached promises',
+      'GET /api/promises': 'Get all promises (includes stock data if enriched)',
       'GET /api/promises/generate': 'Generate new verified promises',
+      'GET /api/promises/enrich': 'Add stock market analysis to existing promises',
       'POST /api/analyze-promise': 'Analyze specific promise',
+      'POST /api/analyze-combined': 'Analyze multiple promises with overall score and verdict',
       'GET /api/stats': 'Get dashboard statistics',
       'GET /api/system-prompt': 'Get VoteVerify system prompt for analysis'
     }
@@ -73,6 +76,66 @@ app.get('/api/promises/generate', async (req, res) => {
   }
 });
 
+// Enrich promises with stock market data (updates promises.json in place)
+app.get('/api/promises/enrich', async (req, res) => {
+  try {
+    console.log('Starting stock market enrichment...');
+    
+    // Check if base promises exist
+    try {
+      await fs.access(CACHE_FILE);
+    } catch {
+      return res.status(404).json({ 
+        error: 'No promises to enrich',
+        message: 'Generate promises first using GET /api/promises/generate'
+      });
+    }
+    
+    // Run Python stock analyzer (it will update promises.json in place)
+    const pythonScript = path.join(__dirname, 'services', 'stock_analyzer.py');
+    const venvPython = path.join(__dirname, '../../venv/bin/python3');
+    const pythonCommand = venvPython; // Use venv python if available
+    
+    const result = execSync(
+      `"${pythonCommand}" "${pythonScript}"`,
+      { 
+        encoding: 'utf8',
+        maxBuffer: 50 * 1024 * 1024,
+        cwd: __dirname
+      }
+    );
+    
+    console.log(result);
+    
+    // Read updated promises
+    const enrichedData = await fs.readFile(CACHE_FILE, 'utf8');
+    const enrichedPromises = JSON.parse(enrichedData);
+    
+    // Calculate stats
+    const withStock = enrichedPromises.filter(
+      p => p.actualMarketImpact && p.actualMarketImpact.industries && p.actualMarketImpact.industries.length > 0
+    ).length;
+    
+    res.json({
+      success: true,
+      message: 'Stock market analysis complete (promises.json updated)',
+      stats: {
+        total: enrichedPromises.length,
+        withStockData: withStock,
+        percentage: ((withStock / enrichedPromises.length) * 100).toFixed(1)
+      },
+      promises: enrichedPromises
+    });
+    
+  } catch (error) {
+    console.error('Enrichment failed:', error);
+    res.status(500).json({ 
+      error: 'Stock enrichment failed',
+      message: error.message 
+    });
+  }
+});
+
 // Analyze promise
 app.post('/api/analyze-promise', async (req, res) => {
   try {
@@ -87,6 +150,47 @@ app.post('/api/analyze-promise', async (req, res) => {
     
   } catch (error) {
     res.status(500).json({ error: error.message });
+  }
+});
+
+// Analyze combined promises (overall assessment)
+app.post('/api/analyze-combined', async (req, res) => {
+  try {
+    const { promises, president } = req.body;
+    
+    if (!promises || !Array.isArray(promises) || promises.length === 0) {
+      return res.status(400).json({ 
+        error: 'Array of promises required',
+        message: 'Please provide an array of promise objects in the request body'
+      });
+    }
+    
+    // If no president specified, try to extract from first promise
+    const presidentName = president || promises[0].president || 'Unknown';
+    
+    console.log(`Analyzing ${promises.length} promises for ${presidentName}...`);
+    
+    // Get basic statistics
+    const stats = getPromiseStatistics(promises);
+    
+    // Get AI-powered combined analysis
+    const analysis = await analyzeCombinedPromises(promises, presidentName);
+    
+    res.json({
+      success: true,
+      president: presidentName,
+      promisesAnalyzed: promises.length,
+      statistics: stats,
+      analysis: analysis,
+      generatedAt: new Date().toISOString()
+    });
+    
+  } catch (error) {
+    console.error('Combined analysis failed:', error);
+    res.status(500).json({ 
+      error: 'Failed to analyze combined promises',
+      message: error.message 
+    });
   }
 });
 
