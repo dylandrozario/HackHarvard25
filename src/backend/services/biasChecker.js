@@ -24,11 +24,7 @@ const ai = new GoogleGenAI({
  */
 function getBiasCheckerPrompt() {
   try {
-    const pythonPath = path.join(__dirname, '../../../venv/bin/python3');
-    const scriptPath = path.join(__dirname, 'bias_checker.py');
-    
-    // Execute Python script to get prompt
-    const result = execSync(`${pythonPath} -c "from bias_checker import get_bias_checker_prompt; print(get_bias_checker_prompt())"`, {
+    const result = execSync(`python3 -c "import sys; sys.path.insert(0, '${__dirname}'); from bias_checker import get_bias_checker_prompt; print(get_bias_checker_prompt())"`, {
       cwd: __dirname,
       encoding: 'utf8'
     });

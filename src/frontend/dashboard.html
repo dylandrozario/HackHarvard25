@@ -301,6 +301,30 @@
             `;
         }
 
+        async function loadPromisesWithValidation() {
+            const promises = await fetch('http://localhost:3000/api/promises').then(r => r.json());
+            
+            // For each promise, add validation badge
+            for (let promise of promises) {
+                // Check if already validated
+                if (!promise.voteverify) {
+                    try {
+                        const validation = await fetch('http://localhost:3000/api/validate-promise', {
+                        method: 'POST',
+                        headers: {'Content-Type': 'application/json'},
+                        body: JSON.stringify({promise})
+                        }).then(r => r.json());
+                        
+                        promise.voteverify = validation;
+                    } catch (e) {
+                        console.error('Validation failed:', e);
+                    }
+                }
+            }
+            
+            renderPromises(promises);
+        }
+
         // Render political figures
         function renderPromises() {
             const filtered = allPromises.filter(p => {

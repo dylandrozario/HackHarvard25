@@ -102,9 +102,7 @@ app.get('/api/promises/enrich', async (req, res) => {
     
     // Run Python stock analyzer (it will update promises.json in place)
     const pythonScript = path.join(__dirname, 'services', 'stock_analyzer.py');
-    const venvPython = path.join(__dirname, '../../venv/bin/python3');
-    const pythonCommand = venvPython; // Use venv python if available
-    
+
     const result = execSync(
       `"${pythonCommand}" "${pythonScript}"`,
       { 
@@ -394,7 +392,7 @@ async function runVotifyValidation(promise) {
     
     // Run Python validation script
     const python = spawn('python3', [
-      './python/validate_promise.py',  // We'll create this wrapper script
+      './services/validate_promise.py',  // We'll create this wrapper script
       tempFile
     ]);
     
@@ -437,7 +435,7 @@ async function runBiasChecker(VotifyResult) {
     fs.writeFileSync(tempFile, JSON.stringify(VotifyResult));
     
     const python = spawn('python3', [
-      './python/check_bias.py',
+      './services/check_bias.py',
       tempFile
     ]);
     
