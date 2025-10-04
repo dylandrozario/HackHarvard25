@@ -197,16 +197,7 @@ function typeWriter(element, text, speed = 50) {
   type();
 }
 
-// Initialize typing animation on page load
-window.addEventListener('load', () => {
-  const heroTitle = document.querySelector('.hero h1');
-  const originalText = heroTitle.textContent;
-  
-  // Add a slight delay before starting the animation
-  setTimeout(() => {
-    typeWriter(heroTitle, originalText, 30);
-  }, 500);
-});
+// Hero title is now static - no typing animation
 
 // Add parallax effect to background
 window.addEventListener('scroll', () => {

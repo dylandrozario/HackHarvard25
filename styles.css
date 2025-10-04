@@ -500,7 +500,7 @@ body::before {
 .document-tags {
   display: flex;
   gap: 16px;
-  animation: slideRightToLeft 30s linear infinite;
+  animation: slideRightToLeft 25s linear infinite;
   width: max-content;
 }
 
@@ -598,7 +598,7 @@ body::before {
 .tech-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 40px;
+  gap: 24px;
   max-width: 1200px;
   margin: 0 auto;
 }
@@ -607,10 +607,11 @@ body::before {
   background: white;
   border: 1px solid #e5e7eb;
   border-radius: 12px;
-  padding: 40px 32px;
+  padding: 16px 12px;
   text-align: center;
   transition: all 0.3s ease;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  min-height: 140px;
 }
 
 .tech-card:hover {
@@ -620,30 +621,30 @@ body::before {
 }
 
 .tech-icon {
-  width: 64px;
-  height: 64px;
+  width: 36px;
+  height: 36px;
   background: #f3f4f6;
-  border-radius: 12px;
+  border-radius: 8px;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 0 auto 24px;
+  margin: 0 auto 8px;
   color: #374151;
-  font-size: 24px;
+  font-size: 16px;
   font-weight: bold;
 }
 
 .tech-card h3 {
-  font-size: 1.5rem;
+  font-size: 1rem;
   font-weight: 700;
   color: #1a1a1a;
-  margin-bottom: 16px;
+  margin-bottom: 8px;
 }
 
 .tech-card p {
   color: #6b7280;
-  line-height: 1.6;
-  font-size: 1rem;
+  line-height: 1.4;
+  font-size: 0.875rem;
 }
 
 /* Code Block / Results Display */
