@@ -77,7 +77,8 @@ def get_ticker_for_industry(industry_name: str) -> List[str]:
 def calculate_stock_impact(
     ticker: str, 
     start_date: str, 
-    months: int = 6
+    months: int = 6,
+    verbose: bool = True
 ) -> Optional[Dict]:
     """
     Calculate stock price change over a period.
@@ -117,13 +118,15 @@ def calculate_stock_impact(
         }
         
     except Exception as e:
-        print(f"Error fetching data for {ticker}: {e}")
+        if verbose:
+            print(f"Error fetching data for {ticker}: {e}")
         return None
 
 
 def analyze_industry_impact(
     industry_name: str,
-    promise_date: str
+    promise_date: str,
+    verbose: bool = True
 ) -> Dict:
     """
     Analyze market impact for an industry after a promise date.
@@ -141,8 +144,8 @@ def analyze_industry_impact(
     results_12mo = []
     
     for ticker in tickers[:2]: 
-        impact_6mo = calculate_stock_impact(ticker, promise_date, months=6)
-        impact_12mo = calculate_stock_impact(ticker, promise_date, months=12)
+        impact_6mo = calculate_stock_impact(ticker, promise_date, months=6, verbose=verbose)
+        impact_12mo = calculate_stock_impact(ticker, promise_date, months=12, verbose=verbose)
         
         if impact_6mo:
             results_6mo.append(impact_6mo)
@@ -293,23 +296,88 @@ def enrich_all_promises(promises_file: str = '../data/promises.json') -> List[Di
     return enriched_promises
 
 
+def generate_chart_data(input_file: str) -> Dict:
+    """
+    Generate chart data for a specific policy/industry combination.
+    
+    Args:
+        input_file: Path to JSON file with chart request data
+        
+    Returns:
+        Dict with chart data for frontend
+    """
+    # Load request data
+    with open(input_file, 'r') as f:
+        request_data = json.load(f)
+    
+    industry = request_data['industry']
+    promise_date = request_data['promiseDate']
+    promise = request_data['promise']
+    
+    # Analyze industry impact
+    impact_data = analyze_industry_impact(industry, promise_date, verbose=False)
+    
+    # Generate chart-ready data
+    chart_data = {
+        'industry': industry,
+        'promiseDate': promise_date,
+        'promise': promise,
+        'impactData': impact_data,
+        'chartPoints': [],
+        'summary': {
+            'avgChange6mo': 0,
+            'avgChange12mo': 0,
+            'totalStocks': 0,
+            'positiveImpact': 0,
+            'negativeImpact': 0
+        }
+    }
+    
+    # Generate chart points for 6-month data
+    if impact_data.get('impact6mo') and impact_data['impact6mo'].get('details'):
+        chart_data['chartPoints'] = impact_data['impact6mo']['details']
+        chart_data['summary']['totalStocks'] = len(impact_data['impact6mo']['details'])
+        chart_data['summary']['avgChange6mo'] = sum(
+            stock['percentChange'] for stock in impact_data['impact6mo']['details']
+        ) / len(impact_data['impact6mo']['details'])
+        chart_data['summary']['positiveImpact'] = sum(
+            1 for stock in impact_data['impact6mo']['details'] if stock['percentChange'] > 0
+        )
+        chart_data['summary']['negativeImpact'] = sum(
+            1 for stock in impact_data['impact6mo']['details'] if stock['percentChange'] < 0
+        )
+    
+    return chart_data
+
+
 if __name__ == '__main__':
     import sys
     import os
+    import argparse
     
     # Add parent directory to path
     sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
     
-    # Run enrichment
-    enriched = enrich_all_promises()
+    parser = argparse.ArgumentParser(description='Stock Market Analyzer')
+    parser.add_argument('--chart-data', help='Generate chart data for specific request')
     
-    # Save back to the same file (promises.json)
-    script_dir = os.path.dirname(os.path.abspath(__file__))
-    output_file = os.path.join(script_dir, '../data/promises.json')
+    args = parser.parse_args()
     
-    with open(output_file, 'w') as f:
-        json.dump(enriched, f, indent=2)
-    
-    print(f"\n Saved enriched data back to: {output_file}")
-    print(f"   File size: {os.path.getsize(output_file) / 1024:.2f} KB\n")
+    if args.chart_data:
+        # Generate chart data for specific request
+        chart_data = generate_chart_data(args.chart_data)
+        print(json.dumps(chart_data, indent=2))
+    else:
+        # Run full enrichment
+        enriched = enrich_all_promises()
+        
+        # Save back to the same file (promises.json)
+        script_dir = os.path.dirname(os.path.abspath(__file__))
+        output_file = os.path.join(script_dir, '../data/promises.json')
+        
+        with open(output_file, 'w') as f:
+            json.dump(enriched, f, indent=2)
+        
+        print(f"\n Saved enriched data back to: {output_file}")
+        print(f"   File size: {os.path.getsize(output_file) / 1024:.2f} KB\n")
 

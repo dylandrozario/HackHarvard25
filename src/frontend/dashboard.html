@@ -18,16 +18,16 @@
 <body class="bg-gray-50 scrollbar-hide">
     
     <!-- Navigation -->
-    <nav class="bg-white shadow-sm sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-            <a href="landing.html" class="flex items-center gap-2">
+    <nav class="bg-white shadow-sm">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-center items-center relative">
+            <a href="landing.html" class="absolute left-6 flex items-center gap-2">
                 <div class="w-10 h-10 rounded-lg flex items-center justify-center text-white font-bold text-xl" style="background: linear-gradient(135deg, #6A6AF0, #4A4AD0);">V</div>
                 <span class="text-2xl font-bold text-gray-900">Votify</span>
             </a>
             
             <!-- Center Navigation Links -->
-            <div class="flex items-center gap-6">
-                <a href="#" id="promiseCheckerNav" class="px-4 py-2 rounded-lg text-sm font-medium text-gray-700 hover:text-purple-600 hover:bg-purple-50 transition-colors">
+            <div class="flex items-center gap-6 ml-8">
+                <a href="#" id="promiseCheckerNav" class="px-4 py-2 rounded-lg text-sm font-medium text-white bg-purple-600 shadow-sm">
                     Political Promise Checker
                 </a>
                 <a href="#" id="stockPredictorNav" class="px-4 py-2 rounded-lg text-sm font-medium text-gray-700 hover:text-green-600 hover:bg-green-50 transition-colors">
@@ -35,10 +35,6 @@
                 </a>
             </div>
             
-            <div class="flex items-center gap-4">
-                <span class="text-sm text-gray-500">Demo User</span>
-                <div class="w-8 h-8 bg-gray-300 rounded-full flex items-center justify-center text-sm font-bold">D</div>
-            </div>
         </div>
     </nav>
 
@@ -244,13 +240,18 @@
             }
         }
 
-        // Load stats
+        // Load stats (initial load with all data)
         function loadStats() {
+            updateStats(allPromises);
+        }
+
+        // Update stats based on filtered data
+        function updateStats(filteredPromises) {
             const stats = {
-                total: allPromises.length,
-                kept: allPromises.filter(p => p.status === 'kept').length,
-                broken: allPromises.filter(p => p.status === 'broken').length,
-                partial: allPromises.filter(p => p.status === 'partial').length
+                total: filteredPromises.length,
+                kept: filteredPromises.filter(p => p.status === 'kept').length,
+                broken: filteredPromises.filter(p => p.status === 'broken').length,
+                partial: filteredPromises.filter(p => p.status === 'partial').length
             };
             
             const accountabilityScore = stats.total > 0 
@@ -310,6 +311,9 @@
                 if (currentFeature !== 'all' && !hasFeature(p, currentFeature)) return false;
                 return true;
             });
+            
+            // Update statistics based on filtered data
+            updateStats(filtered);
             
             if (filtered.length === 0) {
                 document.getElementById('promises').innerHTML = `
@@ -391,13 +395,13 @@
                                 <div class="text-green-600 font-bold">${figure.promises.filter(p => p.status === 'kept').length}</div>
                                 <div class="text-xs text-green-600">Kept</div>
                             </div>
-                            <div class="bg-red-50 p-2 rounded-lg">
-                                <div class="text-red-600 font-bold">${figure.promises.filter(p => p.status === 'broken').length}</div>
-                                <div class="text-xs text-red-600">Broken</div>
-                            </div>
                             <div class="bg-yellow-50 p-2 rounded-lg">
                                 <div class="text-yellow-600 font-bold">${figure.promises.filter(p => p.status === 'partial').length}</div>
                                 <div class="text-xs text-yellow-600">Partial</div>
+                            </div>
+                            <div class="bg-red-50 p-2 rounded-lg">
+                                <div class="text-red-600 font-bold">${figure.promises.filter(p => p.status === 'broken').length}</div>
+                                <div class="text-xs text-red-600">Broken</div>
                             </div>
                         </div>
                     </div>
@@ -476,14 +480,14 @@
         }
 
         function updateNavActiveState() {
-            // Reset all nav links
-            document.getElementById('promiseCheckerNav').className = 'px-4 py-2 rounded-lg text-sm font-medium text-gray-700 hover:text-purple-600 hover:bg-purple-50 transition-colors';
+            // Keep Political Promise Checker permanently active since we're on dashboard.html
+            document.getElementById('promiseCheckerNav').className = 'px-4 py-2 rounded-lg text-sm font-medium text-white bg-purple-600 shadow-sm';
+            
+            // Reset stock predictor nav link
             document.getElementById('stockPredictorNav').className = 'px-4 py-2 rounded-lg text-sm font-medium text-gray-700 hover:text-green-600 hover:bg-green-50 transition-colors';
             
-            // Set active state based on current feature
-            if (currentFeature === 'promise-checker') {
-                document.getElementById('promiseCheckerNav').className = 'px-4 py-2 rounded-lg text-sm font-medium text-white bg-purple-600 shadow-sm';
-            } else if (currentFeature === 'stock-predictor') {
+            // Set active state based on current feature (only affects stock predictor)
+            if (currentFeature === 'stock-predictor') {
                 document.getElementById('stockPredictorNav').className = 'px-4 py-2 rounded-lg text-sm font-medium text-white bg-green-600 shadow-sm';
             }
         }
@@ -634,13 +638,75 @@
         }
 
         // Analysis Modal Functions
-        function openAnalysisNew(figure) {
+        async function openAnalysisNew(figure) {
             // Store current figure for reference
             window.currentSelectedFigure = figure;
             
-            // Get all promises for this political figure
-            const promises = figure.promises || [];
-            
+            // Show modal immediately with loading state
+            document.getElementById('modal').classList.remove('hidden');
+            document.getElementById('modalContent').innerHTML = `
+                <div class="flex items-center justify-center p-8">
+                    <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-purple-600"></div>
+                    <span class="ml-3 text-gray-600">Loading detailed analysis...</span>
+                </div>
+            `;
+
+            try {
+                // Get all promises for this political figure
+                const promises = figure.promises || [];
+                
+                if (promises.length === 0) {
+                    throw new Error('No promises found for this political figure');
+                }
+
+                console.log(`Analyzing ${promises.length} promises for ${figure.name}...`);
+
+                // Try backend validation pipeline first
+                try {
+                    const response = await fetch(`${CONFIG.API_BASE}/analyze-combined-validated`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            promises: promises,
+                            president: figure.name,
+                            maxAttempts: 3
+                        })
+                    });
+
+                    if (response.ok) {
+                        const analysisResult = await response.json();
+                        console.log('Backend analysis result:', analysisResult);
+                        
+                        // Display the validated analysis
+                        displayValidatedAnalysis(figure, analysisResult, promises);
+                        return;
+                    }
+                } catch (backendError) {
+                    console.log('Backend analysis unavailable, using enhanced local analysis:', backendError.message);
+                }
+
+                // Fallback to enhanced local analysis
+                const enhancedAnalysis = generateEnhancedLocalAnalysis(figure, promises);
+                displayEnhancedLocalAnalysis(figure, enhancedAnalysis, promises);
+
+            } catch (error) {
+                console.error('Error loading detailed analysis:', error);
+                document.getElementById('modalContent').innerHTML = `
+                    <div class="text-center p-8">
+                        <div class="text-red-600 text-xl mb-4">⚠️ Error Loading Analysis</div>
+                        <p class="text-gray-600 mb-4">Failed to load detailed analysis for ${figure.name}</p>
+                        <p class="text-sm text-gray-500">Error: ${error.message}</p>
+                        <button onclick="openAnalysisNew(window.currentSelectedFigure)" class="mt-4 px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition">
+                            Retry Analysis
+                        </button>
+                    </div>
+                `;
+            }
+        }
+
+        function displayValidatedAnalysis(figure, analysisResult, promises) {
             // Calculate summary statistics
             const totalPromises = promises.length;
             const keptPromises = promises.filter(p => p.status === 'kept').length;
@@ -656,7 +722,11 @@
                 promisesByCategory[promise.category].push(promise);
             });
 
-            // Display detailed analysis in modal
+            // Extract analysis data
+            const analysis = analysisResult.analysis || {};
+            const qualityCheck = analysisResult.qualityCheck || {};
+            const statistics = analysisResult.statistics || {};
+
             document.getElementById('modalContent').innerHTML = `
                 <!-- Header -->
                 <div class="flex items-center gap-4 mb-6 pb-4 border-b">
@@ -666,8 +736,43 @@
                     <div>
                         <h2 class="text-2xl font-bold text-gray-900">${figure.name}</h2>
                         <p class="text-gray-600">${figure.party} • ${figure.servicePeriod}</p>
+                        ${analysisResult.validated ? '<span class="inline-block px-2 py-1 bg-green-100 text-green-800 rounded-full text-xs font-semibold mt-1">✓ Validated Analysis</span>' : ''}
                     </div>
                 </div>
+
+                <!-- Quality Check Results -->
+                ${analysisResult.validated ? `
+                <div class="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
+                    <h3 class="font-semibold text-blue-900 mb-3">🔍 Quality Assurance Results</h3>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+                        <div class="text-center">
+                            <div class="text-lg font-bold ${qualityCheck.biasScore >= 0.8 ? 'text-green-600' : qualityCheck.biasScore >= 0.6 ? 'text-yellow-600' : 'text-red-600'}">${Math.round(qualityCheck.biasScore * 100)}%</div>
+                            <div class="text-xs text-blue-700">Bias Score</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-lg font-bold ${qualityCheck.hallucinationScore >= 0.8 ? 'text-green-600' : qualityCheck.hallucinationScore >= 0.6 ? 'text-yellow-600' : 'text-red-600'}">${Math.round(qualityCheck.hallucinationScore * 100)}%</div>
+                            <div class="text-xs text-blue-700">Accuracy Score</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-lg font-bold ${qualityCheck.satisfactionScore >= 0.8 ? 'text-green-600' : qualityCheck.satisfactionScore >= 0.6 ? 'text-yellow-600' : 'text-red-600'}">${Math.round(qualityCheck.satisfactionScore * 100)}%</div>
+                            <div class="text-xs text-blue-700">Overall Quality</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-lg font-bold ${qualityCheck.decision === 'approve' ? 'text-green-600' : qualityCheck.decision === 'approve_with_warning' ? 'text-yellow-600' : 'text-red-600'}">${qualityCheck.attempts}</div>
+                            <div class="text-xs text-blue-700">Validation Attempts</div>
+                        </div>
+                    </div>
+                    ${analysisResult.warning ? `<div class="mt-3 p-2 bg-yellow-100 border border-yellow-300 rounded text-sm text-yellow-800">⚠️ ${analysisResult.warning}</div>` : ''}
+                </div>
+                ` : ''}
+
+                <!-- AI Analysis Summary -->
+                ${analysis.overallAssessment ? `
+                <div class="bg-gray-50 border border-gray-200 rounded-lg p-4 mb-6">
+                    <h3 class="font-semibold text-gray-900 mb-2">🤖 AI Analysis Summary</h3>
+                    <p class="text-gray-700 text-sm leading-relaxed">${analysis.overallAssessment}</p>
+                </div>
+                ` : ''}
 
                 <!-- Summary Statistics -->
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
@@ -689,19 +794,35 @@
                     </div>
                 </div>
 
+                <!-- Key Insights -->
+                ${analysis.keyInsights && analysis.keyInsights.length > 0 ? `
+                <div class="bg-purple-50 border border-purple-200 rounded-lg p-4 mb-6">
+                    <h3 class="font-semibold text-purple-900 mb-3">💡 Key Insights</h3>
+                    <ul class="space-y-2">
+                        ${analysis.keyInsights.map(insight => `
+                            <li class="flex items-start gap-2 text-sm text-purple-800">
+                                <span class="text-purple-600 mt-0.5">•</span>
+                                <span>${insight}</span>
+                            </li>
+                        `).join('')}
+                    </ul>
+                </div>
+                ` : ''}
+
                 <!-- Promises by Category -->
                 <div class="space-y-6">
+                    <h3 class="text-lg font-semibold text-gray-900">📋 Promises by Category</h3>
                     ${Object.entries(promisesByCategory).map(([category, categoryPromises]) => `
                         <div class="border border-gray-200 rounded-lg overflow-hidden">
                             <div class="bg-gray-50 px-4 py-3 border-b">
-                                <h3 class="font-semibold text-gray-900">${category}</h3>
+                                <h4 class="font-semibold text-gray-900">${category}</h4>
                             </div>
                             <div class="p-4 space-y-3">
                                 ${categoryPromises.map(promise => `
-                                    <div class="flex items-start justify-between p-3 bg-white border border-gray-200 rounded-lg">
-                                        <div class="flex-1">
+                                    <div class="p-4 bg-white border border-gray-200 rounded-lg">
+                                        <div class="mb-3">
                                             <p class="text-sm text-gray-800 mb-2">${promise.promise}</p>
-                                            <div class="flex items-center gap-2">
+                                            <div class="flex items-center gap-2 flex-wrap">
                                                 <span class="px-2 py-1 rounded-full text-xs font-semibold ${getStatusColor(promise.status)}">
                                                     ${promise.status.toUpperCase()}
                                                 </span>
@@ -711,16 +832,412 @@
                                                 <span class="text-xs text-gray-500">${promise.date}</span>
                                             </div>
                                         </div>
+                                        
+                                        ${promise.evidence && promise.evidence.length > 0 ? `
+                                            <div class="mb-3">
+                                                <h5 class="text-xs font-semibold text-gray-700 mb-1">📋 Evidence:</h5>
+                                                <div class="space-y-1">
+                                                    ${promise.evidence.slice(0, 2).map(evidence => `
+                                                        <div class="text-xs text-gray-600 bg-gray-50 px-2 py-1 rounded">${evidence}</div>
+                                                    `).join('')}
+                                                    ${promise.evidence.length > 2 ? `<div class="text-xs text-gray-500">+${promise.evidence.length - 2} more evidence items</div>` : ''}
+                                                </div>
+                                            </div>
+                                        ` : ''}
+                                        
+                                        ${promise.sources && promise.sources.length > 0 ? `
+                                            <div class="mb-3">
+                                                <h5 class="text-xs font-semibold text-gray-700 mb-1">🔗 Sources:</h5>
+                                                <div class="space-y-1">
+                                                    ${promise.sources.slice(0, 2).map(source => `
+                                                        <div class="text-xs">
+                                                            <a href="${source}" target="_blank" class="text-blue-600 hover:text-blue-800 hover:underline break-all">${source}</a>
+                                                        </div>
+                                                    `).join('')}
+                                                    ${promise.sources.length > 2 ? `<div class="text-xs text-gray-500">+${promise.sources.length - 2} more sources</div>` : ''}
+                                                </div>
+                                            </div>
+                                        ` : ''}
+                                        
+                                        ${promise.affectedIndustries && promise.affectedIndustries.length > 0 ? `
+                                            <div class="mb-3">
+                                                <h5 class="text-xs font-semibold text-gray-700 mb-1">🏭 Market Impact:</h5>
+                                                <div class="space-y-1">
+                                                    ${promise.affectedIndustries.slice(0, 2).map(industry => `
+                                                        <div class="text-xs">
+                                                            <span class="font-medium text-gray-700">${industry.name}:</span>
+                                                            <span class="text-gray-600">${industry.predictedImpact}</span>
+                                                            <span class="text-gray-500">(${industry.confidence}% confidence)</span>
+                                                        </div>
+                                                    `).join('')}
+                                                    ${promise.affectedIndustries.length > 2 ? `<div class="text-xs text-gray-500">+${promise.affectedIndustries.length - 2} more industries</div>` : ''}
+                                                </div>
+                                            </div>
+                                        ` : ''}
                                     </div>
                                 `).join('')}
                             </div>
                         </div>
                     `).join('')}
                 </div>
+
+                <!-- Analysis Metadata -->
+                <div class="mt-6 pt-4 border-t border-gray-200 text-xs text-gray-500">
+                    <p>Analysis generated: ${new Date(analysisResult.generatedAt).toLocaleString()}</p>
+                    <p>Promises analyzed: ${analysisResult.promisesAnalyzed}</p>
+                    ${analysisResult.validated ? `<p>Quality validated: ✓ Passed bias detection and accuracy checks</p>` : ''}
+                </div>
             `;
+        }
+
+        function generateEnhancedLocalAnalysis(figure, promises) {
+            // Calculate comprehensive statistics
+            const totalPromises = promises.length;
+            const keptPromises = promises.filter(p => p.status === 'kept');
+            const brokenPromises = promises.filter(p => p.status === 'broken');
+            const partialPromises = promises.filter(p => p.status === 'partial');
             
-            // Show modal
-            document.getElementById('modal').classList.remove('hidden');
+            const keptPercentage = totalPromises > 0 ? Math.round((keptPromises.length / totalPromises) * 100) : 0;
+            const brokenPercentage = totalPromises > 0 ? Math.round((brokenPromises.length / totalPromises) * 100) : 0;
+            const partialPercentage = totalPromises > 0 ? Math.round((partialPromises.length / totalPromises) * 100) : 0;
+            
+            // Analyze by category with rich data
+            const categoryAnalysis = {};
+            const allEvidence = [];
+            const allSources = [];
+            const allIndustries = [];
+            
+            promises.forEach(promise => {
+                if (!categoryAnalysis[promise.category]) {
+                    categoryAnalysis[promise.category] = { 
+                        total: 0, kept: 0, broken: 0, partial: 0,
+                        evidence: [], sources: [], industries: []
+                    };
+                }
+                categoryAnalysis[promise.category].total++;
+                categoryAnalysis[promise.category][promise.status]++;
+                
+                // Collect rich data
+                if (promise.evidence && promise.evidence.length > 0) {
+                    categoryAnalysis[promise.category].evidence.push(...promise.evidence);
+                    allEvidence.push(...promise.evidence);
+                }
+                
+                if (promise.sources && promise.sources.length > 0) {
+                    categoryAnalysis[promise.category].sources.push(...promise.sources);
+                    allSources.push(...promise.sources);
+                }
+                
+                if (promise.affectedIndustries && promise.affectedIndustries.length > 0) {
+                    categoryAnalysis[promise.category].industries.push(...promise.affectedIndustries);
+                    allIndustries.push(...promise.affectedIndustries);
+                }
+            });
+            
+            // Generate insights based on rich data patterns
+            const insights = [];
+            
+            if (keptPercentage >= 70) {
+                insights.push(`${figure.name} has a strong track record with ${keptPercentage}% of promises kept`);
+            } else if (keptPercentage >= 50) {
+                insights.push(`${figure.name} has a mixed track record with ${keptPercentage}% of promises kept`);
+            } else {
+                insights.push(`${figure.name} has struggled to fulfill promises with only ${keptPercentage}% kept`);
+            }
+            
+            // Analyze evidence quality
+            const promisesWithEvidence = promises.filter(p => p.evidence && p.evidence.length > 0);
+            const evidenceRate = totalPromises > 0 ? Math.round((promisesWithEvidence.length / totalPromises) * 100) : 0;
+            
+            if (evidenceRate >= 80) {
+                insights.push(`Strong evidence base with ${evidenceRate}% of promises having documented evidence`);
+            } else if (evidenceRate >= 50) {
+                insights.push(`Moderate evidence coverage with ${evidenceRate}% of promises having documented evidence`);
+            }
+            
+            // Analyze industry impact
+            const promisesWithIndustryData = promises.filter(p => p.affectedIndustries && p.affectedIndustries.length > 0);
+            const industryAnalysisRate = totalPromises > 0 ? Math.round((promisesWithIndustryData.length / totalPromises) * 100) : 0;
+            
+            if (industryAnalysisRate >= 70) {
+                insights.push(`Comprehensive market impact analysis available for ${industryAnalysisRate}% of promises`);
+            }
+            
+            // Find strongest category
+            const strongestCategory = Object.entries(categoryAnalysis)
+                .map(([category, stats]) => ({
+                    category,
+                    successRate: stats.total > 0 ? Math.round((stats.kept / stats.total) * 100) : 0,
+                    total: stats.total,
+                    evidenceCount: stats.evidence.length,
+                    sourceCount: stats.sources.length
+                }))
+                .sort((a, b) => b.successRate - a.successRate)[0];
+            
+            if (strongestCategory && strongestCategory.total > 1) {
+                insights.push(`Strongest performance in ${strongestCategory.category} with ${strongestCategory.successRate}% success rate`);
+                if (strongestCategory.evidenceCount > 0) {
+                    insights.push(`Most documented category: ${strongestCategory.category} with ${strongestCategory.evidenceCount} pieces of evidence`);
+                }
+            }
+            
+            // Analyze verification status
+            const verifiedPromises = promises.filter(p => p.verified);
+            const verificationRate = totalPromises > 0 ? Math.round((verifiedPromises.length / totalPromises) * 100) : 0;
+            
+            if (verificationRate >= 80) {
+                insights.push(`High verification rate of ${verificationRate}% indicates reliable promise tracking`);
+            }
+            
+            // Analyze credibility levels
+            const highCredibilityPromises = promises.filter(p => p.credibilityLevel === 'high');
+            const credibilityRate = totalPromises > 0 ? Math.round((highCredibilityPromises.length / totalPromises) * 100) : 0;
+            
+            if (credibilityRate >= 70) {
+                insights.push(`High credibility assessment for ${credibilityRate}% of promises`);
+            }
+            
+            // Generate overall assessment with rich data context
+            let overallAssessment = '';
+            if (keptPercentage >= 70) {
+                overallAssessment = `${figure.name} demonstrates strong commitment to fulfilling campaign promises. With ${keptPercentage}% of promises kept, this indicates effective policy implementation and follow-through on commitments made to constituents.`;
+            } else if (keptPercentage >= 50) {
+                overallAssessment = `${figure.name} shows a mixed record on promise fulfillment. While ${keptPercentage}% of promises were kept, there are areas where commitments were not fully realized, suggesting challenges in policy execution or changing circumstances.`;
+            } else {
+                overallAssessment = `${figure.name} faces significant challenges in promise fulfillment with only ${keptPercentage}% kept. This suggests either overly ambitious initial commitments, changing priorities, or obstacles in policy implementation that prevented successful execution.`;
+            }
+            
+            // Add data quality assessment
+            if (evidenceRate >= 80 && industryAnalysisRate >= 70) {
+                overallAssessment += ` The comprehensive evidence base and market impact analysis provide strong support for these assessments.`;
+            } else if (evidenceRate >= 50) {
+                overallAssessment += ` Available evidence supports these findings, though some promises lack detailed documentation.`;
+            }
+            
+            return {
+                statistics: {
+                    total: totalPromises,
+                    kept: keptPromises.length,
+                    broken: brokenPromises.length,
+                    partial: partialPromises.length,
+                    keptPercentage,
+                    brokenPercentage,
+                    partialPercentage,
+                    verificationRate,
+                    evidenceRate,
+                    industryAnalysisRate,
+                    credibilityRate
+                },
+                categoryAnalysis,
+                insights,
+                overallAssessment,
+                strongestCategory,
+                richData: {
+                    totalEvidence: allEvidence.length,
+                    totalSources: allSources.length,
+                    totalIndustries: allIndustries.length,
+                    uniqueEvidence: [...new Set(allEvidence)].length,
+                    uniqueSources: [...new Set(allSources)].length
+                },
+                generatedAt: new Date().toISOString(),
+                analysisType: 'Enhanced Local Analysis with Rich Data'
+            };
+        }
+
+        function displayEnhancedLocalAnalysis(figure, analysis, promises) {
+            // Group promises by category
+            const promisesByCategory = {};
+            promises.forEach(promise => {
+                if (!promisesByCategory[promise.category]) {
+                    promisesByCategory[promise.category] = [];
+                }
+                promisesByCategory[promise.category].push(promise);
+            });
+
+            document.getElementById('modalContent').innerHTML = `
+                <!-- Header -->
+                <div class="flex items-center gap-4 mb-6 pb-4 border-b">
+                    <div class="w-16 h-16 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center text-white font-bold text-xl">
+                        ${figure.name.split(' ').map(n => n[0]).join('')}
+                    </div>
+                    <div>
+                        <h2 class="text-2xl font-bold text-gray-900">${figure.name}</h2>
+                        <p class="text-gray-600">${figure.party} • ${figure.servicePeriod}</p>
+                        <span class="inline-block px-2 py-1 bg-blue-100 text-blue-800 rounded-full text-xs font-semibold mt-1">📊 Enhanced Analysis</span>
+                    </div>
+                </div>
+
+                <!-- Analysis Type Notice -->
+                <div class="bg-blue-50 border border-blue-200 rounded-lg p-3 mb-6">
+                    <div class="flex items-center gap-2">
+                        <span class="text-blue-600">ℹ️</span>
+                        <p class="text-sm text-blue-800">
+                            <strong>Enhanced Local Analysis:</strong> Backend AI validation is currently unavailable. 
+                            This analysis uses advanced local algorithms to provide detailed insights based on promise data patterns.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Rich Data Overview -->
+                <div class="bg-green-50 border border-green-200 rounded-lg p-4 mb-6">
+                    <h3 class="font-semibold text-green-900 mb-3">📚 Data Quality Overview</h3>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+                        <div class="text-center">
+                            <div class="text-lg font-bold text-green-600">${analysis.richData.totalEvidence}</div>
+                            <div class="text-xs text-green-700">Evidence Items</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-lg font-bold text-green-600">${analysis.richData.totalSources}</div>
+                            <div class="text-xs text-green-700">Source Links</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-lg font-bold text-green-600">${analysis.richData.totalIndustries}</div>
+                            <div class="text-xs text-green-700">Industry Analyses</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-lg font-bold text-green-600">${analysis.statistics.evidenceRate}%</div>
+                            <div class="text-xs text-green-700">Evidence Coverage</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- AI Analysis Summary -->
+                <div class="bg-gray-50 border border-gray-200 rounded-lg p-4 mb-6">
+                    <h3 class="font-semibold text-gray-900 mb-2">📈 Analysis Summary</h3>
+                    <p class="text-gray-700 text-sm leading-relaxed">${analysis.overallAssessment}</p>
+                </div>
+
+                <!-- Summary Statistics -->
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+                    <div class="bg-blue-50 p-4 rounded-lg text-center">
+                        <div class="text-2xl font-bold text-blue-600">${analysis.statistics.total}</div>
+                        <div class="text-sm text-blue-600">Total Promises</div>
+                    </div>
+                    <div class="bg-green-50 p-4 rounded-lg text-center">
+                        <div class="text-2xl font-bold text-green-600">${analysis.statistics.kept}</div>
+                        <div class="text-sm text-green-600">Kept (${analysis.statistics.keptPercentage}%)</div>
+                    </div>
+                    <div class="bg-red-50 p-4 rounded-lg text-center">
+                        <div class="text-2xl font-bold text-red-600">${analysis.statistics.broken}</div>
+                        <div class="text-sm text-red-600">Broken (${analysis.statistics.brokenPercentage}%)</div>
+                    </div>
+                    <div class="bg-yellow-50 p-4 rounded-lg text-center">
+                        <div class="text-2xl font-bold text-yellow-600">${analysis.statistics.partial}</div>
+                        <div class="text-sm text-yellow-600">Partial (${analysis.statistics.partialPercentage}%)</div>
+                    </div>
+                </div>
+
+                <!-- Key Insights -->
+                <div class="bg-purple-50 border border-purple-200 rounded-lg p-4 mb-6">
+                    <h3 class="font-semibold text-purple-900 mb-3">💡 Key Insights</h3>
+                    <ul class="space-y-2">
+                        ${analysis.insights.map(insight => `
+                            <li class="flex items-start gap-2 text-sm text-purple-800">
+                                <span class="text-purple-600 mt-0.5">•</span>
+                                <span>${insight}</span>
+                            </li>
+                        `).join('')}
+                    </ul>
+                </div>
+
+                <!-- Category Performance -->
+                <div class="bg-green-50 border border-green-200 rounded-lg p-4 mb-6">
+                    <h3 class="font-semibold text-green-900 mb-3">📊 Performance by Category</h3>
+                    <div class="space-y-3">
+                        ${Object.entries(analysis.categoryAnalysis).map(([category, stats]) => {
+                            const successRate = stats.total > 0 ? Math.round((stats.kept / stats.total) * 100) : 0;
+                            return `
+                                <div class="flex justify-between items-center">
+                                    <span class="text-sm font-medium text-green-800">${category}</span>
+                                    <div class="flex items-center gap-2">
+                                        <span class="text-sm text-green-700">${stats.kept}/${stats.total}</span>
+                                        <span class="text-xs px-2 py-1 rounded-full ${successRate >= 70 ? 'bg-green-200 text-green-800' : successRate >= 50 ? 'bg-yellow-200 text-yellow-800' : 'bg-red-200 text-red-800'}">${successRate}%</span>
+                                    </div>
+                                </div>
+                            `;
+                        }).join('')}
+                    </div>
+                </div>
+
+                <!-- Promises by Category -->
+                <div class="space-y-6">
+                    <h3 class="text-lg font-semibold text-gray-900">📋 Promises by Category</h3>
+                    ${Object.entries(promisesByCategory).map(([category, categoryPromises]) => `
+                        <div class="border border-gray-200 rounded-lg overflow-hidden">
+                            <div class="bg-gray-50 px-4 py-3 border-b">
+                                <h4 class="font-semibold text-gray-900">${category}</h4>
+                            </div>
+                            <div class="p-4 space-y-3">
+                                ${categoryPromises.map(promise => `
+                                    <div class="p-4 bg-white border border-gray-200 rounded-lg">
+                                        <div class="mb-3">
+                                            <p class="text-sm text-gray-800 mb-2">${promise.promise}</p>
+                                            <div class="flex items-center gap-2 flex-wrap">
+                                                <span class="px-2 py-1 rounded-full text-xs font-semibold ${getStatusColor(promise.status)}">
+                                                    ${promise.status.toUpperCase()}
+                                                </span>
+                                                <span class="px-2 py-1 rounded-full text-xs font-semibold ${getCredibilityColor(promise.credibilityLevel)}">
+                                                    ${promise.verified ? '✓ Verified' : '⚠ Unverified'}
+                                                </span>
+                                                <span class="text-xs text-gray-500">${promise.date}</span>
+                                            </div>
+                                        </div>
+                                        
+                                        ${promise.evidence && promise.evidence.length > 0 ? `
+                                            <div class="mb-3">
+                                                <h5 class="text-xs font-semibold text-gray-700 mb-1">📋 Evidence:</h5>
+                                                <div class="space-y-1">
+                                                    ${promise.evidence.slice(0, 2).map(evidence => `
+                                                        <div class="text-xs text-gray-600 bg-gray-50 px-2 py-1 rounded">${evidence}</div>
+                                                    `).join('')}
+                                                    ${promise.evidence.length > 2 ? `<div class="text-xs text-gray-500">+${promise.evidence.length - 2} more evidence items</div>` : ''}
+                                                </div>
+                                            </div>
+                                        ` : ''}
+                                        
+                                        ${promise.sources && promise.sources.length > 0 ? `
+                                            <div class="mb-3">
+                                                <h5 class="text-xs font-semibold text-gray-700 mb-1">🔗 Sources:</h5>
+                                                <div class="space-y-1">
+                                                    ${promise.sources.slice(0, 2).map(source => `
+                                                        <div class="text-xs">
+                                                            <a href="${source}" target="_blank" class="text-blue-600 hover:text-blue-800 hover:underline break-all">${source}</a>
+                                                        </div>
+                                                    `).join('')}
+                                                    ${promise.sources.length > 2 ? `<div class="text-xs text-gray-500">+${promise.sources.length - 2} more sources</div>` : ''}
+                                                </div>
+                                            </div>
+                                        ` : ''}
+                                        
+                                        ${promise.affectedIndustries && promise.affectedIndustries.length > 0 ? `
+                                            <div class="mb-3">
+                                                <h5 class="text-xs font-semibold text-gray-700 mb-1">🏭 Market Impact:</h5>
+                                                <div class="space-y-1">
+                                                    ${promise.affectedIndustries.slice(0, 2).map(industry => `
+                                                        <div class="text-xs">
+                                                            <span class="font-medium text-gray-700">${industry.name}:</span>
+                                                            <span class="text-gray-600">${industry.predictedImpact}</span>
+                                                            <span class="text-gray-500">(${industry.confidence}% confidence)</span>
+                                                        </div>
+                                                    `).join('')}
+                                                    ${promise.affectedIndustries.length > 2 ? `<div class="text-xs text-gray-500">+${promise.affectedIndustries.length - 2} more industries</div>` : ''}
+                                                </div>
+                                            </div>
+                                        ` : ''}
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>
+
+                <!-- Analysis Metadata -->
+                <div class="mt-6 pt-4 border-t border-gray-200 text-xs text-gray-500">
+                    <p>Analysis generated: ${new Date(analysis.generatedAt).toLocaleString()}</p>
+                    <p>Analysis type: ${analysis.analysisType}</p>
+                    <p>Verification rate: ${analysis.statistics.verificationRate}%</p>
+                </div>
+            `;
         }
 
 
@@ -731,10 +1248,11 @@
         }
 
         function resetFilters() {
-            currentFilters = { status: '', president: '', category: '' };
+            currentFilters = { status: '', president: '', category: '', party: '' };
             document.getElementById('statusFilter').value = '';
             document.getElementById('presidentFilter').value = '';
             document.getElementById('categoryFilter').value = '';
+            document.getElementById('partyFilter').value = '';
             renderPromises();
         }
 
@@ -797,6 +1315,18 @@
         document.addEventListener('DOMContentLoaded', function() {
             loadPromises();
             updateNavActiveState(); // Set initial nav state
+            
+            // Handle URL parameters for president filtering
+            const urlParams = new URLSearchParams(window.location.search);
+            const presidentParam = urlParams.get('president');
+            if (presidentParam) {
+                // Set the president filter after promises are loaded
+                setTimeout(() => {
+                    currentFilters.president = presidentParam;
+                    document.getElementById('presidentFilter').value = presidentParam;
+                    renderPromises();
+                }, 1000); // Wait for promises to load
+            }
         });
 
         // Timeline Modal Functions

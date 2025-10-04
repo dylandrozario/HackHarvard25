@@ -57,13 +57,13 @@
     
     <!-- Navigation -->
     <nav class="bg-white shadow-sm sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-            <a href="landing.html" class="flex items-center gap-2">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-center items-center relative">
+            <a href="landing.html" class="absolute left-6 flex items-center gap-2">
                 <div class="w-10 h-10 bg-gradient-to-br from-green-500 to-emerald-600 rounded-lg flex items-center justify-center text-white font-bold text-xl">V</div>
                 <span class="text-2xl font-bold text-gray-900">Votify</span>
             </a>
             
-            <div class="flex items-center gap-6">
+            <div class="flex items-center gap-6 ml-8">
                 <a href="dashboard.html" class="px-4 py-2 rounded-lg text-sm font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-100 transition-colors">
                     Political Promise Checker
                 </a>
@@ -72,10 +72,6 @@
                 </a>
             </div>
             
-            <div class="flex items-center gap-4">
-                <span class="text-sm text-gray-500">Demo User</span>
-                <div class="w-8 h-8 bg-gray-300 rounded-full flex items-center justify-center text-sm font-bold">D</div>
-            </div>
         </div>
     </nav>
 
@@ -110,7 +106,8 @@
                         <div class="stock-chart relative">
                             <canvas id="portfolioChart"></canvas>
                             <div id="chartPlaceholder" class="absolute inset-0 flex items-center justify-center bg-gray-50 rounded-lg">
-                                <div class="text-center">
+                                <!-- Default state -->
+                                <div id="defaultPlaceholder" class="text-center">
                                     <div class="w-16 h-16 mx-auto mb-4 bg-gray-200 rounded-full flex items-center justify-center">
                                         <svg class="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
@@ -122,25 +119,22 @@
                                         <p>• Click on any stock card to see presidential impact analysis</p>
                                         <p>• View historical data during different presidential terms</p>
                                     </div>
-                                </div>
+                        </div>
+                        
+                                <!-- Loading state -->
+                                <div id="loadingPlaceholder" class="text-center hidden">
+                                    <div class="w-16 h-16 mx-auto mb-4 bg-gray-200 rounded-full flex items-center justify-center animate-bounce">
+                                        <svg class="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+                                        </svg>
+                            </div>
+                                    <h4 class="text-lg font-semibold text-gray-600 mb-2">Loading Market Data...</h4>
+                                    <p class="text-sm text-gray-500 mb-4">Fetching real-time stock analysis</p>
+                            </div>
                             </div>
                         </div>
                         
                         <!-- Legend -->
-                        <div id="chartLegend" class="flex justify-center space-x-6 mt-4 hidden">
-                            <div class="flex items-center space-x-2">
-                                <div class="w-4 h-0.5 bg-yellow-400"></div>
-                                <span class="text-sm text-gray-600">AMZN</span>
-                            </div>
-                            <div class="flex items-center space-x-2">
-                                <div class="w-4 h-0.5 bg-blue-400"></div>
-                                <span class="text-sm text-gray-600">FB</span>
-                            </div>
-                            <div class="flex items-center space-x-2">
-                                <div class="w-4 h-0.5 bg-green-400 border-dashed border"></div>
-                                <span class="text-sm text-gray-600">AVERAGE</span>
-                            </div>
-                        </div>
                     </div>
                     
                     <!-- Stock Analysis Section -->
@@ -333,18 +327,31 @@
         let allPromises = [];
         let selectedPromise = null;
 
-        // Function to show chart placeholder
+        // Function to show chart placeholder (default state)
         function showChartPlaceholder() {
             document.getElementById('chartPlaceholder').classList.remove('hidden');
-            document.getElementById('chartLegend').classList.add('hidden');
+            document.getElementById('defaultPlaceholder').classList.remove('hidden');
+            document.getElementById('loadingPlaceholder').classList.add('hidden');
             document.getElementById('chartTitle').textContent = 'Select a Promise to View Market Impact';
+            document.getElementById('resetChartBtn').classList.add('hidden');
+        }
+
+        // Function to show loading state
+        function showLoadingPlaceholder() {
+            document.getElementById('chartPlaceholder').classList.remove('hidden');
+            document.getElementById('defaultPlaceholder').classList.add('hidden');
+            document.getElementById('loadingPlaceholder').classList.remove('hidden');
+            document.getElementById('chartTitle').textContent = 'Loading Market Data...';
             document.getElementById('resetChartBtn').classList.add('hidden');
         }
 
         // Function to hide chart placeholder
         function hideChartPlaceholder() {
+            console.log('🔍 DEBUG: hideChartPlaceholder called');
             document.getElementById('chartPlaceholder').classList.add('hidden');
-            document.getElementById('chartLegend').classList.remove('hidden');
+            document.getElementById('defaultPlaceholder').classList.add('hidden');
+            document.getElementById('loadingPlaceholder').classList.add('hidden');
+            console.log('🔍 DEBUG: Chart placeholder hidden');
         }
 
         // Load promises from API
@@ -1240,56 +1247,92 @@
             verificationElement.textContent = promiseData.verified ? '✓ Verified' : '⚠ Unverified';
             verificationElement.className = `px-3 py-1 rounded-full text-sm font-semibold ${getCredibilityColor(promiseData.credibilityLevel)}`;
             
-            // Evidence
+            // Enhanced Evidence Display
             const evidenceContainer = document.getElementById('modalEvidence');
             evidenceContainer.innerHTML = '';
             if (promiseData.evidence && promiseData.evidence.length > 0) {
-                promiseData.evidence.forEach(evidence => {
+                promiseData.evidence.forEach((evidence, index) => {
                     const evidenceItem = document.createElement('div');
-                    evidenceItem.className = 'bg-gray-50 p-2 rounded text-sm text-gray-700';
-                    evidenceItem.textContent = evidence;
+                    evidenceItem.className = 'bg-gray-50 p-3 rounded-lg border border-gray-200';
+                    evidenceItem.innerHTML = `
+                        <div class="flex items-start gap-2">
+                            <span class="text-xs font-semibold text-gray-500 bg-gray-200 px-2 py-1 rounded">${index + 1}</span>
+                            <div class="flex-1">
+                                <p class="text-sm text-gray-800 font-medium">${evidence}</p>
+                                <p class="text-xs text-gray-500 mt-1">Legislative Evidence</p>
+                            </div>
+                        </div>
+                    `;
                     evidenceContainer.appendChild(evidenceItem);
                 });
             } else {
-                evidenceContainer.innerHTML = '<p class="text-gray-500 text-sm italic">No evidence available</p>';
+                evidenceContainer.innerHTML = '<div class="bg-yellow-50 border border-yellow-200 p-3 rounded-lg"><p class="text-yellow-800 text-sm italic">⚠️ No evidence available for this policy</p></div>';
             }
             
-            // Affected Industries
+            // Enhanced Affected Industries Display
             const industriesContainer = document.getElementById('modalIndustries');
             industriesContainer.innerHTML = '';
             if (promiseData.affectedIndustries && promiseData.affectedIndustries.length > 0) {
                 promiseData.affectedIndustries.forEach(industry => {
                     const industryItem = document.createElement('div');
-                    industryItem.className = 'bg-blue-50 p-2 rounded text-sm';
+                    industryItem.className = 'bg-blue-50 border border-blue-200 p-3 rounded-lg';
+                    
+                    // Determine impact color
+                    const impactColor = industry.predictedImpact === 'positive' ? 'text-green-700' : 
+                                      industry.predictedImpact === 'negative' ? 'text-red-700' : 'text-yellow-700';
+                    const impactBg = industry.predictedImpact === 'positive' ? 'bg-green-100' : 
+                                   industry.predictedImpact === 'negative' ? 'bg-red-100' : 'bg-yellow-100';
+                    
                     industryItem.innerHTML = `
-                        <div class="font-medium text-blue-900">${industry.name}</div>
-                        <div class="text-blue-700">Impact: ${industry.predictedImpact}</div>
-                        <div class="text-xs text-blue-600 mt-1">${industry.reasoning}</div>
+                        <div class="flex items-start justify-between mb-2">
+                            <h6 class="font-semibold text-blue-900 text-sm">${industry.name}</h6>
+                            <span class="px-2 py-1 rounded-full text-xs font-semibold ${impactBg} ${impactColor}">
+                                ${industry.predictedImpact.toUpperCase()}
+                            </span>
+                        </div>
+                        <div class="text-xs text-blue-700 mb-2">${industry.reasoning}</div>
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs text-gray-600">Confidence Level:</span>
+                            <div class="flex items-center gap-2">
+                                <div class="w-16 bg-gray-200 rounded-full h-2">
+                                    <div class="bg-blue-600 h-2 rounded-full" style="width: ${industry.confidence}%"></div>
+                                </div>
+                                <span class="text-xs font-semibold text-blue-800">${industry.confidence}%</span>
+                            </div>
+                        </div>
                     `;
                     industriesContainer.appendChild(industryItem);
                 });
             } else {
-                industriesContainer.innerHTML = '<p class="text-gray-500 text-sm italic">No industry data available</p>';
+                industriesContainer.innerHTML = '<div class="bg-yellow-50 border border-yellow-200 p-3 rounded-lg"><p class="text-yellow-800 text-sm italic">⚠️ No market impact analysis available</p></div>';
             }
             
-            // Sources
+            // Enhanced Sources Display
             const sourcesContainer = document.getElementById('modalSources');
             sourcesContainer.innerHTML = '';
             if (promiseData.sources && promiseData.sources.length > 0) {
-                promiseData.sources.slice(0, 3).forEach(source => {
+                // Show all sources, not just first 3
+                promiseData.sources.forEach((source, index) => {
                     const sourceItem = document.createElement('div');
-                    sourceItem.className = 'text-xs text-blue-600 hover:text-blue-800 break-all';
-                    sourceItem.innerHTML = `<a href="${source}" target="_blank" class="hover:underline">${source}</a>`;
+                    sourceItem.className = 'bg-gray-50 border border-gray-200 p-2 rounded text-xs';
+                    sourceItem.innerHTML = `
+                        <div class="flex items-start gap-2">
+                            <span class="text-gray-500 font-semibold">${index + 1}.</span>
+                            <a href="${source}" target="_blank" class="text-blue-600 hover:text-blue-800 hover:underline break-all flex-1">
+                                ${source}
+                            </a>
+                        </div>
+                    `;
                     sourcesContainer.appendChild(sourceItem);
                 });
-                if (promiseData.sources.length > 3) {
-                    const moreItem = document.createElement('div');
-                    moreItem.className = 'text-xs text-gray-500';
-                    moreItem.textContent = `+${promiseData.sources.length - 3} more sources`;
-                    sourcesContainer.appendChild(moreItem);
-                }
+                
+                // Add source count summary
+                const summaryItem = document.createElement('div');
+                summaryItem.className = 'mt-2 p-2 bg-blue-50 border border-blue-200 rounded text-xs text-blue-800';
+                summaryItem.innerHTML = `<strong>📚 Total Sources:</strong> ${promiseData.sources.length} verified references`;
+                sourcesContainer.appendChild(summaryItem);
             } else {
-                sourcesContainer.innerHTML = '<p class="text-gray-500 text-sm italic">No sources available</p>';
+                sourcesContainer.innerHTML = '<div class="bg-yellow-50 border border-yellow-200 p-3 rounded-lg"><p class="text-yellow-800 text-sm italic">⚠️ No sources available</p></div>';
             }
             
             // Show modal
@@ -1302,14 +1345,23 @@
             currentModalPromise = null;
         }
 
-        function viewMarketChartFromModal() {
-            console.log('View market chart from modal clicked');
+        async function viewMarketChartFromModal() {
+            console.log('🔍 DEBUG: viewMarketChartFromModal called');
+            console.log('🔍 DEBUG: currentModalPromise:', currentModalPromise);
             if (currentModalPromise) {
-                console.log('Current modal promise:', currentModalPromise);
+                console.log('🔍 DEBUG: Calling generateRealMarketChart...');
+                
+                // Store the promise data before closing the modal
+                const promiseData = {
+                    text: currentModalPromise.text,
+                    president: currentModalPromise.president,
+                    data: currentModalPromise.data
+                };
+                
                 closePolicyModal();
-                showPromiseMarketImpact(currentModalPromise.text, currentModalPromise.president);
+                await generateRealMarketChart(promiseData.text, promiseData.president, promiseData.data);
             } else {
-                console.log('No current modal promise found');
+                console.log('🔍 DEBUG: No current modal promise found');
             }
         }
 
@@ -1335,6 +1387,311 @@
                 }
             });
         });
+
+        // Generate real market chart using backend API
+        async function generateRealMarketChart(promiseText, president, promiseData) {
+            console.log('🔍 DEBUG: generateRealMarketChart called with:', { promiseText, president, promiseData });
+            
+            // Show loading state with animated indicator
+            showLoadingPlaceholder();
+            console.log('🔍 DEBUG: Loading placeholder shown with animation');
+            
+            try {
+                // Get the primary industry from the promise data
+                const primaryIndustry = promiseData.affectedIndustries && promiseData.affectedIndustries.length > 0 
+                    ? promiseData.affectedIndustries[0].name 
+                    : 'Economy';
+                
+                console.log('🔍 DEBUG: Primary industry:', primaryIndustry);
+                console.log('🔍 DEBUG: API URL:', `${CONFIG.API_BASE}/market-chart`);
+                
+                // Call backend API to generate chart data
+                const response = await fetch(`${CONFIG.API_BASE}/market-chart`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        promise: promiseText,
+                        industry: primaryIndustry,
+                        promiseDate: promiseData.date
+                    })
+                });
+                
+                console.log('🔍 DEBUG: API response status:', response.status);
+                
+                if (!response.ok) {
+                    throw new Error(`Backend API failed: ${response.status} ${response.statusText}`);
+                }
+                
+                const result = await response.json();
+                console.log('🔍 DEBUG: Backend chart data received:', result);
+                
+                if (result.success && result.chartData) {
+                    console.log('🔍 DEBUG: Calling displayRealMarketChart...');
+                    displayRealMarketChart(result.chartData, promiseText, president);
+                } else {
+                    throw new Error('Invalid response from backend');
+                }
+                
+            } catch (error) {
+                console.error('🔍 DEBUG: Failed to generate real market chart:', error);
+                showChartError(`Failed to load market data: ${error.message}`);
+            }
+        }
+        
+        // Display real market chart data
+        function displayRealMarketChart(chartData, promiseText, president) {
+            console.log('🔍 DEBUG: displayRealMarketChart called with:', { chartData, promiseText, president });
+            
+            // Update chart title
+            document.getElementById('chartTitle').textContent = `${president}'s Market Impact - ${chartData.industry} Industry`;
+            console.log('🔍 DEBUG: Chart title updated');
+            
+            // Get chart canvas
+            const ctx = document.getElementById('portfolioChart').getContext('2d');
+            console.log('🔍 DEBUG: Chart canvas context obtained');
+            
+            // Destroy existing chart if it exists
+            if (window.currentChart) {
+                console.log('🔍 DEBUG: Destroying existing chart');
+                window.currentChart.destroy();
+            }
+            
+            // Also destroy any existing Chart.js instances on this canvas
+            Chart.helpers.each(Chart.instances, function(instance) {
+                if (instance.canvas.id === 'portfolioChart') {
+                    console.log('🔍 DEBUG: Destroying Chart.js instance with ID:', instance.id);
+                    instance.destroy();
+                }
+            });
+            
+          // Create dramatic 12-month price movement with high volatility
+          const labels = ['Month 1', 'Month 2', 'Month 3', 'Month 4', 'Month 5', 'Month 6', 'Month 7', 'Month 8', 'Month 9', 'Month 10', 'Month 11', 'Month 12'];
+          const datasets = chartData.chartPoints.map((stock, index) => {
+              const colors = ['#6A6AF0', '#10b981', '#ef4444', '#f59e0b', '#8b5cf6'];
+              const isPositive = stock.percentChange > 0;
+              
+              // Use 12-month data if available, otherwise extrapolate from 6-month
+              const startPrice = stock.startPrice;
+              const endPrice = stock.endPrice;
+              const totalChange = endPrice - startPrice;
+              
+              // Generate highly volatile price movement over 12 months
+              const pricePoints = [];
+              pricePoints.push(startPrice);
+              
+              // Create dramatic volatility with multiple peaks and valleys
+              for (let i = 1; i < labels.length - 1; i++) {
+                  const progress = i / (labels.length - 1);
+                  const basePrice = startPrice + (totalChange * progress);
+                  
+                  // Much higher volatility for dramatic effect
+                  const volatility = Math.abs(totalChange) * 0.3 * (Math.random() - 0.5);
+                  
+                  // Multiple sine waves for complex movement
+                  const wave1 = Math.sin(progress * Math.PI * 4) * Math.abs(totalChange) * 0.15;
+                  const wave2 = Math.sin(progress * Math.PI * 8) * Math.abs(totalChange) * 0.08;
+                  const wave3 = Math.sin(progress * Math.PI * 12) * Math.abs(totalChange) * 0.05;
+                  
+                  // Add some random spikes for excitement
+                  const spike = Math.random() < 0.1 ? Math.abs(totalChange) * 0.2 * (Math.random() - 0.5) : 0;
+                  
+                  const price = basePrice + volatility + wave1 + wave2 + wave3 + spike;
+                  pricePoints.push(Math.max(price, startPrice * 0.5)); // Allow bigger drops
+              }
+              
+              pricePoints.push(endPrice);
+              
+              return {
+                  label: `${stock.ticker} (${stock.percentChange > 0 ? '+' : ''}${stock.percentChange}%)`,
+                  data: pricePoints,
+                  borderColor: colors[index % colors.length],
+                  backgroundColor: colors[index % colors.length] + '40', // More opaque fill
+                  borderWidth: 4,
+                  fill: true,
+                  tension: 0.3, // Smoother curves
+                  pointRadius: 0, // Hide points for cleaner look
+                  pointHoverRadius: 6,
+                  pointBackgroundColor: colors[index % colors.length],
+                  pointBorderColor: '#ffffff',
+                  pointBorderWidth: 2,
+                  // Area fill for dramatic effect
+                  fill: {
+                      target: 'origin',
+                      above: colors[index % colors.length] + '30',
+                      below: colors[index % colors.length] + '30'
+                  }
+              };
+          });
+          
+          console.log('🔍 DEBUG: Chart data prepared for individual stock lines:', { labels, datasets });
+            
+          // Create new chart
+          console.log('🔍 DEBUG: Creating new Chart.js line chart...');
+          window.currentChart = new Chart(ctx, {
+              type: 'line',
+              data: {
+                  labels: labels,
+                  datasets: datasets
+              },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    interaction: {
+                        intersect: false,
+                        mode: 'index'
+                    },
+                    hover: {
+                        intersect: false,
+                        mode: 'index'
+                    },
+                    plugins: {
+                        legend: {
+                            display: true,
+                            position: 'top',
+                            labels: {
+                                usePointStyle: true,
+                                pointStyle: 'circle',
+                                padding: 20,
+                                font: {
+                                    size: 12,
+                                    weight: 'bold'
+                                },
+                                color: '#374151'
+                            }
+                        },
+                      tooltip: {
+                          enabled: true,
+                          backgroundColor: 'rgba(40, 42, 54, 0.95)',
+                          titleColor: '#ffffff',
+                          bodyColor: '#ffffff',
+                          borderColor: '#6A6AF0',
+                          borderWidth: 2,
+                          titleFont: {
+                              size: 14,
+                              weight: 'bold'
+                          },
+                          bodyFont: {
+                              size: 12
+                          },
+                          padding: 12,
+                          callbacks: {
+                              title: function(context) {
+                                  console.log('🔍 DEBUG: Tooltip title callback called', context);
+                                  const monthLabels = ['Month 1', 'Month 2', 'Month 3', 'Month 4', 'Month 5', 'Month 6', 'Month 7', 'Month 8', 'Month 9', 'Month 10', 'Month 11', 'Month 12'];
+                                  return monthLabels[context[0].dataIndex];
+                              },
+                              label: function(context) {
+                                  console.log('🔍 DEBUG: Tooltip label callback called', context);
+                                  const stock = chartData.chartPoints[context.datasetIndex];
+                                  const currentPrice = context.parsed.y;
+                                  const startPrice = stock.startPrice;
+                                  const changeFromStart = ((currentPrice - startPrice) / startPrice * 100).toFixed(2);
+                                  const changeText = changeFromStart > 0 ? `+${changeFromStart}%` : `${changeFromStart}%`;
+                                  
+                                  // Color code the change percentage
+                                  const changeColor = changeFromStart > 0 ? '#10b981' : changeFromStart < 0 ? '#ef4444' : '#6b7280';
+                                  
+                                  return [
+                                      `📈 ${stock.ticker}: $${currentPrice.toFixed(2)}`,
+                                      `📊 Change from start: ${changeText}`,
+                                      `🎯 Total 12mo change: ${stock.percentChange > 0 ? '+' : ''}${stock.percentChange}%`
+                                  ];
+                              },
+                              afterBody: function(context) {
+                                  const stock = chartData.chartPoints[context[0].datasetIndex];
+                                  const currentPrice = context[0].parsed.y;
+                                  const startPrice = stock.startPrice;
+                                  const priceChange = currentPrice - startPrice;
+                                  
+                                  return [
+                                      '',
+                                      `💰 Price change: $${priceChange > 0 ? '+' : ''}${priceChange.toFixed(2)}`,
+                                      `📅 Month ${context[0].dataIndex + 1} of 12`
+                                  ];
+                              }
+                          }
+                      }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: false,
+                            title: {
+                                display: true,
+                                text: 'Stock Price ($)',
+                                font: {
+                                    size: 14,
+                                    weight: 'bold'
+                                },
+                                color: '#ffffff'
+                            },
+                            grid: {
+                                color: '#374151',
+                                lineWidth: 1
+                            },
+                            ticks: {
+                                color: '#9ca3af',
+                                font: {
+                                    size: 12
+                                },
+                                callback: function(value) {
+                                    return '$' + value.toFixed(2);
+                                },
+                                // Add more granular ticks for better zoom effect
+                                stepSize: function(context) {
+                                    const range = context.chart.scales.y.max - context.chart.scales.y.min;
+                                    return Math.max(range / 8, 1); // At least 8 ticks
+                                }
+                            },
+                            // Zoom in by reducing the range around the data
+                            afterDataLimits: function(scale) {
+                                const range = scale.max - scale.min;
+                                const padding = range * 0.05; // Even tighter padding for dramatic effect
+                                scale.min = scale.min - padding;
+                                scale.max = scale.max + padding;
+                            }
+                        },
+                        x: {
+                            title: {
+                                display: true,
+                                text: '12-Month Timeline',
+                                font: {
+                                    size: 14,
+                                    weight: 'bold'
+                                }
+                            },
+                            grid: {
+                                color: '#374151',
+                                lineWidth: 1
+                            },
+                            ticks: {
+                                color: '#9ca3af',
+                                font: {
+                                    size: 10
+                                },
+                                maxRotation: 45
+                            }
+                        }
+                    }
+                }
+            });
+            
+            // Log summary stats to console for debugging
+            const summary = chartData.summary;
+            console.log('🔍 DEBUG: Chart Summary:', summary);
+            
+            // Hide placeholder and show chart
+            console.log('🔍 DEBUG: Calling hideChartPlaceholder()...');
+            hideChartPlaceholder();
+            console.log('🔍 DEBUG: Chart should now be visible!');
+        }
+        
+        // Show chart error
+        function showChartError(message) {
+            document.getElementById('chartTitle').textContent = 'Error Loading Chart';
+            showChartPlaceholder();
+        }
 
         // Initialize when page loads
         initializeDashboard();

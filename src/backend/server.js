@@ -37,6 +37,7 @@ app.get('/', (req, res) => {
       'POST /api/analyze-combined': 'Analyze multiple promises with overall score and verdict',
       'POST /api/analyze-combined-validated': 'Analyze promises with bias detection and auto-reloop',
       'POST /api/bias-check': 'Check a response for bias and quality issues',
+      'POST /api/market-chart': 'Generate real market chart data for specific policy/industry',
       'GET /api/stats': 'Get dashboard statistics',
       'GET /api/system-prompt': 'Get Votify system prompt for analysis'
     }
@@ -622,6 +623,68 @@ app.post('/api/validate-sample', async (req, res) => {
     console.error('Sampling validation error:', error);
     res.status(500).json({ 
       error: error.message 
+    });
+  }
+});
+
+// Generate market chart data for a specific policy
+app.post('/api/market-chart', async (req, res) => {
+  try {
+    const { promise, industry, promiseDate } = req.body;
+    
+    if (!promise || !industry || !promiseDate) {
+      return res.status(400).json({ 
+        error: 'Missing required fields',
+        message: 'Please provide promise, industry, and promiseDate'
+      });
+    }
+    
+    console.log(`Generating market chart for ${industry} after ${promiseDate}...`);
+    
+    // Run Python stock analyzer for specific industry and date
+    const pythonScript = path.join(__dirname, 'services', 'stock_analyzer.py');
+    const pythonCommand = 'python3'; // Use system Python3
+    
+    // Create temporary input file with the request data
+    const tempInputFile = path.join('./data', `temp_chart_${Date.now()}.json`);
+    const inputData = {
+      industry: industry,
+      promiseDate: promiseDate,
+      promise: promise
+    };
+    
+    await fs.writeFile(tempInputFile, JSON.stringify(inputData));
+    
+    const result = execSync(
+      `"${pythonCommand}" "${pythonScript}" --chart-data "${tempInputFile}"`,
+      { 
+        encoding: 'utf8',
+        maxBuffer: 50 * 1024 * 1024,
+        cwd: __dirname
+      }
+    );
+    
+    // Clean up temp file
+    await fs.unlink(tempInputFile);
+    
+    console.log('Stock analysis result:', result);
+    
+    // Parse the result
+    const chartData = JSON.parse(result);
+    
+    res.json({
+      success: true,
+      chartData: chartData,
+      industry: industry,
+      promiseDate: promiseDate,
+      generatedAt: new Date().toISOString()
+    });
+    
+  } catch (error) {
+    console.error('Market chart generation failed:', error);
+    res.status(500).json({ 
+      error: 'Failed to generate market chart',
+      message: error.message 
     });
   }
 });
