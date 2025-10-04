@@ -1,10 +1,10 @@
 """
-Unit tests for VoteVerify - Political Promise Analysis System
+Unit tests for Votify - Political Promise Analysis System
 Tests the system prompt, API integration, and analysis functionality.
 
 INTEGRATED WITH BACKEND:
 - Tests promise format from Perplexity + Gemini + DataGenerator
-- Validates VoteVerify analysis of backend-generated promises
+- Validates Votify analysis of backend-generated promises
 - Ensures credibilityLevel and verification metadata are used
 """
 
@@ -23,17 +23,17 @@ from google import genai
 
 
 # ============================================================================
-# VoteVerifyAnalyzer Class
+# VotifyAnalyzer Class
 # ============================================================================
 
-class VoteVerifyAnalyzer:
+class VotifyAnalyzer:
     """
     Analyzes political promises against voting records using Gemini API.
     """
     
     def __init__(self, api_key: Optional[str] = None):
         """
-        Initialize the VoteVerify analyzer.
+        Initialize the Votify analyzer.
         
         Args:
             api_key: Google Gemini API key. If not provided, reads from environment.
@@ -196,9 +196,9 @@ Apply the fuzzy matching algorithm to evaluate the semantic alignment between th
                 - realSources, dataSource, generatedAt
         
         Returns:
-            Analysis result dict with VoteVerify comprehensive analysis
+            Analysis result dict with Votify comprehensive analysis
         """
-        # Convert backend promise format to VoteVerify input format
+        # Convert backend promise format to Votify input format
         president = backend_promise.get('president', 'Unknown')
         promise_text = backend_promise.get('promise', '')
         
@@ -320,7 +320,7 @@ class TestSystemPrompt(unittest.TestCase):
         
         # Check for key sections
         required_sections = [
-            "VoteVerify",
+            "Votify",
             "Scoring System",
             "1-5 Match Score",
             "0-100 Detailed Score",
@@ -346,8 +346,8 @@ class TestSystemPrompt(unittest.TestCase):
             self.assertIn(score_range, prompt)
 
 
-class TestVoteVerifyAnalyzer(unittest.TestCase):
-    """Test the VoteVerifyAnalyzer class."""
+class TestVotifyAnalyzer(unittest.TestCase):
+    """Test the VotifyAnalyzer class."""
     
     def setUp(self):
         """Set up test fixtures."""
@@ -372,12 +372,12 @@ class TestVoteVerifyAnalyzer(unittest.TestCase):
     
     @patch('__main__.genai.Client')
     def test_analyzer_initialization(self, mock_client_class):
-        """Test that VoteVerifyAnalyzer initializes correctly."""
+        """Test that VotifyAnalyzer initializes correctly."""
         # Create a mock client instance
         mock_client_instance = MagicMock()
         mock_client_class.return_value = mock_client_instance
         
-        analyzer = VoteVerifyAnalyzer(api_key=self.test_api_key)
+        analyzer = VotifyAnalyzer(api_key=self.test_api_key)
         
         # Verify client was initialized with API key
         mock_client_class.assert_called_once_with(api_key=self.test_api_key)
@@ -393,7 +393,7 @@ class TestVoteVerifyAnalyzer(unittest.TestCase):
     def test_analyzer_missing_api_key(self):
         """Test that analyzer raises error when API key is missing."""
         with self.assertRaises(ValueError) as context:
-            VoteVerifyAnalyzer()
+            VotifyAnalyzer()
         
         self.assertIn("GEMINI_API_KEY", str(context.exception))
     
@@ -401,7 +401,7 @@ class TestVoteVerifyAnalyzer(unittest.TestCase):
     def test_format_voting_record(self, mock_client_class):
         """Test that voting records are formatted correctly."""
         mock_client_class.return_value = MagicMock()
-        analyzer = VoteVerifyAnalyzer(api_key=self.test_api_key)
+        analyzer = VotifyAnalyzer(api_key=self.test_api_key)
         
         formatted = analyzer._format_voting_record(self.sample_voting_record)
         
@@ -422,7 +422,7 @@ class TestVoteVerifyAnalyzer(unittest.TestCase):
     def test_construct_prompt(self, mock_client_class):
         """Test that analysis prompt is constructed correctly."""
         mock_client_class.return_value = MagicMock()
-        analyzer = VoteVerifyAnalyzer(api_key=self.test_api_key)
+        analyzer = VotifyAnalyzer(api_key=self.test_api_key)
         
         candidate = "Jane Doe"
         promise = "I support affordable healthcare."
@@ -446,7 +446,7 @@ class TestVoteVerifyAnalyzer(unittest.TestCase):
     def test_parse_response(self, mock_client_class):
         """Test that API responses are parsed correctly."""
         mock_client_class.return_value = MagicMock()
-        analyzer = VoteVerifyAnalyzer(api_key=self.test_api_key)
+        analyzer = VotifyAnalyzer(api_key=self.test_api_key)
         
         # Mock response text
         mock_response = """
@@ -506,7 +506,7 @@ class TestVoteVerifyAnalyzer(unittest.TestCase):
         mock_client_instance.models.generate_content.return_value = mock_response
         
         # Create analyzer and run analysis
-        analyzer = VoteVerifyAnalyzer(api_key=self.test_api_key)
+        analyzer = VotifyAnalyzer(api_key=self.test_api_key)
         
         result = analyzer.analyze_promise(
             candidate_name="Jane Doe",
@@ -542,7 +542,7 @@ class TestVoteVerifyAnalyzer(unittest.TestCase):
         """
         mock_client_instance.models.generate_content.return_value = mock_response
         
-        analyzer = VoteVerifyAnalyzer(api_key=self.test_api_key)
+        analyzer = VotifyAnalyzer(api_key=self.test_api_key)
         
         # Test data with multiple promises
         promises_and_records = [
@@ -576,7 +576,7 @@ class TestVoteVerifyAnalyzer(unittest.TestCase):
 
 
 class TestBackendIntegration(unittest.TestCase):
-    """Test VoteVerify with backend promise format (Perplexity + Gemini + DataGenerator)."""
+    """Test Votify with backend promise format (Perplexity + Gemini + DataGenerator)."""
     
     def setUp(self):
         """Set up test fixtures."""
@@ -658,7 +658,7 @@ class TestBackendIntegration(unittest.TestCase):
         mock_client_instance.models.generate_content.return_value = mock_response
         
         # Create analyzer
-        analyzer = VoteVerifyAnalyzer(api_key=self.test_api_key)
+        analyzer = VotifyAnalyzer(api_key=self.test_api_key)
         
         # Analyze backend promise
         result = analyzer.analyze_backend_promise(self.backend_promise)
@@ -701,7 +701,7 @@ class TestBackendIntegration(unittest.TestCase):
         low_cred_promise['credibilityLevel'] = 'low'
         low_cred_promise['realSources'] = []
         
-        analyzer = VoteVerifyAnalyzer(api_key=self.test_api_key)
+        analyzer = VotifyAnalyzer(api_key=self.test_api_key)
         result = analyzer.analyze_backend_promise(low_cred_promise)
         
         # Check that low credibility is reflected in metadata
@@ -729,7 +729,7 @@ def run_tests():
     
     # Add all test classes
     suite.addTests(loader.loadTestsFromTestCase(TestSystemPrompt))
-    suite.addTests(loader.loadTestsFromTestCase(TestVoteVerifyAnalyzer))
+    suite.addTests(loader.loadTestsFromTestCase(TestVotifyAnalyzer))
     suite.addTests(loader.loadTestsFromTestCase(TestBackendIntegration))
     
     # Run tests with verbose output

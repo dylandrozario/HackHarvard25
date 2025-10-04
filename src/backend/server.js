@@ -38,7 +38,7 @@ app.get('/', (req, res) => {
       'POST /api/analyze-combined-validated': 'Analyze promises with bias detection and auto-reloop',
       'POST /api/bias-check': 'Check a response for bias and quality issues',
       'GET /api/stats': 'Get dashboard statistics',
-      'GET /api/system-prompt': 'Get VoteVerify system prompt for analysis'
+      'GET /api/system-prompt': 'Get Votify system prompt for analysis'
     }
   });
 });
@@ -310,7 +310,7 @@ app.post('/api/bias-check', async (req, res) => {
   }
 });
 
-// Get VoteVerify system prompt
+// Get Votify system prompt
 app.get('/api/system-prompt', (req, res) => {
   try {
     const pythonScriptPath = path.join(__dirname, 'services', 'system_prompt.py');
@@ -332,7 +332,7 @@ app.get('/api/system-prompt', (req, res) => {
       length: systemPrompt.length,
       metadata: {
         version: '1.0.0',
-        type: 'VoteVerify Comprehensive Analysis System',
+        type: 'Votify Comprehensive Analysis System',
         features: [
           'Dual scoring system (1-5 and 0-100)',
           'Fuzzy matching algorithm',
@@ -382,10 +382,10 @@ app.get('/api/stats', async (req, res) => {
 });
 
 /**
- * Run Python VoteVerify validation on a promise
- * Calls test_voteverify.py analyze_backend_promise()
+ * Run Python Votify validation on a promise
+ * Calls test_Votify.py analyze_backend_promise()
  */
-async function runVoteVerifyValidation(promise) {
+async function runVotifyValidation(promise) {
   return new Promise((resolve, reject) => {
     // Create temporary file with promise data
     const tempFile = path.join('./data', `temp_promise_${Date.now()}.json`);
@@ -427,13 +427,13 @@ async function runVoteVerifyValidation(promise) {
 }
 
 /**
- * Run bias checker on VoteVerify result
+ * Run bias checker on Votify result
  * Calls bias_checker.py
  */
-async function runBiasChecker(voteverifyResult) {
+async function runBiasChecker(VotifyResult) {
   return new Promise((resolve, reject) => {
     const tempFile = path.join('./data', `temp_result_${Date.now()}.json`);
-    fs.writeFileSync(tempFile, JSON.stringify(voteverifyResult));
+    fs.writeFileSync(tempFile, JSON.stringify(VotifyResult));
     
     const python = spawn('python3', [
       './python/check_bias.py',
@@ -482,15 +482,15 @@ app.post('/api/validate-promise', async (req, res) => {
     
     console.log(`Validating promise: ${promise.promise.substring(0, 50)}...`);
     
-    // Layer 1: VoteVerify scoring
-    console.log('  Running VoteVerify analysis...');
-    const voteverifyResult = await runVoteVerifyValidation(promise);
+    // Layer 1: Votify scoring
+    console.log('  Running Votify analysis...');
+    const VotifyResult = await runVotifyValidation(promise);
     
-    console.log(`  VoteVerify scores: ${voteverifyResult.primary_score}/5, ${voteverifyResult.detailed_score}/100`);
+    console.log(`  Votify scores: ${VotifyResult.primary_score}/5, ${VotifyResult.detailed_score}/100`);
     
     // Layer 2: Bias checking
     console.log('  Running bias checker...');
-    const biasResult = await runBiasChecker(voteverifyResult);
+    const biasResult = await runBiasChecker(VotifyResult);
     
     console.log(`  Bias check: ${biasResult.finalDecision.action}`);
     
@@ -498,11 +498,11 @@ app.post('/api/validate-promise', async (req, res) => {
     const validation = {
       promise: promise.promise,
       president: promise.president,
-      voteverify: {
-        primary_score: voteverifyResult.primary_score,
-        detailed_score: voteverifyResult.detailed_score,
-        confidence: voteverifyResult.confidence,
-        analysis: voteverifyResult.analysis
+      Votify: {
+        primary_score: VotifyResult.primary_score,
+        detailed_score: VotifyResult.detailed_score,
+        confidence: VotifyResult.confidence,
+        analysis: VotifyResult.analysis
       },
       biasCheck: {
         biasScore: biasResult.biasDetection.score,
@@ -562,8 +562,8 @@ app.post('/api/validate-sample', async (req, res) => {
       
       try {
         // Run full validation pipeline
-        const voteverifyResult = await runVoteVerifyValidation(promise);
-        const biasResult = await runBiasChecker(voteverifyResult);
+        const VotifyResult = await runVotifyValidation(promise);
+        const biasResult = await runBiasChecker(VotifyResult);
         
         const decision = biasResult.finalDecision.action;
         
@@ -584,8 +584,8 @@ app.post('/api/validate-sample', async (req, res) => {
         results.details.push({
           promise: promise.promise.substring(0, 60) + '...',
           president: promise.president,
-          primary_score: voteverifyResult.primary_score,
-          detailed_score: voteverifyResult.detailed_score,
+          primary_score: VotifyResult.primary_score,
+          detailed_score: VotifyResult.detailed_score,
           bias_score: biasResult.biasDetection.score,
           hallucination_score: biasResult.hallucinationDetection.score,
           decision: decision
