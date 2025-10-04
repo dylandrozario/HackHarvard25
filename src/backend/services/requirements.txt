@@ -1,0 +1,5 @@
+# VoteVerify - Python Dependencies
+
+# Google Gemini API
+google-genai>=1.41.0
+
