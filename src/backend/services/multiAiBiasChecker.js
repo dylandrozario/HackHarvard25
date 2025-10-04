@@ -32,14 +32,26 @@ const CF_MODEL = process.env.CLOUDFLARE_MODEL || '@cf/meta/llama-3.1-8b-instruct
  */
 function getBiasCheckerPrompt() {
   try {
-    const pythonPath = path.join(__dirname, '../../../venv/bin/python3');
+    // Allow overriding the python binary via env (useful when no venv exists)
+    const pythonPath = process.env.PYTHON_PATH || (() => {
+      try {
+        // Prefer system python3 if available on PATH
+        const whichPath = execSync('which python3', { encoding: 'utf8' }).trim();
+        return whichPath || 'python3';
+      } catch (e) {
+        return 'python3';
+      }
+    })();
+
     const result = execSync(
       `${pythonPath} -c "from bias_checker import get_bias_checker_prompt; print(get_bias_checker_prompt())"`,
       { cwd: __dirname, encoding: 'utf8' }
     );
+
     return result.trim();
   } catch (error) {
     console.error('Failed to load bias checker prompt:', error.message);
+    console.error('Tip: set PYTHON_PATH to your python binary (e.g. /usr/bin/python3) or create a venv at project root');
     throw new Error('Bias checker system prompt not available');
   }
 }

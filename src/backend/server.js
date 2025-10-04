@@ -251,9 +251,22 @@ app.post('/api/analyze-combined-validated', async (req, res) => {
     if (result.success) {
       // Handle both single-AI and multi-AI evaluation formats
       const evaluation = result.evaluation;
-      const biasScore = evaluation.biasDetection?.score ?? evaluation.averageScores?.bias ?? 0;
-      const hallucinationScore = evaluation.hallucinationDetection?.score ?? evaluation.averageScores?.hallucination ?? 0;
-      const satisfactionScore = evaluation.overallSatisfaction?.score ?? evaluation.averageScores?.satisfaction ?? 0;
+      // Scores produced by different evaluators may be in 0-100 range (integers)
+      // or 0-1 range (decimals). The frontend multiplies by 100, so normalize
+      // everything to 0-1 here for consistent display.
+      const rawBias = evaluation.biasDetection?.score ?? evaluation.averageScores?.bias ?? 0;
+      const rawHallucination = evaluation.hallucinationDetection?.score ?? evaluation.averageScores?.hallucination ?? 0;
+      const rawSatisfaction = evaluation.overallSatisfaction?.score ?? evaluation.averageScores?.satisfaction ?? 0;
+
+      const normalizeScore = (s) => {
+        if (typeof s !== 'number' || Number.isNaN(s)) return 0;
+        // If the value looks like a percentage (greater than 1), convert to 0-1
+        return s > 1 ? s / 100 : s;
+      };
+
+      const biasScore = normalizeScore(rawBias);
+      const hallucinationScore = normalizeScore(rawHallucination);
+      const satisfactionScore = normalizeScore(rawSatisfaction);
       
       res.json({
         success: true,

@@ -771,11 +771,11 @@
                     <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
                         <div class="text-center">
                             <div class="text-lg font-bold ${qualityCheck.biasScore >= 0.8 ? 'text-green-600' : qualityCheck.biasScore >= 0.6 ? 'text-yellow-600' : 'text-red-600'}">${Math.round(qualityCheck.biasScore * 100)}%</div>
-                            <div class="text-xs text-blue-700">Bias Score</div>
+                            <div class="text-xs text-blue-700">Bias Frequency</div>
                         </div>
                         <div class="text-center">
                             <div class="text-lg font-bold ${qualityCheck.hallucinationScore >= 0.8 ? 'text-green-600' : qualityCheck.hallucinationScore >= 0.6 ? 'text-yellow-600' : 'text-red-600'}">${Math.round(qualityCheck.hallucinationScore * 100)}%</div>
-                            <div class="text-xs text-blue-700">Accuracy Score</div>
+                            <div class="text-xs text-blue-700">Hallucination Rate</div>
                         </div>
                         <div class="text-center">
                             <div class="text-lg font-bold ${qualityCheck.satisfactionScore >= 0.8 ? 'text-green-600' : qualityCheck.satisfactionScore >= 0.6 ? 'text-yellow-600' : 'text-red-600'}">${Math.round(qualityCheck.satisfactionScore * 100)}%</div>
@@ -1141,13 +1141,13 @@
                         <div class="text-2xl font-bold text-green-600">${analysis.statistics.kept}</div>
                         <div class="text-sm text-green-600">Kept (${analysis.statistics.keptPercentage}%)</div>
                     </div>
-                    <div class="bg-red-50 p-4 rounded-lg text-center">
-                        <div class="text-2xl font-bold text-red-600">${analysis.statistics.broken}</div>
-                        <div class="text-sm text-red-600">Broken (${analysis.statistics.brokenPercentage}%)</div>
-                    </div>
                     <div class="bg-yellow-50 p-4 rounded-lg text-center">
                         <div class="text-2xl font-bold text-yellow-600">${analysis.statistics.partial}</div>
                         <div class="text-sm text-yellow-600">Partial (${analysis.statistics.partialPercentage}%)</div>
+                    </div>
+                    <div class="bg-red-50 p-4 rounded-lg text-center">
+                        <div class="text-2xl font-bold text-red-600">${analysis.statistics.broken}</div>
+                        <div class="text-sm text-red-600">Broken (${analysis.statistics.brokenPercentage}%)</div>
                     </div>
                 </div>
 

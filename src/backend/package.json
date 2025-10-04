@@ -12,6 +12,7 @@
     "cors": "^2.8.5",
     "dotenv": "^16.6.1",
     "express": "^5.1.0",
-    "perplexity": "^1.0.1"
+    "perplexity": "^1.0.1",
+    "yfinance": "^0.0.6"
   }
 }
