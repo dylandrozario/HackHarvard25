@@ -2,6 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import fs from 'fs/promises';
 import { execSync } from 'child_process';
+import { spawn } from 'child_process';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { generateVerifiedPromises } from './services/dataGenerator.js';
@@ -373,6 +374,251 @@ app.get('/api/stats', async (req, res) => {
     
   } catch (error) {
     res.status(500).json({ error: error.message });
+  }
+});
+
+/**
+ * Run Python VoteVerify validation on a promise
+ * Calls test_voteverify.py analyze_backend_promise()
+ */
+async function runVoteVerifyValidation(promise) {
+  return new Promise((resolve, reject) => {
+    // Create temporary file with promise data
+    const tempFile = path.join('./data', `temp_promise_${Date.now()}.json`);
+    fs.writeFileSync(tempFile, JSON.stringify(promise));
+    
+    // Run Python validation script
+    const python = spawn('python3', [
+      './python/validate_promise.py',  // We'll create this wrapper script
+      tempFile
+    ]);
+    
+    let output = '';
+    let error = '';
+    
+    python.stdout.on('data', (data) => {
+      output += data.toString();
+    });
+    
+    python.stderr.on('data', (data) => {
+      error += data.toString();
+    });
+    
+    python.on('close', (code) => {
+      // Clean up temp file
+      fs.unlinkSync(tempFile);
+      
+      if (code === 0) {
+        try {
+          const result = JSON.parse(output);
+          resolve(result);
+        } catch (e) {
+          reject(new Error('Failed to parse Python output: ' + output));
+        }
+      } else {
+        reject(new Error('Python validation failed: ' + error));
+      }
+    });
+  });
+}
+
+/**
+ * Run bias checker on VoteVerify result
+ * Calls bias_checker.py
+ */
+async function runBiasChecker(voteverifyResult) {
+  return new Promise((resolve, reject) => {
+    const tempFile = path.join('./data', `temp_result_${Date.now()}.json`);
+    fs.writeFileSync(tempFile, JSON.stringify(voteverifyResult));
+    
+    const python = spawn('python3', [
+      './python/check_bias.py',
+      tempFile
+    ]);
+    
+    let output = '';
+    let error = '';
+    
+    python.stdout.on('data', (data) => {
+      output += data.toString();
+    });
+    
+    python.stderr.on('data', (data) => {
+      error += data.toString();
+    });
+    
+    python.on('close', (code) => {
+      fs.unlinkSync(tempFile);
+      
+      if (code === 0) {
+        try {
+          const result = JSON.parse(output);
+          resolve(result);
+        } catch (e) {
+          reject(new Error('Failed to parse bias checker output'));
+        }
+      } else {
+        reject(new Error('Bias checker failed: ' + error));
+      }
+    });
+  });
+}
+
+/**
+ * API Endpoint: Validate single promise with full pipeline
+ * POST /api/validate-promise
+ */
+app.post('/api/validate-promise', async (req, res) => {
+  try {
+    const { promise } = req.body;
+    
+    if (!promise) {
+      return res.status(400).json({ error: 'Promise object required' });
+    }
+    
+    console.log(`Validating promise: ${promise.promise.substring(0, 50)}...`);
+    
+    // Layer 1: VoteVerify scoring
+    console.log('  Running VoteVerify analysis...');
+    const voteverifyResult = await runVoteVerifyValidation(promise);
+    
+    console.log(`  VoteVerify scores: ${voteverifyResult.primary_score}/5, ${voteverifyResult.detailed_score}/100`);
+    
+    // Layer 2: Bias checking
+    console.log('  Running bias checker...');
+    const biasResult = await runBiasChecker(voteverifyResult);
+    
+    console.log(`  Bias check: ${biasResult.finalDecision.action}`);
+    
+    // Combined result
+    const validation = {
+      promise: promise.promise,
+      president: promise.president,
+      voteverify: {
+        primary_score: voteverifyResult.primary_score,
+        detailed_score: voteverifyResult.detailed_score,
+        confidence: voteverifyResult.confidence,
+        analysis: voteverifyResult.analysis
+      },
+      biasCheck: {
+        biasScore: biasResult.biasDetection.score,
+        hallucinationScore: biasResult.hallucinationDetection.score,
+        citationQuality: biasResult.citationQuality.score,
+        accuracyScore: biasResult.accuracyVerification.score,
+        overallScore: biasResult.overallSatisfaction.score,
+        decision: biasResult.finalDecision.action,
+        issues: biasResult.finalDecision.improvementNeeded || []
+      },
+      finalDecision: biasResult.finalDecision.action,
+      timestamp: new Date().toISOString()
+    };
+    
+    res.json(validation);
+    
+  } catch (error) {
+    console.error('Validation error:', error);
+    res.status(500).json({ 
+      error: 'Validation failed',
+      details: error.message 
+    });
+  }
+});
+
+/**
+ * API Endpoint: Validate sample of promises with statistical sampling
+ * POST /api/validate-sample
+ */
+app.post('/api/validate-sample', async (req, res) => {
+  try {
+    const promises = JSON.parse(fs.readFileSync('./data/promises.json', 'utf-8'));
+    const sampleSize = req.body.sampleSize || 10;
+    const qualityThreshold = req.body.qualityThreshold || 0.8;
+    
+    console.log(`\nStatistical Validation Pipeline`);
+    console.log(`Total promises: ${promises.length}`);
+    console.log(`Sample size: ${sampleSize}`);
+    console.log(`Quality threshold: ${qualityThreshold * 100}%\n`);
+    
+    // Select random sample
+    const shuffled = [...promises].sort(() => Math.random() - 0.5);
+    const sample = shuffled.slice(0, sampleSize);
+    
+    const results = {
+      total: sample.length,
+      passed: 0,
+      warned: 0,
+      failed: 0,
+      details: []
+    };
+    
+    // Validate each sample
+    for (let i = 0; i < sample.length; i++) {
+      const promise = sample[i];
+      console.log(`[${i+1}/${sample.length}] Validating: ${promise.promise.substring(0, 50)}...`);
+      
+      try {
+        // Run full validation pipeline
+        const voteverifyResult = await runVoteVerifyValidation(promise);
+        const biasResult = await runBiasChecker(voteverifyResult);
+        
+        const decision = biasResult.finalDecision.action;
+        
+        if (decision === 'approve') {
+          results.passed++;
+          console.log(`  ✅ APPROVED`);
+        } else if (decision === 'approve_with_warning') {
+          results.warned++;
+          console.log(`  ⚠️  APPROVED WITH WARNING`);
+        } else if (decision === 'reloop') {
+          results.failed++;
+          console.log(`  ❌ RELOOP NEEDED`);
+        } else {
+          results.failed++;
+          console.log(`  ❌ REJECTED`);
+        }
+        
+        results.details.push({
+          promise: promise.promise.substring(0, 60) + '...',
+          president: promise.president,
+          primary_score: voteverifyResult.primary_score,
+          detailed_score: voteverifyResult.detailed_score,
+          bias_score: biasResult.biasDetection.score,
+          hallucination_score: biasResult.hallucinationDetection.score,
+          decision: decision
+        });
+        
+        // Rate limiting
+        await new Promise(resolve => setTimeout(resolve, 2000));
+        
+      } catch (error) {
+        console.error(`  ❌ ERROR: ${error.message}`);
+        results.failed++;
+      }
+    }
+    
+    // Calculate pass rate
+    const passRate = (results.passed + results.warned) / results.total;
+    
+    console.log(`\n📊 Results: ${results.passed} approved, ${results.warned} warned, ${results.failed} failed`);
+    console.log(`Pass rate: ${(passRate * 100).toFixed(1)}%`);
+    
+    const success = passRate >= qualityThreshold;
+    
+    res.json({
+      success,
+      passRate: (passRate * 100).toFixed(1) + '%',
+      threshold: (qualityThreshold * 100) + '%',
+      results,
+      message: success 
+        ? 'Quality threshold met - all promises validated' 
+        : 'Quality threshold NOT met - regenerate failed promises'
+    });
+    
+  } catch (error) {
+    console.error('Sampling validation error:', error);
+    res.status(500).json({ 
+      error: error.message 
+    });
   }
 });
 
