@@ -17,6 +17,9 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+// Serve static files from frontend directory
+app.use(express.static(path.join(__dirname, '../frontend')));
+
 const CACHE_FILE = './data/promises.json';
 
 // Root endpoint
@@ -31,7 +34,6 @@ app.get('/', (req, res) => {
       'POST /api/analyze-promise': 'Analyze specific promise',
       'POST /api/analyze-combined': 'Analyze multiple promises with overall score and verdict',
       'GET /api/stats': 'Get dashboard statistics',
-      'POST /api/cross-verify': 'Cross-verify a promise using both AI services',
       'GET /api/system-prompt': 'Get VoteVerify system prompt for analysis'
     }
   });
