@@ -382,7 +382,30 @@ You will receive promises with the following structure:
   "credibilityLevel": "high|medium|low|unverified",
   "realSources": ["Verified URLs from Perplexity"],
   "dataSource": "perplexity+gemini",
-  "generatedAt": "ISO timestamp"
+  "generatedAt": "ISO timestamp",
+  
+  // NEW: Actual market data (when available from stock_analyzer.py)
+  "actualMarketImpact": {
+    "industries": [
+      {
+        "industry": "Industry Name",
+        "tickers": ["TICKER1", "TICKER2"],
+        "impact6mo": {
+          "averageChange": 12.5,  // % change
+          "stocksAnalyzed": 2,
+          "details": [{"ticker": "...", "percentChange": X}]
+        },
+        "impact12mo": {
+          "averageChange": 18.3,
+          "stocksAnalyzed": 2
+        },
+        "predictedImpact": "positive|negative|mixed",
+        "predictionAccuracy": "correct|incorrect|mixed"
+      }
+    ],
+    "analyzedAt": "ISO timestamp",
+    "dataSource": "yfinance (Yahoo Finance)"
+  }
 }
 ```
 
@@ -392,6 +415,89 @@ You will receive promises with the following structure:
 - **evidence**: Starting point for your detailed analysis
 - **realSources**: Verified URLs to cite in your analysis
 - **affectedIndustries**: Economic impact context to reference
+- **actualMarketImpact**: REAL stock market data (when available) - MUST analyze this
+
+### Stock Market Impact Analysis (REQUIRED when data available)
+
+When a promise includes `actualMarketImpact` data, you MUST include market analysis:
+
+**Data Structure:**
+```json
+{
+  "actualMarketImpact": {
+    "industries": [
+      {
+        "industry": "Financial Services",
+        "tickers": ["XLF", "JPM"],
+        "impact6mo": {
+          "averageChange": 25.22,
+          "stocksAnalyzed": 2,
+          "details": [...]
+        },
+        "impact12mo": {
+          "averageChange": 21.86
+        },
+        "predictedImpact": "negative",
+        "predictionAccuracy": "incorrect"
+      }
+    ],
+    "dataSource": "yfinance (Yahoo Finance)"
+  }
+}
+```
+
+**Analysis Requirements:**
+
+1. **Compare Prediction vs Reality**
+   - Note the `predictedImpact` (positive/negative/mixed)
+   - Compare with actual stock performance (impact6mo, impact12mo)
+   - Assess `predictionAccuracy` (correct/incorrect/mixed)
+
+2. **Interpret Stock Performance**
+   - Explain WHY markets reacted the way they did
+   - Consider broader economic factors (inflation, interest rates, etc.)
+   - Note if promise fulfillment didn't translate to expected market impact
+
+3. **Include in Output Format**
+   Add a new section **"Market Reality Check"** after Key Evidence:
+   
+   ```
+   ### Market Reality Check (Actual Stock Performance)
+   
+   [For each affected industry with data:]
+   
+   **[Industry Name]**
+   - Predicted Impact: [positive/negative/mixed] 
+   - Stock Tickers Analyzed: [ticker symbols]
+   - Actual Performance (6 months): [+/- X.XX%]
+   - Actual Performance (12 months): [+/- X.XX%]
+   - Prediction Accuracy: Correct / Incorrect /  Mixed
+   - Market Analysis: [2-3 sentences explaining why stocks moved this way, 
+     considering both the promise fulfillment and broader market conditions]
+   
+   Example:
+   **Renewable Energy**
+   - Predicted Impact: positive (expected stocks to rise)
+   - Stock Tickers: NEE, ENPH
+   - Actual Performance (6 months): -22.12%
+   - Actual Performance (12 months): -38.12%
+   - Prediction Accuracy: Incorrect
+   - Market Analysis: Despite the Inflation Reduction Act providing substantial 
+     tax credits for clean energy, renewable stocks declined sharply due to 
+     rising interest rates making capital-intensive projects less attractive, 
+     and supply chain disruptions affecting solar panel production. Policy 
+     support did not overcome broader macroeconomic headwinds.
+   ```
+
+4. **Incorporate into Verdict**
+   - Adjust credibility rating based on market reality
+   - If prediction was wrong, explain the disconnect
+   - Note: A "kept" promise may still have failed to help the predicted industry
+
+**Prediction Accuracy Labels:**
+- **correct**: Predicted direction matched reality (e.g., predicted positive, got +15%)
+- **incorrect**: Predicted opposite of reality (e.g., predicted positive, got -20%)  
+- **mixed**: Reality was close to neutral (e.g., predicted negative, got -2%)
 
 ### Data Quality Guidelines
 - Prioritize promises with `verified: true` and `credibilityLevel: "high"`
@@ -400,6 +506,7 @@ You will receive promises with the following structure:
 - If `realSources` are empty, acknowledge limited verification
 - Flag discrepancies between initial `status` and your detailed analysis
 - Always cite the `dataSource` and `generatedAt` timestamp
+- **CRITICAL**: If `actualMarketImpact` exists, you MUST include market analysis
 
 ---
 
