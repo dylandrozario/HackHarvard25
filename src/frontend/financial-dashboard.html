@@ -1,0 +1,1362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Financial Dashboard - Stock Portfolio Tracker</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            background-color: #f8fafc;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+        
+        .nav-icon {
+            width: 24px;
+            height: 24px;
+            fill: #6b7280;
+            margin-bottom: 8px;
+        }
+        
+        .stock-chart {
+            height: 200px;
+        }
+        
+        .mini-chart {
+            width: 60px;
+            height: 20px;
+        }
+        
+        .price-positive {
+            background-color: #10b981;
+            color: white;
+        }
+        
+        .price-negative {
+            background-color: #ef4444;
+            color: white;
+        }
+        
+        .nav-active {
+            background-color: #10b981;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .nav-active .nav-icon {
+            fill: white;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-900">
+    
+    <!-- Navigation -->
+    <nav class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="dashboard.html" class="flex items-center gap-2">
+                <div class="w-10 h-10 bg-gradient-to-br from-green-500 to-emerald-600 rounded-lg flex items-center justify-center text-white font-bold text-xl">V</div>
+                <span class="text-2xl font-bold text-gray-900">Votify</span>
+            </a>
+            
+            <div class="flex items-center gap-6">
+                <a href="dashboard.html" class="px-4 py-2 rounded-lg text-sm font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-100 transition-colors">
+                    Political Promise Checker
+                </a>
+                <a href="#" class="px-4 py-2 rounded-lg text-sm font-medium text-white bg-green-600 shadow-sm">
+                    Stock Predictor
+                </a>
+            </div>
+            
+            <div class="flex items-center gap-4">
+                <span class="text-sm text-gray-500">Demo User</span>
+                <div class="w-8 h-8 bg-gray-300 rounded-full flex items-center justify-center text-sm font-bold">D</div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Layout -->
+    <div class="flex flex-col h-screen">
+        
+        <!-- Main Content Area -->
+        <div class="flex-1 flex flex-col">
+            
+            <!-- Top Bar -->
+            <div class="bg-white border-b px-6 py-4 flex justify-between items-center">
+                <div class="flex space-x-8">
+                    <div>
+                        <div class="text-xs text-gray-500 uppercase tracking-wide">Real-time Stock Price</div>
+                        <div class="text-2xl font-bold text-gray-900">$156.42</div>
+                        <div class="text-xs text-green-600">+$2.35 (1.52%)</div>
+                    </div>
+                    <div>
+                        <div class="text-xs text-gray-500 uppercase tracking-wide">Affected Stock Price</div>
+                        <div class="text-2xl font-bold text-gray-900">$156.42</div>
+                        <div class="text-xs text-green-600">+$2.35 (1.52%)</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Main Dashboard Content -->
+            <div class="flex-1 overflow-hidden">
+                
+                <!-- Center Content -->
+                <div class="p-4">
+                    
+                    
+                    <!-- Chart Area -->
+                    <div class="bg-white rounded-lg p-4 shadow-sm border border-gray-200" style="height: 300px;">
+                        <div class="flex justify-between items-center mb-4">
+                            <h3 id="chartTitle" class="text-lg font-semibold text-gray-900">Portfolio Performance</h3>
+                            <div class="flex space-x-2">
+                                <button class="px-3 py-1 bg-green-500 text-white rounded text-sm">1 DAY</button>
+                                <button class="px-3 py-1 bg-gray-100 text-gray-600 rounded text-sm hover:bg-gray-200">1 WEEK</button>
+                                <button class="px-3 py-1 bg-gray-100 text-gray-600 rounded text-sm hover:bg-gray-200">1 MONTH</button>
+                                <button class="px-3 py-1 bg-gray-100 text-gray-600 rounded text-sm hover:bg-gray-200">3 MONTHS</button>
+                                <button class="px-3 py-1 bg-gray-100 text-gray-600 rounded text-sm hover:bg-gray-200">1 YEAR</button>
+                                <button class="px-3 py-1 bg-gray-100 text-gray-600 rounded text-sm hover:bg-gray-200">5 YEARS</button>
+                                <button id="resetChartBtn" class="px-3 py-1 bg-blue-600 text-white rounded text-sm hover:bg-blue-700 transition-colors hidden" onclick="resetChart()">Reset Chart</button>
+                            </div>
+                        </div>
+                        
+                        <!-- Chart -->
+                        <div class="stock-chart">
+                            <canvas id="portfolioChart"></canvas>
+                        </div>
+                        
+                        <!-- Legend -->
+                        <div class="flex justify-center space-x-6 mt-4">
+                            <div class="flex items-center space-x-2">
+                                <div class="w-4 h-0.5 bg-yellow-400"></div>
+                                <span class="text-sm text-gray-600">AMZN</span>
+                            </div>
+                            <div class="flex items-center space-x-2">
+                                <div class="w-4 h-0.5 bg-blue-400"></div>
+                                <span class="text-sm text-gray-600">FB</span>
+                            </div>
+                            <div class="flex items-center space-x-2">
+                                <div class="w-4 h-0.5 bg-green-400 border-dashed border"></div>
+                                <span class="text-sm text-gray-600">AVERAGE</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Stock Analysis Section -->
+                    <div class="mt-4 bg-white rounded-lg p-4 shadow-sm border border-gray-200">
+                        <h3 class="text-lg font-semibold mb-4 text-gray-900">Stock Analysis & Industry Insights</h3>
+                        
+                        <!-- Industry Filter Tabs -->
+                        <div class="mb-4">
+                            <div class="flex space-x-1 bg-gray-100 p-1 rounded-lg">
+                                <button class="px-4 py-2 bg-white text-gray-900 rounded-md shadow-sm font-medium" onclick="filterIndustry('all')">All Industries</button>
+                                <button class="px-4 py-2 text-gray-600 hover:text-gray-900 font-medium" onclick="filterIndustry('technology')">Technology</button>
+                                <button class="px-4 py-2 text-gray-600 hover:text-gray-900 font-medium" onclick="filterIndustry('healthcare')">Healthcare</button>
+                                <button class="px-4 py-2 text-gray-600 hover:text-gray-900 font-medium" onclick="filterIndustry('finance')">Finance</button>
+                                <button class="px-4 py-2 text-gray-600 hover:text-gray-900 font-medium" onclick="filterIndustry('energy')">Energy</button>
+                                <button class="px-4 py-2 text-gray-600 hover:text-gray-900 font-medium" onclick="filterIndustry('consumer')">Consumer</button>
+                            </div>
+                        </div>
+                        
+                        <!-- Detailed Stock Information (Hidden by default) -->
+                        <div id="detailedStockInfo" class="mb-4 p-3 bg-gray-50 rounded-lg border border-gray-200" style="display: none;">
+                            <h4 id="industryTitle" class="text-lg font-semibold mb-3 text-gray-900"></h4>
+                            <div id="stockDetails">
+                                <!-- Stock details will be populated by JavaScript -->
+                            </div>
+                        </div>
+
+                        <!-- Analysis Grid -->
+                        <div class="grid grid-cols-2 lg:grid-cols-3 gap-4">
+                            
+                            <!-- Industry Analysis Card -->
+                            <div class="bg-gradient-to-br from-blue-50 to-blue-100 rounded-lg p-3 border border-blue-200">
+                                <div class="flex items-center justify-between mb-2">
+                                    <h4 class="font-semibold text-blue-900 text-sm">Technology Sector</h4>
+                                    <div class="w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center">
+                                        <span class="text-white text-xs font-bold">T</span>
+                                    </div>
+                                </div>
+                                <p class="text-xs text-blue-700 mb-2">AI and semiconductor growth potential</p>
+                                <div class="space-y-1">
+                                    <div class="flex justify-between text-xs">
+                                        <span class="text-blue-600">Top:</span>
+                                        <span class="font-medium text-blue-900">NVDA (+15.2%)</span>
+                                    </div>
+                                    <div class="flex justify-between text-xs">
+                                        <span class="text-blue-600">Policy:</span>
+                                        <span class="font-medium text-blue-900">CHIPS Act</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Presidential Policy Card -->
+                            <div class="bg-gradient-to-br from-green-50 to-green-100 rounded-lg p-3 border border-green-200">
+                                <div class="flex items-center justify-between mb-2">
+                                    <h4 class="font-semibold text-green-900 text-sm">Clean Energy Policy</h4>
+                                    <div class="w-6 h-6 bg-green-500 rounded-full flex items-center justify-center">
+                                        <span class="text-white text-xs font-bold">E</span>
+                                    </div>
+                                </div>
+                                <p class="text-xs text-green-700 mb-2">Infrastructure Act driving renewables</p>
+                                <div class="space-y-1">
+                                    <div class="flex justify-between text-xs">
+                                        <span class="text-green-600">Stocks:</span>
+                                        <span class="font-medium text-green-900">TSLA, ENPH</span>
+                                    </div>
+                                    <div class="flex justify-between text-xs">
+                                        <span class="text-green-600">Investment:</span>
+                                        <span class="font-medium text-green-900">$369B</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Healthcare Policy Card -->
+                            <div class="bg-gradient-to-br from-purple-50 to-purple-100 rounded-lg p-3 border border-purple-200">
+                                <div class="flex items-center justify-between mb-2">
+                                    <h4 class="font-semibold text-purple-900 text-sm">Healthcare Reform</h4>
+                                    <div class="w-6 h-6 bg-purple-500 rounded-full flex items-center justify-center">
+                                        <span class="text-white text-xs font-bold">H</span>
+                                    </div>
+                                </div>
+                                <p class="text-xs text-purple-700 mb-2">Medicare negotiations affecting pharma</p>
+                                <div class="space-y-1">
+                                    <div class="flex justify-between text-xs">
+                                        <span class="text-purple-600">Impact:</span>
+                                        <span class="font-medium text-purple-900">Mixed</span>
+                                    </div>
+                                    <div class="flex justify-between text-xs">
+                                        <span class="text-purple-600">Watching:</span>
+                                        <span class="font-medium text-purple-900">JNJ, PFE</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Market Sentiment Card -->
+                            <div class="bg-gradient-to-br from-orange-50 to-orange-100 rounded-lg p-3 border border-orange-200">
+                                <div class="flex items-center justify-between mb-2">
+                                    <h4 class="font-semibold text-orange-900 text-sm">Market Sentiment</h4>
+                                    <div class="w-6 h-6 bg-orange-500 rounded-full flex items-center justify-center">
+                                        <span class="text-white text-xs font-bold">S</span>
+                                    </div>
+                                </div>
+                                <p class="text-xs text-orange-700 mb-2">Fed policy driving volatility</p>
+                                <div class="space-y-1">
+                                    <div class="flex justify-between text-xs">
+                                        <span class="text-orange-600">VIX:</span>
+                                        <span class="font-medium text-orange-900">22.4</span>
+                                    </div>
+                                    <div class="flex justify-between text-xs">
+                                        <span class="text-orange-600">Trend:</span>
+                                        <span class="font-medium text-orange-900">Bearish</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Regulatory Impact Card -->
+                            <div class="bg-gradient-to-br from-red-50 to-red-100 rounded-lg p-3 border border-red-200">
+                                <div class="flex items-center justify-between mb-2">
+                                    <h4 class="font-semibold text-red-900 text-sm">Regulatory Changes</h4>
+                                    <div class="w-6 h-6 bg-red-500 rounded-full flex items-center justify-center">
+                                        <span class="text-white text-xs font-bold">R</span>
+                                    </div>
+                                </div>
+                                <p class="text-xs text-red-700 mb-2">Antitrust affecting big tech</p>
+                                <div class="space-y-1">
+                                    <div class="flex justify-between text-xs">
+                                        <span class="text-red-600">Review:</span>
+                                        <span class="font-medium text-red-900">GOOGL, META</span>
+                                    </div>
+                                    <div class="flex justify-between text-xs">
+                                        <span class="text-red-600">Risk:</span>
+                                        <span class="font-medium text-red-900">Medium</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Economic Indicators Card -->
+                            <div class="bg-gradient-to-br from-indigo-50 to-indigo-100 rounded-lg p-3 border border-indigo-200">
+                                <div class="flex items-center justify-between mb-2">
+                                    <h4 class="font-semibold text-indigo-900 text-sm">Economic Indicators</h4>
+                                    <div class="w-6 h-6 bg-indigo-500 rounded-full flex items-center justify-center">
+                                        <span class="text-white text-xs font-bold">I</span>
+                                    </div>
+                                </div>
+                                <p class="text-xs text-indigo-700 mb-2">GDP and unemployment trends</p>
+                                <div class="space-y-1">
+                                    <div class="flex justify-between text-xs">
+                                        <span class="text-indigo-600">GDP:</span>
+                                        <span class="font-medium text-indigo-900">2.1%</span>
+                                    </div>
+                                    <div class="flex justify-between text-xs">
+                                        <span class="text-indigo-600">Unemployment:</span>
+                                        <span class="font-medium text-indigo-900">3.7%</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Action Buttons -->
+                        <div class="mt-4 flex flex-wrap gap-2">
+                            <button class="bg-green-600 text-white px-3 py-1.5 rounded text-sm hover:bg-green-700 transition-colors font-medium">
+                                Policy Report
+                            </button>
+                            <button class="bg-purple-600 text-white px-3 py-1.5 rounded text-sm hover:bg-purple-700 transition-colors font-medium">
+                                Generate Predictions
+                            </button>
+                            <button class="bg-gray-600 text-white px-3 py-1.5 rounded text-sm hover:bg-gray-700 transition-colors font-medium">
+                                Export
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- President Selection Modal -->
+    <div id="presidentModal" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50 flex items-center justify-center">
+        <div class="bg-white rounded-lg p-6 max-w-md w-full mx-4">
+            <div class="flex justify-between items-center mb-4">
+                <h3 id="modalTitle" class="text-lg font-semibold text-gray-900">Select President</h3>
+                <button onclick="closePresidentModal()" class="text-gray-400 hover:text-gray-600">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                    </svg>
+                </button>
+            </div>
+            
+            <p id="modalDescription" class="text-sm text-gray-600 mb-4">Choose a president to see how their policies affected this stock:</p>
+            
+            <div class="space-y-3">
+                <div class="grid grid-cols-1 gap-3" id="presidentList">
+                    <!-- Presidents will be populated by JavaScript -->
+                </div>
+                
+                <!-- Legislation Details Section -->
+                <div id="legislationSection" class="hidden mt-4">
+                    <div class="border-t pt-4">
+                        <h4 id="legislationTitle" class="font-semibold text-gray-900 mb-3"></h4>
+                        <div id="legislationContent" class="space-y-3">
+                            <!-- Legislation items will be populated by JavaScript -->
+                        </div>
+                        <div class="mt-4 flex space-x-2">
+                            <button onclick="applyLegislationToChart()" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition-colors">
+                                View Chart
+                            </button>
+                            <button onclick="backToPresidents()" class="px-4 py-2 bg-gray-300 text-gray-700 rounded hover:bg-gray-400 transition-colors">
+                                Back to Presidents
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // President data
+        const presidentData = [
+            { name: "Joe Biden", party: "Democrat", term: "2021-Present", color: "blue" },
+            { name: "Donald Trump", party: "Republican", term: "2017-2021", color: "red" },
+            { name: "Barack Obama", party: "Democrat", term: "2009-2017", color: "blue" },
+            { name: "George W. Bush", party: "Republican", term: "2001-2009", color: "red" },
+            { name: "Bill Clinton", party: "Democrat", term: "1993-2001", color: "blue" }
+        ];
+
+        let selectedStock = null;
+
+        // Stock data for different industries
+        const stockData = {
+            technology: {
+                title: "Technology Sector Stocks",
+                stocks: [
+                    { symbol: "NVDA", name: "NVIDIA Corporation", price: 875.28, change: "+15.2%", trend: "up", policy: "CHIPS Act beneficiary", shares: 10 },
+                    { symbol: "AAPL", name: "Apple Inc.", price: 175.43, change: "+2.34%", trend: "up", policy: "China trade relations", shares: 50 },
+                    { symbol: "MSFT", name: "Microsoft Corporation", price: 378.85, change: "+1.87%", trend: "up", policy: "Cloud computing growth", shares: 25 },
+                    { symbol: "GOOGL", name: "Alphabet Inc.", price: 138.21, change: "+3.45%", trend: "up", policy: "AI regulatory oversight", shares: 30 },
+                    { symbol: "META", name: "Meta Platforms Inc.", price: 485.67, change: "+4.12%", trend: "up", policy: "Metaverse investment", shares: 15 }
+                ]
+            },
+            healthcare: {
+                title: "Healthcare Sector Stocks",
+                stocks: [
+                    { symbol: "JNJ", name: "Johnson & Johnson", price: 156.78, change: "-0.85%", trend: "down", policy: "Medicare price negotiations", shares: 40 },
+                    { symbol: "PFE", name: "Pfizer Inc.", price: 28.45, change: "-1.23%", trend: "down", policy: "Drug pricing reform", shares: 75 },
+                    { symbol: "UNH", name: "UnitedHealth Group", price: 542.30, change: "+2.15%", trend: "up", policy: "Healthcare reform impact", shares: 12 },
+                    { symbol: "ABBV", name: "AbbVie Inc.", price: 165.42, change: "+0.67%", trend: "up", policy: "Patent cliff concerns", shares: 35 },
+                    { symbol: "MRK", name: "Merck & Co.", price: 118.90, change: "+1.45%", trend: "up", policy: "Cancer drug pipeline", shares: 45 }
+                ]
+            },
+            finance: {
+                title: "Financial Sector Stocks",
+                stocks: [
+                    { symbol: "JPM", name: "JPMorgan Chase & Co.", price: 172.56, change: "+3.21%", trend: "up", policy: "Interest rate environment", shares: 20 },
+                    { symbol: "BAC", name: "Bank of America Corp.", price: 32.78, change: "+2.89%", trend: "up", policy: "Fed policy impact", shares: 60 },
+                    { symbol: "WFC", name: "Wells Fargo & Company", price: 45.23, change: "+1.95%", trend: "up", policy: "Regulatory compliance", shares: 55 },
+                    { symbol: "GS", name: "Goldman Sachs Group", price: 385.67, change: "+4.56%", trend: "up", policy: "Investment banking fees", shares: 8 },
+                    { symbol: "MS", name: "Morgan Stanley", price: 89.34, change: "+2.78%", trend: "up", policy: "Wealth management growth", shares: 35 }
+                ]
+            },
+            energy: {
+                title: "Energy Sector Stocks",
+                stocks: [
+                    { symbol: "TSLA", name: "Tesla Inc.", price: 248.50, change: "+5.67%", trend: "up", policy: "Clean Energy Investment Act", shares: 20 },
+                    { symbol: "XOM", name: "Exxon Mobil Corporation", price: 118.45, change: "+1.23%", trend: "up", policy: "Oil price volatility", shares: 25 },
+                    { symbol: "CVX", name: "Chevron Corporation", price: 156.78, change: "+0.89%", trend: "up", policy: "Energy transition", shares: 18 },
+                    { symbol: "ENPH", name: "Enphase Energy Inc.", price: 89.67, change: "+6.78%", trend: "up", policy: "Solar tax credits", shares: 40 },
+                    { symbol: "NEE", name: "NextEra Energy Inc.", price: 78.90, change: "+2.34%", trend: "up", policy: "Renewable energy push", shares: 30 }
+                ]
+            },
+            consumer: {
+                title: "Consumer Sector Stocks",
+                stocks: [
+                    { symbol: "AMZN", name: "Amazon.com Inc.", price: 145.86, change: "-0.92%", trend: "down", policy: "E-commerce regulations", shares: 22 },
+                    { symbol: "WMT", name: "Walmart Inc.", price: 165.43, change: "+1.45%", trend: "up", policy: "Supply chain resilience", shares: 28 },
+                    { symbol: "HD", name: "Home Depot Inc.", price: 345.67, change: "+2.67%", trend: "up", policy: "Housing market trends", shares: 12 },
+                    { symbol: "PG", name: "Procter & Gamble", price: 156.78, change: "+0.89%", trend: "up", policy: "Inflation impact", shares: 32 },
+                    { symbol: "KO", name: "Coca-Cola Company", price: 58.90, change: "+1.23%", trend: "up", policy: "Global expansion", shares: 65 }
+                ]
+            }
+        };
+
+        // Industry filter function
+        function filterIndustry(industry) {
+            // Update button states
+            document.querySelectorAll('[onclick^="filterIndustry"]').forEach(btn => {
+                btn.classList.remove('bg-white', 'text-gray-900', 'shadow-sm');
+                btn.classList.add('text-gray-600');
+            });
+            
+            event.target.classList.remove('text-gray-600');
+            event.target.classList.add('bg-white', 'text-gray-900', 'shadow-sm');
+
+            const detailedInfo = document.getElementById('detailedStockInfo');
+            const industryTitle = document.getElementById('industryTitle');
+            const stockDetails = document.getElementById('stockDetails');
+            const analysisGrid = document.querySelector('.grid.grid-cols-2.lg\\:grid-cols-3.gap-4');
+
+            if (industry === 'all') {
+                detailedInfo.style.display = 'none';
+                analysisGrid.style.display = 'grid';
+                return;
+            }
+
+            // Hide the analysis grid and show detailed information
+            analysisGrid.style.display = 'none';
+            detailedInfo.style.display = 'block';
+            industryTitle.textContent = stockData[industry].title;
+            
+            // Populate stock details
+            stockDetails.innerHTML = '';
+            stockDetails.className = 'grid grid-cols-3 lg:grid-cols-4 gap-3';
+            stockData[industry].stocks.forEach(stock => {
+                const stockCard = document.createElement('div');
+                stockCard.className = 'p-3 bg-white rounded border border-gray-200 hover:shadow-sm transition-shadow cursor-pointer';
+                stockCard.innerHTML = `
+                    <div class="flex items-center justify-between mb-2">
+                        <div class="flex items-center space-x-2">
+                            <div class="w-2 h-2 rounded-full ${stock.trend === 'up' ? 'bg-green-500' : 'bg-red-500'}"></div>
+                            <div class="font-semibold text-gray-900 text-sm">${stock.symbol}</div>
+                        </div>
+                        <div class="px-2 py-1 rounded text-white text-xs font-medium ${stock.trend === 'up' ? 'bg-green-500' : 'bg-red-500'}">
+                            $${stock.price}
+                        </div>
+                    </div>
+                    <div class="flex justify-center items-center w-full">
+                        <canvas class="mini-chart w-full" width="120" height="50" data-symbol="${stock.symbol}"></canvas>
+                    </div>
+                `;
+                
+                // Add click event to show president selection modal
+                stockCard.addEventListener('click', () => showPresidentModal(stock, industry));
+                stockDetails.appendChild(stockCard);
+                
+                // Create mini chart for this stock
+                setTimeout(() => {
+                    createMiniChart(stockCard.querySelector('.mini-chart'), stock);
+                }, 100);
+            });
+        }
+
+        function createMiniChart(canvas, stock) {
+            if (!canvas) return;
+            
+            const ctx = canvas.getContext('2d');
+            const width = canvas.width = 120;
+            const height = canvas.height = 50;
+            
+            // Generate sample price data based on trend
+            let data = [];
+            if (stock.trend === 'up') {
+                // Generate upward trending data
+                const basePrice = stock.price;
+                for (let i = 0; i < 8; i++) {
+                    data.push(basePrice * (0.95 + (i * 0.05) + (Math.random() * 0.1 - 0.05)));
+                }
+            } else {
+                // Generate downward trending data
+                const basePrice = stock.price;
+                for (let i = 0; i < 8; i++) {
+                    data.push(basePrice * (1.05 - (i * 0.05) + (Math.random() * 0.1 - 0.05)));
+                }
+            }
+            
+            // Find min and max for scaling
+            const minPrice = Math.min(...data);
+            const maxPrice = Math.max(...data);
+            const priceRange = maxPrice - minPrice;
+            
+            // Clear canvas
+            ctx.clearRect(0, 0, width, height);
+            
+            // Set up drawing parameters
+            const padding = 4;
+            const chartWidth = width - (padding * 2);
+            const chartHeight = height - (padding * 2);
+            
+            // Draw the line
+            ctx.beginPath();
+            ctx.strokeStyle = stock.trend === 'up' ? '#10b981' : '#ef4444';
+            ctx.lineWidth = 2;
+            
+            for (let i = 0; i < data.length; i++) {
+                const x = padding + (i / (data.length - 1)) * chartWidth;
+                const y = padding + chartHeight - ((data[i] - minPrice) / priceRange) * chartHeight;
+                
+                if (i === 0) {
+                    ctx.moveTo(x, y);
+                } else {
+                    ctx.lineTo(x, y);
+                }
+            }
+            
+            ctx.stroke();
+            
+            // Fill area under the line
+            ctx.lineTo(padding + chartWidth, padding + chartHeight);
+            ctx.lineTo(padding, padding + chartHeight);
+            ctx.closePath();
+            ctx.fillStyle = stock.trend === 'up' ? 'rgba(16, 185, 129, 0.1)' : 'rgba(239, 68, 68, 0.1)';
+            ctx.fill();
+        }
+
+        // President modal functions
+        function showPresidentModal(stock, industry) {
+            selectedStock = { ...stock, industry };
+            
+            // Update modal content
+            document.getElementById('modalTitle').textContent = `${stock.symbol} - Presidential Impact Analysis`;
+            document.getElementById('modalDescription').textContent = `Choose a president to see how their policies affected ${stock.name}:`;
+            
+            // Get stock founding/IPO information
+            const stockInfo = getStockHistoricalInfo(stock.symbol);
+            
+            // Populate president list with smart filtering
+            const presidentList = document.getElementById('presidentList');
+            presidentList.innerHTML = '';
+            
+            presidentData.forEach(president => {
+                // Check if stock was public during this presidency
+                const isStockRelevant = isStockRelevantDuringPresidency(stock.symbol, president.name);
+                
+                const presidentCard = document.createElement('div');
+                const relevanceClass = isStockRelevant ? 'opacity-100' : 'opacity-60';
+                const relevanceIndicator = isStockRelevant ? '✅' : '⏸️';
+                
+                presidentCard.className = `p-3 rounded-lg border-2 border-${president.color}-200 bg-${president.color}-50 hover:bg-${president.color}-100 cursor-pointer transition-colors ${relevanceClass}`;
+                presidentCard.innerHTML = `
+                    <div class="flex items-center justify-between">
+                        <div class="flex-1">
+                            <div class="flex items-center space-x-2">
+                                <span class="text-lg">${relevanceIndicator}</span>
+                                <div>
+                                    <h4 class="font-semibold text-gray-900">${president.name}</h4>
+                                    <p class="text-sm text-gray-600">${president.party} • ${president.term}</p>
+                                    ${!isStockRelevant ? `<p class="text-xs text-orange-600 mt-1">${stockInfo.reasonNotRelevant || 'Stock not yet public'}</p>` : ''}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="text-${president.color}-600">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-8.293l-3-3a1 1 0 00-1.414 1.414L10.586 9H7a1 1 0 100 2h3.586l-1.293 1.293a1 1 0 101.414 1.414l3-3a1 1 0 000-1.414z" clip-rule="evenodd"/>
+                            </svg>
+                        </div>
+                    </div>
+                `;
+                
+                if (isStockRelevant) {
+                    presidentCard.addEventListener('click', () => showLegislationDetails(stock, president));
+                } else {
+                    presidentCard.addEventListener('click', () => showNotRelevantMessage(stock, president, stockInfo));
+                }
+                presidentList.appendChild(presidentCard);
+            });
+            
+            // Show modal
+            document.getElementById('presidentModal').classList.remove('hidden');
+        }
+
+        function closePresidentModal() {
+            document.getElementById('presidentModal').classList.add('hidden');
+            selectedStock = null;
+        }
+
+        function showLegislationDetails(stock, president) {
+            // Hide the president list and show legislation details
+            document.getElementById('presidentList').style.display = 'none';
+            document.getElementById('legislationSection').classList.remove('hidden');
+            
+            // Update legislation title
+            document.getElementById('legislationTitle').textContent = 
+                `${president.name}'s Legislation Affecting ${stock.symbol}`;
+            
+            // Get legislation data for this president and stock
+            const legislationData = getLegislationData(president.name, stock.symbol);
+            
+            // Populate legislation content
+            const legislationContent = document.getElementById('legislationContent');
+            legislationContent.innerHTML = '';
+            
+            legislationData.forEach(legislation => {
+                const legislationCard = document.createElement('div');
+                legislationCard.className = 'p-4 bg-gray-50 rounded-lg border border-gray-200';
+                legislationCard.innerHTML = `
+                    <div class="flex items-start justify-between">
+                        <div class="flex-1">
+                            <h5 class="font-semibold text-gray-900 mb-2">${legislation.name}</h5>
+                            <p class="text-sm text-gray-600 mb-2">${legislation.description}</p>
+                            <div class="flex items-center space-x-4 text-xs text-gray-500">
+                                <span>📅 ${legislation.year}</span>
+                                <span>📊 Impact: ${legislation.impact}</span>
+                                <span>🏛️ ${legislation.status}</span>
+                            </div>
+                        </div>
+                        <div class="ml-4">
+                            <div class="w-8 h-8 rounded-full flex items-center justify-center ${legislation.impact.includes('+') ? 'bg-green-100 text-green-600' : legislation.impact.includes('-') ? 'bg-red-100 text-red-600' : 'bg-gray-100 text-gray-600'}">
+                                <span class="text-xs font-bold">${legislation.impact}</span>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                legislationContent.appendChild(legislationCard);
+            });
+            
+            // Store current selection for chart application
+            window.currentSelection = { stock, president };
+        }
+
+        function getStockHistoricalInfo(stockSymbol) {
+            const stockInfo = {
+                'NVDA': { 
+                    ipoYear: 1999, 
+                    foundingYear: 1993,
+                    reasonNotRelevant: 'Company not yet founded'
+                },
+                'AAPL': { 
+                    ipoYear: 1980, 
+                    foundingYear: 1976,
+                    reasonNotRelevant: 'Company not yet founded'
+                },
+                'TSLA': { 
+                    ipoYear: 2010, 
+                    foundingYear: 2003,
+                    reasonNotRelevant: 'Company founded in 2003, IPO in 2010'
+                },
+                'JPM': { 
+                    ipoYear: 1799, 
+                    foundingYear: 1799,
+                    reasonNotRelevant: 'Company not yet founded'
+                },
+                'XOM': { 
+                    ipoYear: 1870, 
+                    foundingYear: 1870,
+                    reasonNotRelevant: 'Company not yet founded'
+                },
+                'WMT': { 
+                    ipoYear: 1970, 
+                    foundingYear: 1962,
+                    reasonNotRelevant: 'Company not yet founded'
+                }
+            };
+            return stockInfo[stockSymbol] || { ipoYear: 2000, foundingYear: 2000, reasonNotRelevant: 'Unknown founding date' };
+        }
+
+        function isStockRelevantDuringPresidency(stockSymbol, presidentName) {
+            const stockInfo = getStockHistoricalInfo(stockSymbol);
+            const presidentTerms = {
+                'Joe Biden': { start: 2021, end: 2024 },
+                'Donald Trump': { start: 2017, end: 2021 },
+                'Barack Obama': { start: 2009, end: 2017 },
+                'George W. Bush': { start: 2001, end: 2009 },
+                'Bill Clinton': { start: 1993, end: 2001 }
+            };
+            
+            const term = presidentTerms[presidentName];
+            if (!term) return false;
+            
+            // Stock is relevant if it was public (IPO'd) before or during the presidency
+            return stockInfo.ipoYear <= term.end;
+        }
+
+        function showNotRelevantMessage(stock, president, stockInfo) {
+            const message = `
+                ${stock.symbol} was not yet a public company during ${president.name}'s presidency (${president.term}).
+                
+                📊 Company History:
+                • Founded: ${stockInfo.foundingYear}
+                • IPO Date: ${stockInfo.ipoYear}
+                
+                💡 Try selecting a more recent president to see how ${stock.symbol} was affected by their policies!
+            `;
+            
+            alert(message);
+        }
+
+        function getLegislationData(president, stock) {
+            const legislationDatabase = {
+                'Joe Biden': {
+                    'NVDA': [
+                        {
+                            name: "CHIPS and Science Act",
+                            description: "Provides $52 billion in subsidies for semiconductor manufacturing and research, directly benefiting NVIDIA's data center and AI chip business.",
+                            year: "2022",
+                            impact: "+45%",
+                            status: "Enacted"
+                        },
+                        {
+                            name: "Infrastructure Investment Act",
+                            description: "Includes funding for advanced computing infrastructure that supports AI development and GPU demand.",
+                            year: "2021",
+                            impact: "+12%",
+                            status: "Enacted"
+                        }
+                    ],
+                    'AAPL': [
+                        {
+                            name: "China Trade Policy Stabilization",
+                            description: "Diplomatic efforts to stabilize trade relations with China, benefiting Apple's supply chain and market access.",
+                            year: "2021-2023",
+                            impact: "+8%",
+                            status: "Ongoing"
+                        },
+                        {
+                            name: "Tech Antitrust Framework",
+                            description: "New regulatory framework that affects Apple's App Store policies and revenue sharing models.",
+                            year: "2022",
+                            impact: "-5%",
+                            status: "Proposed"
+                        }
+                    ],
+                    'TSLA': [
+                        {
+                            name: "Electric Vehicle Infrastructure Investment",
+                            description: "$7.5 billion allocated for EV charging infrastructure and $5 billion for electric school buses.",
+                            year: "2021",
+                            impact: "+38%",
+                            status: "Enacted"
+                        },
+                        {
+                            name: "Clean Energy Tax Credits",
+                            description: "Extended tax credits for electric vehicle purchases and renewable energy investments.",
+                            year: "2022",
+                            impact: "+25%",
+                            status: "Enacted"
+                        }
+                    ]
+                },
+                'Donald Trump': {
+                    'NVDA': [
+                        {
+                            name: "Tax Cuts and Jobs Act",
+                            description: "Reduced corporate tax rate from 35% to 21%, significantly boosting NVIDIA's profitability and stock value.",
+                            year: "2017",
+                            impact: "+67%",
+                            status: "Enacted"
+                        },
+                        {
+                            name: "Deregulation of Tech Sector",
+                            description: "Reduced regulatory burden on technology companies, allowing faster innovation and market expansion.",
+                            year: "2017-2020",
+                            impact: "+34%",
+                            status: "Ongoing"
+                        }
+                    ],
+                    'AAPL': [
+                        {
+                            name: "Corporate Tax Reduction",
+                            description: "Tax cuts allowed Apple to repatriate overseas cash and invest in domestic operations.",
+                            year: "2017",
+                            impact: "+28%",
+                            status: "Enacted"
+                        },
+                        {
+                            name: "China Trade Tensions",
+                            description: "Trade war with China created uncertainty for Apple's supply chain and Chinese market access.",
+                            year: "2018-2020",
+                            impact: "-15%",
+                            status: "Ongoing"
+                        }
+                    ],
+                    'TSLA': [
+                        {
+                            name: "Space Exploration Initiatives",
+                            description: "Support for private space industry and SpaceX contracts benefited Tesla's innovation ecosystem.",
+                            year: "2017-2020",
+                            impact: "+156%",
+                            status: "Ongoing"
+                        },
+                        {
+                            name: "Energy Independence Policies",
+                            description: "Promotion of domestic energy production and reduced environmental regulations.",
+                            year: "2017-2020",
+                            impact: "+89%",
+                            status: "Ongoing"
+                        }
+                    ]
+                },
+                'Barack Obama': {
+                    'NVDA': [
+                        {
+                            name: "Recovery Act Technology Investment",
+                            description: "Stimulus funding for advanced computing and research that supported GPU technology development.",
+                            year: "2009",
+                            impact: "+89%",
+                            status: "Enacted"
+                        },
+                        {
+                            name: "National Strategic Computing Initiative",
+                            description: "Government support for high-performance computing research and development.",
+                            year: "2015",
+                            impact: "+34%",
+                            status: "Enacted"
+                        }
+                    ],
+                    'AAPL': [
+                        {
+                            name: "iPhone Era Tax Policies",
+                            description: "Favorable tax treatment for technology companies during the smartphone revolution.",
+                            year: "2009-2016",
+                            impact: "+156%",
+                            status: "Ongoing"
+                        },
+                        {
+                            name: "Consumer Protection Regulations",
+                            description: "New regulations on app stores and digital marketplaces affected Apple's revenue models.",
+                            year: "2010-2016",
+                            impact: "-8%",
+                            status: "Enacted"
+                        }
+                    ],
+                    'TSLA': [
+                        {
+                            name: "Clean Energy Stimulus",
+                            description: "$90 billion investment in clean energy, including EV subsidies and charging infrastructure.",
+                            year: "2009",
+                            impact: "+234%",
+                            status: "Enacted"
+                        },
+                        {
+                            name: "Electric Vehicle Tax Credits",
+                            description: "Federal tax credits up to $7,500 for electric vehicle purchases.",
+                            year: "2009-2016",
+                            impact: "+167%",
+                            status: "Enacted"
+                        }
+                    ]
+                },
+                'George W. Bush': {
+                    'NVDA': [
+                        {
+                            name: "Defense Spending Increase",
+                            description: "Increased military spending boosted demand for high-performance computing and graphics technology.",
+                            year: "2001-2008",
+                            impact: "+23%",
+                            status: "Ongoing"
+                        },
+                        {
+                            name: "Technology Export Controls",
+                            description: "Stricter export controls on advanced technology affected NVIDIA's international sales.",
+                            year: "2001-2008",
+                            impact: "-12%",
+                            status: "Ongoing"
+                        }
+                    ],
+                    'AAPL': [
+                        {
+                            name: "iPod and iPhone Introduction Era",
+                            description: "Favorable economic conditions and tax policies during the digital music and smartphone revolution.",
+                            year: "2001-2008",
+                            impact: "+178%",
+                            status: "Ongoing"
+                        },
+                        {
+                            name: "Corporate Tax Policies",
+                            description: "Tax policies that supported technology company growth and innovation.",
+                            year: "2001-2008",
+                            impact: "+89%",
+                            status: "Ongoing"
+                        }
+                    ],
+                    'TSLA': [
+                        {
+                            name: "Company Founding Period",
+                            description: "Tesla was founded during Bush's term, benefiting from general economic conditions.",
+                            year: "2003",
+                            impact: "N/A",
+                            status: "Company Founded"
+                        }
+                    ]
+                },
+                'Bill Clinton': {
+                    'NVDA': [
+                        {
+                            name: "Dot-com Boom Policies",
+                            description: "Favorable policies during the internet boom that supported technology stock growth.",
+                            year: "1993-2000",
+                            impact: "+234%",
+                            status: "Ongoing"
+                        },
+                        {
+                            name: "Technology Export Liberalization",
+                            description: "Relaxed export controls on computer technology, benefiting NVIDIA's international expansion.",
+                            year: "1993-2000",
+                            impact: "+156%",
+                            status: "Ongoing"
+                        }
+                    ],
+                    'AAPL': [
+                        {
+                            name: "Personal Computer Revolution",
+                            description: "Economic policies that supported the growth of personal computing and technology companies.",
+                            year: "1993-2000",
+                            impact: "+89%",
+                            status: "Ongoing"
+                        },
+                        {
+                            name: "Capital Gains Tax Reduction",
+                            description: "Reduced capital gains taxes boosted technology stock investments.",
+                            year: "1997",
+                            impact: "+67%",
+                            status: "Enacted"
+                        }
+                    ],
+                    'TSLA': [
+                        {
+                            name: "Company Not Founded",
+                            description: "Tesla was not founded during Clinton's presidency.",
+                            year: "N/A",
+                            impact: "N/A",
+                            status: "Not Applicable"
+                        }
+                    ]
+                }
+            };
+
+            return legislationDatabase[president] && legislationDatabase[president][stock] || [
+                {
+                    name: "Limited Data Available",
+                    description: `Specific legislation data for ${stock} during ${president}'s term is not available in our database.`,
+                    year: "N/A",
+                    impact: "N/A",
+                    status: "Data Unavailable"
+                }
+            ];
+        }
+
+        function backToPresidents() {
+            document.getElementById('legislationSection').classList.add('hidden');
+            document.getElementById('presidentList').style.display = 'grid';
+        }
+
+        function applyLegislationToChart() {
+            if (window.currentSelection) {
+                const { stock, president } = window.currentSelection;
+                closePresidentModal();
+                showStockImpact(stock, president);
+            }
+        }
+
+        function showStockImpact(stock, president) {
+            // Update the chart with president-specific data
+            updateChartForPresident(stock, president);
+            
+            // Update the chart title to show the president and stock
+            document.getElementById('chartTitle').textContent = 
+                `${stock.symbol} Performance During ${president.name}'s Term (${president.term})`;
+            
+            // Update metrics based on president's impact
+            updateMetricsForPresident(president, stock);
+            
+            // Show the reset button
+            document.getElementById('resetChartBtn').classList.remove('hidden');
+        }
+
+        function updateMetricsForPresident(president, stock) {
+            // President-specific market impact data
+            const presidentMetrics = {
+                'Joe Biden': {
+                    realTimePrice: 156.42,
+                    priceChange: '+$2.35 (1.52%)',
+                    affectedPrice: 156.42,
+                    affectedChange: '+$2.35 (1.52%)'
+                },
+                'Donald Trump': {
+                    realTimePrice: 148.67,
+                    priceChange: '+$1.89 (1.29%)',
+                    affectedPrice: 148.67,
+                    affectedChange: '+$1.89 (1.29%)'
+                },
+                'Barack Obama': {
+                    realTimePrice: 142.34,
+                    priceChange: '+$0.95 (0.67%)',
+                    affectedPrice: 142.34,
+                    affectedChange: '+$0.95 (0.67%)'
+                },
+                'George W. Bush': {
+                    realTimePrice: 138.91,
+                    priceChange: '-$0.45 (-0.32%)',
+                    affectedPrice: 138.91,
+                    affectedChange: '-$0.45 (-0.32%)'
+                },
+                'Bill Clinton': {
+                    realTimePrice: 135.67,
+                    priceChange: '+$3.21 (2.42%)',
+                    affectedPrice: 135.67,
+                    affectedChange: '+$3.21 (2.42%)'
+                }
+            };
+
+            const metrics = presidentMetrics[president.name] || presidentMetrics['Joe Biden'];
+            
+            // Update the metrics in the top bar
+            const realTimePriceElement = document.querySelector('.text-2xl.font-bold.text-gray-900');
+            const priceChangeElement = document.querySelector('.text-xs.text-green-600');
+            const affectedPriceElement = document.querySelectorAll('.text-2xl.font-bold.text-gray-900')[1];
+            const affectedChangeElement = document.querySelectorAll('.text-xs')[1];
+
+            if (realTimePriceElement) realTimePriceElement.textContent = `$${metrics.realTimePrice}`;
+            if (priceChangeElement) {
+                priceChangeElement.textContent = metrics.priceChange;
+                priceChangeElement.className = metrics.priceChange.includes('+') ? 
+                    'text-xs text-green-600' : 'text-xs text-red-600';
+            }
+            if (affectedPriceElement) affectedPriceElement.textContent = `$${metrics.affectedPrice}`;
+            if (affectedChangeElement) {
+                affectedChangeElement.textContent = metrics.affectedChange;
+                affectedChangeElement.className = metrics.affectedChange.includes('+') ? 
+                    'text-xs text-green-600' : 'text-xs text-red-600';
+            }
+        }
+
+        function updateChartForPresident(stock, president) {
+            // President-specific stock performance data (simulated historical data)
+            const presidentStockData = {
+                'Joe Biden': {
+                    'NVDA': { 
+                        data: [450, 520, 480, 580, 620, 675], 
+                        color: '#3b82f6',
+                        labels: ['Jan 2021', 'Jun 2021', 'Dec 2021', 'Jun 2022', 'Dec 2022', 'Jun 2023']
+                    },
+                    'AAPL': { 
+                        data: [130, 135, 140, 145, 150, 175], 
+                        color: '#10b981',
+                        labels: ['Jan 2021', 'Jun 2021', 'Dec 2021', 'Jun 2022', 'Dec 2022', 'Jun 2023']
+                    },
+                    'TSLA': { 
+                        data: [200, 250, 220, 280, 300, 248], 
+                        color: '#f59e0b',
+                        labels: ['Jan 2021', 'Jun 2021', 'Dec 2021', 'Jun 2022', 'Dec 2022', 'Jun 2023']
+                    },
+                    'JPM': { 
+                        data: [140, 145, 150, 155, 160, 165], 
+                        color: '#ef4444',
+                        labels: ['Jan 2021', 'Jun 2021', 'Dec 2021', 'Jun 2022', 'Dec 2022', 'Jun 2023']
+                    },
+                    'XOM': { 
+                        data: [60, 70, 80, 85, 90, 118], 
+                        color: '#8b5cf6',
+                        labels: ['Jan 2021', 'Jun 2021', 'Dec 2021', 'Jun 2022', 'Dec 2022', 'Jun 2023']
+                    },
+                    'WMT': { 
+                        data: [140, 145, 150, 155, 160, 165], 
+                        color: '#06b6d4',
+                        labels: ['Jan 2021', 'Jun 2021', 'Dec 2021', 'Jun 2022', 'Dec 2022', 'Jun 2023']
+                    }
+                },
+                'Donald Trump': {
+                    'NVDA': { 
+                        data: [50, 65, 80, 120, 180, 200], 
+                        color: '#3b82f6',
+                        labels: ['Jan 2017', 'Jun 2017', 'Dec 2017', 'Jun 2018', 'Dec 2018', 'Dec 2020']
+                    },
+                    'AAPL': { 
+                        data: [120, 140, 160, 180, 200, 130], 
+                        color: '#10b981',
+                        labels: ['Jan 2017', 'Jun 2017', 'Dec 2017', 'Jun 2018', 'Dec 2018', 'Dec 2020']
+                    },
+                    'TSLA': { 
+                        data: [40, 60, 80, 120, 180, 200], 
+                        color: '#f59e0b',
+                        labels: ['Jan 2017', 'Jun 2017', 'Dec 2017', 'Jun 2018', 'Dec 2018', 'Dec 2020']
+                    },
+                    'JPM': { 
+                        data: [85, 95, 105, 115, 125, 140], 
+                        color: '#ef4444',
+                        labels: ['Jan 2017', 'Jun 2017', 'Dec 2017', 'Jun 2018', 'Dec 2018', 'Dec 2020']
+                    },
+                    'XOM': { 
+                        data: [80, 85, 90, 95, 100, 60], 
+                        color: '#8b5cf6',
+                        labels: ['Jan 2017', 'Jun 2017', 'Dec 2017', 'Jun 2018', 'Dec 2018', 'Dec 2020']
+                    },
+                    'WMT': { 
+                        data: [70, 75, 80, 85, 90, 140], 
+                        color: '#06b6d4',
+                        labels: ['Jan 2017', 'Jun 2017', 'Dec 2017', 'Jun 2018', 'Dec 2018', 'Dec 2020']
+                    }
+                },
+                'Barack Obama': {
+                    'NVDA': { 
+                        data: [15, 20, 25, 30, 35, 40], 
+                        color: '#3b82f6',
+                        labels: ['Jan 2009', 'Jun 2010', 'Dec 2011', 'Jun 2013', 'Dec 2014', 'Dec 2016']
+                    },
+                    'AAPL': { 
+                        data: [80, 120, 160, 200, 240, 120], 
+                        color: '#10b981',
+                        labels: ['Jan 2009', 'Jun 2010', 'Dec 2011', 'Jun 2013', 'Dec 2014', 'Dec 2016']
+                    },
+                    'TSLA': { 
+                        data: [20, 25, 30, 40, 50, 40], 
+                        color: '#f59e0b',
+                        labels: ['Jan 2009', 'Jun 2010', 'Dec 2011', 'Jun 2013', 'Dec 2014', 'Dec 2016']
+                    },
+                    'JPM': { 
+                        data: [30, 35, 40, 45, 50, 85], 
+                        color: '#ef4444',
+                        labels: ['Jan 2009', 'Jun 2010', 'Dec 2011', 'Jun 2013', 'Dec 2014', 'Dec 2016']
+                    },
+                    'XOM': { 
+                        data: [70, 75, 80, 85, 90, 80], 
+                        color: '#8b5cf6',
+                        labels: ['Jan 2009', 'Jun 2010', 'Dec 2011', 'Jun 2013', 'Dec 2014', 'Dec 2016']
+                    },
+                    'WMT': { 
+                        data: [50, 55, 60, 65, 70, 70], 
+                        color: '#06b6d4',
+                        labels: ['Jan 2009', 'Jun 2010', 'Dec 2011', 'Jun 2013', 'Dec 2014', 'Dec 2016']
+                    }
+                },
+                'George W. Bush': {
+                    'NVDA': { 
+                        data: [8, 10, 12, 15, 18, 15], 
+                        color: '#3b82f6',
+                        labels: ['Jan 2001', 'Jun 2002', 'Dec 2003', 'Jun 2005', 'Dec 2006', 'Dec 2008']
+                    },
+                    'AAPL': { 
+                        data: [20, 25, 30, 40, 50, 80], 
+                        color: '#10b981',
+                        labels: ['Jan 2001', 'Jun 2002', 'Dec 2003', 'Jun 2005', 'Dec 2006', 'Dec 2008']
+                    },
+                    'TSLA': { 
+                        data: [0, 0, 0, 0, 0, 20], 
+                        color: '#f59e0b',
+                        labels: ['Jan 2001', 'Jun 2002', 'Dec 2003', 'Jun 2005', 'Dec 2006', 'Dec 2008']
+                    },
+                    'JPM': { 
+                        data: [35, 40, 45, 50, 55, 30], 
+                        color: '#ef4444',
+                        labels: ['Jan 2001', 'Jun 2002', 'Dec 2003', 'Jun 2005', 'Dec 2006', 'Dec 2008']
+                    },
+                    'XOM': { 
+                        data: [40, 45, 50, 55, 60, 70], 
+                        color: '#8b5cf6',
+                        labels: ['Jan 2001', 'Jun 2002', 'Dec 2003', 'Jun 2005', 'Dec 2006', 'Dec 2008']
+                    },
+                    'WMT': { 
+                        data: [45, 50, 55, 60, 65, 50], 
+                        color: '#06b6d4',
+                        labels: ['Jan 2001', 'Jun 2002', 'Dec 2003', 'Jun 2005', 'Dec 2006', 'Dec 2008']
+                    }
+                },
+                'Bill Clinton': {
+                    'NVDA': { 
+                        data: [2, 3, 4, 5, 6, 8], 
+                        color: '#3b82f6',
+                        labels: ['Jan 1993', 'Jun 1994', 'Dec 1995', 'Jun 1997', 'Dec 1998', 'Dec 2000']
+                    },
+                    'AAPL': { 
+                        data: [5, 8, 12, 15, 18, 20], 
+                        color: '#10b981',
+                        labels: ['Jan 1993', 'Jun 1994', 'Dec 1995', 'Jun 1997', 'Dec 1998', 'Dec 2000']
+                    },
+                    'TSLA': { 
+                        data: [0, 0, 0, 0, 0, 0], 
+                        color: '#f59e0b',
+                        labels: ['Jan 1993', 'Jun 1994', 'Dec 1995', 'Jun 1997', 'Dec 1998', 'Dec 2000']
+                    },
+                    'JPM': { 
+                        data: [15, 18, 22, 25, 28, 35], 
+                        color: '#ef4444',
+                        labels: ['Jan 1993', 'Jun 1994', 'Dec 1995', 'Jun 1997', 'Dec 1998', 'Dec 2000']
+                    },
+                    'XOM': { 
+                        data: [25, 30, 35, 40, 45, 40], 
+                        color: '#8b5cf6',
+                        labels: ['Jan 1993', 'Jun 1994', 'Dec 1995', 'Jun 1997', 'Dec 1998', 'Dec 2000']
+                    },
+                    'WMT': { 
+                        data: [20, 25, 30, 35, 40, 45], 
+                        color: '#06b6d4',
+                        labels: ['Jan 1993', 'Jun 1994', 'Dec 1995', 'Jun 1997', 'Dec 1998', 'Dec 2000']
+                    }
+                }
+            };
+
+            const stockData = presidentStockData[president.name] && presidentStockData[president.name][stock.symbol];
+            
+            if (stockData) {
+                // Update the chart with new data
+                portfolioChart.data.labels = stockData.labels;
+                portfolioChart.data.datasets[0].label = `${stock.symbol} (${president.name})`;
+                portfolioChart.data.datasets[0].data = stockData.data;
+                portfolioChart.data.datasets[0].borderColor = stockData.color;
+                portfolioChart.data.datasets[0].backgroundColor = stockData.color + '20';
+                
+                // Hide other datasets for cleaner view
+                portfolioChart.data.datasets[1].data = [];
+                portfolioChart.data.datasets[2].data = [];
+                
+                portfolioChart.update();
+            } else {
+                // Show message for unavailable data
+                alert(`Historical data for ${stock.symbol} during ${president.name}'s term is not available.\n\nThis could be because:\n• The company wasn't public during this period\n• Limited market data exists\n• The stock symbol wasn't traded yet`);
+            }
+        }
+
+        function resetChart() {
+            // Reset chart to original data
+            portfolioChart.data.labels = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'];
+            portfolioChart.data.datasets[0].label = 'AMZN';
+            portfolioChart.data.datasets[0].data = [3200, 3400, 3100, 3500, 3800, 3600];
+            portfolioChart.data.datasets[0].borderColor = '#fbbf24';
+            portfolioChart.data.datasets[0].backgroundColor = 'rgba(251, 191, 36, 0.1)';
+            
+            portfolioChart.data.datasets[1].label = 'FB';
+            portfolioChart.data.datasets[1].data = [280, 290, 275, 300, 320, 310];
+            portfolioChart.data.datasets[1].borderColor = '#3b82f6';
+            portfolioChart.data.datasets[1].backgroundColor = 'rgba(59, 130, 246, 0.1)';
+            
+            portfolioChart.data.datasets[2].label = 'AVERAGE';
+            portfolioChart.data.datasets[2].data = [1740, 1845, 1687, 1900, 2060, 1955];
+            portfolioChart.data.datasets[2].borderColor = '#10b981';
+            portfolioChart.data.datasets[2].backgroundColor = 'rgba(16, 185, 129, 0.1)';
+            
+            portfolioChart.update();
+            
+            // Reset metrics to default values
+            resetMetricsToDefault();
+            
+            // Reset title and hide reset button
+            document.getElementById('chartTitle').textContent = 'Portfolio Performance';
+            document.getElementById('resetChartBtn').classList.add('hidden');
+        }
+
+        function resetMetricsToDefault() {
+            // Reset to default Biden metrics (original values)
+            const realTimePriceElement = document.querySelector('.text-2xl.font-bold.text-gray-900');
+            const priceChangeElement = document.querySelector('.text-xs.text-green-600');
+            const affectedPriceElement = document.querySelectorAll('.text-2xl.font-bold.text-gray-900')[1];
+            const affectedChangeElement = document.querySelectorAll('.text-xs')[1];
+
+            if (realTimePriceElement) realTimePriceElement.textContent = '$156.42';
+            if (priceChangeElement) {
+                priceChangeElement.textContent = '+$2.35 (1.52%)';
+                priceChangeElement.className = 'text-xs text-green-600';
+            }
+            if (affectedPriceElement) affectedPriceElement.textContent = '$156.42';
+            if (affectedChangeElement) {
+                affectedChangeElement.textContent = '+$2.35 (1.52%)';
+                affectedChangeElement.className = 'text-xs text-green-600';
+            }
+        }
+
+        // Initialize main portfolio chart
+        const ctx = document.getElementById('portfolioChart').getContext('2d');
+        const portfolioChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+                datasets: [{
+                    label: 'AMZN',
+                    data: [3200, 3400, 3100, 3500, 3800, 3600],
+                    borderColor: '#fbbf24',
+                    backgroundColor: 'rgba(251, 191, 36, 0.1)',
+                    tension: 0.4
+                }, {
+                    label: 'FB',
+                    data: [280, 290, 275, 300, 320, 310],
+                    borderColor: '#3b82f6',
+                    backgroundColor: 'rgba(59, 130, 246, 0.1)',
+                    tension: 0.4
+                }, {
+                    label: 'AVERAGE',
+                    data: [1740, 1845, 1687, 1900, 2060, 1955],
+                    borderColor: '#10b981',
+                    borderDash: [5, 5],
+                    backgroundColor: 'rgba(16, 185, 129, 0.1)',
+                    tension: 0.4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                },
+                scales: {
+                    x: {
+                        grid: {
+                            color: '#e5e7eb'
+                        },
+                        ticks: {
+                            color: '#6b7280'
+                        }
+                    },
+                    y: {
+                        grid: {
+                            color: '#e5e7eb'
+                        },
+                        ticks: {
+                            color: '#6b7280'
+                        }
+                    }
+                }
+            }
+        });
+
+        // Time period button interactions
+        document.querySelectorAll('button').forEach(button => {
+            if (button.textContent.includes('DAY') || button.textContent.includes('WEEK') || button.textContent.includes('MONTH') || button.textContent.includes('YEAR')) {
+                button.addEventListener('click', function() {
+                    // Remove active class from all buttons
+                    document.querySelectorAll('button').forEach(btn => {
+                        btn.classList.remove('bg-green-500', 'text-white');
+                        btn.classList.add('bg-gray-100', 'text-gray-600');
+                    });
+                    
+                    // Add active class to clicked button
+                    this.classList.remove('bg-gray-100', 'text-gray-600');
+                    this.classList.add('bg-green-500', 'text-white');
+                });
+            }
+        });
+    </script>
+</body>
+</html>

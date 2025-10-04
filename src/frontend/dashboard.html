@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Votify Dashboard - Promise Tracker</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50">
+    
+    <!-- Navigation -->
+    <nav class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="landing.html" class="flex items-center gap-2">
+                <div class="w-10 h-10 bg-gradient-to-br from-purple-500 to-pink-600 rounded-lg flex items-center justify-center text-white font-bold text-xl">V</div>
+                <span class="text-2xl font-bold text-gray-900">Votify</span>
+            </a>
+            
+            <!-- Center Navigation Links -->
+            <div class="flex items-center gap-6">
+                <a href="#" id="promiseCheckerNav" class="px-4 py-2 rounded-lg text-sm font-medium text-gray-700 hover:text-purple-600 hover:bg-purple-50 transition-colors">
+                    Political Promise Checker
+                </a>
+                <a href="#" id="stockPredictorNav" class="px-4 py-2 rounded-lg text-sm font-medium text-gray-700 hover:text-green-600 hover:bg-green-50 transition-colors">
+                    Stock Predictor
+                </a>
+            </div>
+            
+            <div class="flex items-center gap-4">
+                <span class="text-sm text-gray-500">Demo User</span>
+                <div class="w-8 h-8 bg-gray-300 rounded-full flex items-center justify-center text-sm font-bold">D</div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Warning Banner -->
+    <div class="bg-yellow-50 border-b border-yellow-200">
+        <div class="max-w-7xl mx-auto px-6 py-3">
+            <p class="text-sm text-yellow-800">
+                <strong>Demo Mode:</strong> Data verified using AI search (Perplexity) with government sources. Users should verify important claims via provided links.
+            </p>
+        </div>
+    </div>
+
+    <!-- Dashboard Layout -->
+    <div class="flex min-h-screen bg-gray-50">
+        <!-- Left Sidebar - Filters -->
+        <div class="w-80 bg-white shadow-lg rounded-r-xl">
+            <div class="p-6">
+                <h2 class="text-xl font-bold text-gray-900 mb-6">Filters</h2>
+                
+                <!-- President Filter -->
+                <div class="mb-6">
+                    <label class="block text-sm font-medium text-gray-700 mb-2">President</label>
+                    <select id="presidentFilter" class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-purple-500 focus:border-transparent">
+                        <option value="">All Presidents</option>
+                    </select>
+                </div>
+
+                <!-- Political Party Filter -->
+                <div class="mb-6">
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Political Party</label>
+                    <select id="partyFilter" class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-purple-500 focus:border-transparent">
+                        <option value="">All Parties</option>
+                        <option value="Republican">Republican</option>
+                        <option value="Democratic">Democratic</option>
+                        <option value="Independent">Independent</option>
+                    </select>
+                </div>
+
+                <!-- Status Filter -->
+                <div class="mb-6">
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Promise Status</label>
+                    <select id="statusFilter" class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-purple-500 focus:border-transparent">
+                        <option value="">All Status</option>
+                        <option value="kept">Kept</option>
+                        <option value="broken">Broken</option>
+                        <option value="partial">Partial</option>
+                    </select>
+                </div>
+
+                <!-- Category Filter -->
+                <div class="mb-6">
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Category</label>
+                    <select id="categoryFilter" class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-purple-500 focus:border-transparent">
+                        <option value="">All Categories</option>
+                    </select>
+                </div>
+
+                <!-- Clear Filters Button -->
+                <button id="clearFilters" class="w-full px-4 py-2 text-gray-600 hover:text-gray-800 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors">
+                    Clear All Filters
+                </button>
+            </div>
+        </div>
+
+        <!-- Main Content Area -->
+        <div class="flex-1 p-8">
+            <div class="mb-6">
+                <h1 class="text-3xl font-bold text-gray-900 mb-2">Political Figures</h1>
+                <p class="text-gray-600">Browse and analyze political promises from government officials</p>
+            </div>
+
+            <!-- Stats Cards -->
+            <div id="stats" class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
+                <!-- Stats cards inserted here by JavaScript -->
+            </div>
+
+            <!-- Political Figures Grid -->
+            <div id="promises" class="space-y-4">
+                <!-- Political figure cards inserted here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Analysis Modal -->
+    <div id="modal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+        <div class="bg-white rounded-xl p-8 max-w-3xl w-full max-h-[90vh] overflow-y-auto">
+            <div id="modalContent"></div>
+            <button onclick="closeModal()" class="mt-6 px-6 py-3 bg-gray-500 text-white rounded-lg hover:bg-gray-600 transition">Close</button>
+        </div>
+    </div>
+
+    <script>
+        const API_BASE = 'http://localhost:3000/api';
+        let allPromises = [];
+        let currentFilters = { status: '', president: '', category: '', party: '' };
+        let currentFeature = 'all'; // Track current feature selection
+
+        // Load promises
+        async function loadPromises() {
+            try {
+                const response = await fetch(`${API_BASE}/promises`);
+                
+                if (!response.ok) {
+                    document.getElementById('promises').innerHTML = `
+                        <div class="col-span-full bg-red-50 border border-red-200 rounded-lg p-8 text-center">
+                            <p class="text-red-600 font-semibold">No promises loaded</p>
+                            <p class="text-sm text-red-500 mt-2">Backend needs to generate data first at <code>http://localhost:3000/api/promises/generate</code></p>
+                        </div>
+                    `;
+                    return;
+                }
+                
+                allPromises = await response.json();
+                populateFilters();
+                loadStats();
+                renderPromises();
+                
+            } catch (error) {
+                console.error('Failed to load promises:', error);
+                document.getElementById('promises').innerHTML = `
+                    <div class="col-span-full bg-red-50 border border-red-200 rounded-lg p-8 text-center">
+                        <p class="text-red-600 font-semibold">Error: ${error.message}</p>
+                        <p class="text-sm text-red-500 mt-2">Make sure backend is running at ${API_BASE}</p>
+                    </div>
+                `;
+            }
+        }
+
+        // Load stats
+        async function loadStats() {
+            const stats = {
+                total: allPromises.length,
+                kept: allPromises.filter(p => p.status === 'kept').length,
+                broken: allPromises.filter(p => p.status === 'broken').length,
+                partial: allPromises.filter(p => p.status === 'partial').length
+            };
+            
+            const accountabilityScore = stats.total > 0 ? Math.round((stats.kept / stats.total) * 100) : 0;
+            
+            document.getElementById('stats').innerHTML = `
+                <div class="bg-white rounded-lg shadow-sm p-6">
+                    <div class="text-3xl font-bold text-blue-600">${stats.total}</div>
+                    <div class="text-sm text-gray-600 mt-1">Total Promises</div>
+                </div>
+                <div class="bg-white rounded-lg shadow-sm p-6">
+                    <div class="text-3xl font-bold text-green-600">${stats.kept}</div>
+                    <div class="text-sm text-gray-600 mt-1">Kept</div>
+                </div>
+                <div class="bg-white rounded-lg shadow-sm p-6">
+                    <div class="text-3xl font-bold text-yellow-600">${stats.partial}</div>
+                <div class="text-sm text-gray-600 mt-1">Partial</div>
+                </div>
+                <div class="bg-white rounded-lg shadow-sm p-6">
+                    <div class="text-3xl font-bold text-red-600">${stats.broken}</div>
+                    <div class="text-sm text-gray-600 mt-1">Broken</div>
+                </div>
+                <div class="bg-white rounded-lg shadow-sm p-6">
+                    <div class="text-3xl font-bold text-purple-600">${accountabilityScore}%</div>
+                    <div class="text-sm text-gray-600 mt-1">Accountability Score</div>
+                </div>
+            `;
+        }
+
+        // Populate filters
+        function populateFilters() {
+            const presidents = [...new Set(allPromises.map(p => p.president))];
+            const categories = [...new Set(allPromises.map(p => p.category))];
+            
+            document.getElementById('presidentFilter').innerHTML = `
+                <option value="">All Presidents</option>
+                ${presidents.map(p => `<option value="${p}">${p}</option>`).join('')}
+            `;
+            
+            document.getElementById('categoryFilter').innerHTML = `
+                <option value="">All Categories</option>
+                ${categories.map(c => `<option value="${c}">${c}</option>`).join('')}
+            `;
+        }
+
+        // Render political figures
+        function renderPromises() {
+            const filtered = allPromises.filter(p => {
+                if (currentFilters.status && p.status !== currentFilters.status) return false;
+                if (currentFilters.president && p.president !== currentFilters.president) return false;
+                if (currentFilters.category && p.category !== currentFilters.category) return false;
+                if (currentFilters.party && getPoliticalParty(p.president) !== currentFilters.party) return false;
+                if (currentFeature !== 'all' && !hasFeature(p, currentFeature)) return false;
+                return true;
+            });
+            
+            if (filtered.length === 0) {
+                document.getElementById('promises').innerHTML = `
+                    <div class="text-center p-12 text-gray-500">
+                        No political figures match your filters
+                    </div>
+                `;
+                return;
+            }
+            
+            // Group promises by president to create political figure cards
+            const figures = {};
+            filtered.forEach(promise => {
+                if (!figures[promise.president]) {
+                    figures[promise.president] = {
+                        name: promise.president,
+                        promises: [],
+                        party: getPoliticalParty(promise.president),
+                        servicePeriod: getServicePeriod(promise.president),
+                        location: "United States"
+                    };
+                }
+                figures[promise.president].promises.push(promise);
+            });
+            
+            document.getElementById('promises').innerHTML = Object.values(figures).map(figure => `
+                <div class="bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 p-6 cursor-pointer"
+                     onclick='openAnalysis(${JSON.stringify(figure).replace(/'/g, "&#39;")})'>
+                    
+                    <!-- Profile Section -->
+                    <div class="flex items-start gap-4 mb-4">
+                        <div class="w-16 h-16 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center text-white font-bold text-xl">
+                            ${figure.name.split(' ').map(n => n[0]).join('')}
+                        </div>
+                        <div class="flex-1">
+                            <div class="flex justify-between items-start">
+                                <h3 class="font-bold text-gray-900 text-lg">${figure.name}</h3>
+                                <span class="px-3 py-1 rounded-full text-xs font-semibold ${getPartyColor(figure.party)}">
+                                    ${figure.party}
+                                </span>
+                            </div>
+                            <p class="text-gray-600 text-sm">President of the United States</p>
+                            <p class="text-gray-500 text-sm">${figure.servicePeriod}</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Location and Features -->
+                    <div class="mb-4">
+                        <div class="flex items-center gap-2 mb-2 text-sm text-gray-600">
+                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"></path>
+                            </svg>
+                            <span>${figure.location}</span>
+                        </div>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-2 py-1 bg-purple-100 text-purple-800 rounded-full text-xs font-medium">
+                                ✓ Political Promise Checker
+                            </span>
+                            ${figure.promises.some(p => hasFeature(p, 'stock-predictor')) ? `
+                                <span class="px-2 py-1 bg-green-100 text-green-800 rounded-full text-xs font-medium">
+                                    ✓ Stock Predictor
+                                </span>
+                            ` : ''}
+                        </div>
+                    </div>
+                    
+                    <!-- Promise Summary -->
+                    <div class="border-t pt-4">
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="text-sm font-medium text-gray-700">Promise Analysis</span>
+                            <span class="text-sm text-gray-500">${figure.promises.length} promises</span>
+                        </div>
+                        <div class="grid grid-cols-3 gap-2 text-center">
+                            <div class="bg-green-50 p-2 rounded-lg">
+                                <div class="text-green-600 font-bold">${figure.promises.filter(p => p.status === 'kept').length}</div>
+                                <div class="text-xs text-green-600">Kept</div>
+                            </div>
+                            <div class="bg-red-50 p-2 rounded-lg">
+                                <div class="text-red-600 font-bold">${figure.promises.filter(p => p.status === 'broken').length}</div>
+                                <div class="text-xs text-red-600">Broken</div>
+                            </div>
+                            <div class="bg-yellow-50 p-2 rounded-lg">
+                                <div class="text-yellow-600 font-bold">${figure.promises.filter(p => p.status === 'partial').length}</div>
+                                <div class="text-xs text-yellow-600">Partial</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- View Details Button -->
+                    <div class="mt-4">
+                        <button class="w-full bg-gradient-to-r from-purple-500 to-pink-600 text-white py-2 px-4 rounded-lg hover:from-purple-600 hover:to-pink-700 transition-all duration-300 font-medium">
+                            VIEW DETAILED ANALYSIS
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Helper functions for political figures
+        function getPoliticalParty(president) {
+            const parties = {
+                'George W. Bush': 'Republican',
+                'Barack Obama': 'Democratic',
+                'Donald Trump': 'Republican',
+                'Joe Biden': 'Democratic'
+            };
+            return parties[president] || 'Independent';
+        }
+
+        function getServicePeriod(president) {
+            const periods = {
+                'George W. Bush': '2001-2009',
+                'Barack Obama': '2009-2017',
+                'Donald Trump': '2017-2021',
+                'Joe Biden': '2021-Present'
+            };
+            return periods[president] || 'Unknown';
+        }
+
+        function getPartyColor(party) {
+            const colors = {
+                'Republican': 'bg-red-100 text-red-800',
+                'Democratic': 'bg-blue-100 text-blue-800',
+                'Independent': 'bg-gray-100 text-gray-800'
+            };
+            return colors[party] || 'bg-gray-100 text-gray-800';
+        }
+
+        function getStatusBorderColor(status) {
+            const colors = {
+                kept: 'border-green-500',
+                broken: 'border-red-500',
+                partial: 'border-yellow-500'
+            };
+            return colors[status] || 'border-gray-500';
+        }
+
+        function hasFeature(promise, feature) {
+            // Mock logic for feature detection - can be expanded based on actual data
+            switch (feature) {
+                case 'promise-checker':
+                    // All promises are related to promise checking
+                    return true;
+                case 'stock-predictor':
+                    // Check if promise affects industries with stock implications
+                    return promise.affectedIndustries?.some(ind => 
+                        ind.name.toLowerCase().includes('stock') || 
+                        ind.name.toLowerCase().includes('market') ||
+                        ind.name.toLowerCase().includes('finance') ||
+                        ind.name.toLowerCase().includes('banking')
+                    ) || false;
+                default:
+                    return true;
+            }
+        }
+
+        function updateNavActiveState() {
+            // Reset all nav links
+            document.getElementById('promiseCheckerNav').className = 'px-4 py-2 rounded-lg text-sm font-medium text-gray-700 hover:text-purple-600 hover:bg-purple-50 transition-colors';
+            document.getElementById('stockPredictorNav').className = 'px-4 py-2 rounded-lg text-sm font-medium text-gray-700 hover:text-green-600 hover:bg-green-50 transition-colors';
+            
+            // Set active state based on current feature
+            if (currentFeature === 'promise-checker') {
+                document.getElementById('promiseCheckerNav').className = 'px-4 py-2 rounded-lg text-sm font-medium text-white bg-purple-600 shadow-sm';
+            } else if (currentFeature === 'stock-predictor') {
+                document.getElementById('stockPredictorNav').className = 'px-4 py-2 rounded-lg text-sm font-medium text-white bg-green-600 shadow-sm';
+            }
+        }
+
+        function getStatusColor(status) {
+            const colors = {
+                kept: 'bg-green-100 text-green-800',
+                broken: 'bg-red-100 text-red-800',
+                partial: 'bg-yellow-100 text-yellow-800'
+            };
+            return colors[status] || 'bg-gray-100 text-gray-800';
+        }
+
+        function getCredibilityColor(level) {
+            const colors = {
+                high: 'bg-green-100 text-green-700',
+                medium: 'bg-yellow-100 text-yellow-700',
+                low: 'bg-orange-100 text-orange-700',
+                unverified: 'bg-red-100 text-red-700'
+            };
+            return colors[level] || 'bg-gray-100 text-gray-700';
+        }
+
+        async function openAnalysis(figure) {
+            // Show modal immediately with loading state
+            document.getElementById('modal').classList.remove('hidden');
+            document.getElementById('modalContent').innerHTML = `
+                <div class="flex items-center justify-center p-8">
+                    <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-purple-600"></div>
+                    <span class="ml-3 text-gray-600">Loading detailed analysis...</span>
+                </div>
+            `;
+
+            try {
+                // Get all promises for this political figure
+                const promises = figure.promises || [];
+                
+                // Calculate summary statistics
+                const totalPromises = promises.length;
+                const keptPromises = promises.filter(p => p.status === 'kept').length;
+                const brokenPromises = promises.filter(p => p.status === 'broken').length;
+                const partialPromises = promises.filter(p => p.status === 'partial').length;
+                const verifiedPromises = promises.filter(p => p.verified).length;
+                
+                // Group promises by category
+                const promisesByCategory = {};
+                promises.forEach(promise => {
+                    if (!promisesByCategory[promise.category]) {
+                        promisesByCategory[promise.category] = [];
+                    }
+                    promisesByCategory[promise.category].push(promise);
+                });
+
+                // Display detailed analysis
+                document.getElementById('modalContent').innerHTML = `
+                    <!-- Header -->
+                    <div class="flex items-center gap-4 mb-6 pb-4 border-b">
+                        <div class="w-16 h-16 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center text-white font-bold text-xl">
+                            ${figure.name.split(' ').map(n => n[0]).join('')}
+                        </div>
+                        <div>
+                            <h2 class="text-2xl font-bold text-gray-900">${figure.name}</h2>
+                            <p class="text-gray-600">${figure.party} • ${figure.servicePeriod}</p>
+                        </div>
+                    </div>
+
+                    <!-- Summary Statistics -->
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+                        <div class="bg-blue-50 p-4 rounded-lg text-center">
+                            <div class="text-2xl font-bold text-blue-600">${totalPromises}</div>
+                            <div class="text-sm text-blue-600">Total Promises</div>
+                        </div>
+                        <div class="bg-green-50 p-4 rounded-lg text-center">
+                            <div class="text-2xl font-bold text-green-600">${keptPromises}</div>
+                            <div class="text-sm text-green-600">Kept (${Math.round((keptPromises/totalPromises)*100)}%)</div>
+                        </div>
+                        <div class="bg-red-50 p-4 rounded-lg text-center">
+                            <div class="text-2xl font-bold text-red-600">${brokenPromises}</div>
+                            <div class="text-sm text-red-600">Broken (${Math.round((brokenPromises/totalPromises)*100)}%)</div>
+                        </div>
+                        <div class="bg-yellow-50 p-4 rounded-lg text-center">
+                            <div class="text-2xl font-bold text-yellow-600">${partialPromises}</div>
+                            <div class="text-sm text-yellow-600">Partial (${Math.round((partialPromises/totalPromises)*100)}%)</div>
+                        </div>
+                    </div>
+
+                    <!-- Promises by Category -->
+                    <div class="space-y-6">
+                        ${Object.entries(promisesByCategory).map(([category, categoryPromises]) => `
+                            <div class="border border-gray-200 rounded-lg overflow-hidden">
+                                <div class="bg-gray-50 px-4 py-3 border-b">
+                                    <h3 class="font-bold text-gray-900 flex items-center justify-between">
+                                        <span>${category}</span>
+                                        <span class="text-sm font-normal text-gray-500">${categoryPromises.length} promises</span>
+                                    </h3>
+                                </div>
+                                <div class="p-4 space-y-4">
+                                    ${categoryPromises.map(promise => `
+                                        <div class="border-l-4 ${getStatusBorderColor(promise.status)} pl-4 py-2">
+                                            <div class="flex justify-between items-start mb-2">
+                                                <h4 class="font-medium text-gray-900 flex-1">${promise.promise}</h4>
+                                                <div class="flex gap-2 ml-4">
+                                                    <span class="px-2 py-1 rounded-full text-xs font-semibold ${getStatusColor(promise.status)}">
+                                                        ${promise.status.toUpperCase()}
+                                                    </span>
+                                                    <span class="px-2 py-1 rounded-full text-xs font-semibold ${getCredibilityColor(promise.credibilityLevel)}">
+                                                        ${promise.verified ? '✓ Verified' : '⚠ Unverified'}
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div class="text-sm text-gray-600 space-y-1">
+                                                <p><strong>Date:</strong> ${promise.date}</p>
+                                                ${promise.source ? `<p><strong>Source:</strong> <a href="${promise.source}" target="_blank" class="text-blue-600 hover:underline">${promise.source}</a></p>` : ''}
+                                                ${promise.evidence ? `<p><strong>Evidence:</strong> ${promise.evidence}</p>` : ''}
+                                                ${promise.affectedIndustries?.length > 0 ? `
+                                                    <div class="mt-2">
+                                                        <strong>Affected Industries:</strong>
+                                                        <div class="flex flex-wrap gap-1 mt-1">
+                                                            ${promise.affectedIndustries.map(ind => `
+                                                                <span class="px-2 py-1 bg-gray-100 text-gray-700 rounded text-xs">${ind.name}</span>
+                                                            `).join('')}
+                                                        </div>
+                                                    </div>
+                                                ` : ''}
+                                            </div>
+                                        </div>
+                                    `).join('')}
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+
+            } catch (error) {
+                console.error('Error loading detailed analysis:', error);
+                document.getElementById('modalContent').innerHTML = `
+                    <div class="text-center p-8">
+                        <div class="text-red-600 text-xl mb-4">⚠️ Error Loading Analysis</div>
+                        <p class="text-gray-600 mb-4">Failed to load detailed analysis for ${figure.name}</p>
+                        <p class="text-sm text-gray-500">Error: ${error.message}</p>
+                    </div>
+                `;
+            }
+        }
+
+        function closeModal() {
+            document.getElementById('modal').classList.add('hidden');
+        }
+
+        // Filter handlers
+        document.getElementById('statusFilter').addEventListener('change', (e) => {
+            currentFilters.status = e.target.value;
+            renderPromises();
+        });
+
+        document.getElementById('presidentFilter').addEventListener('change', (e) => {
+            currentFilters.president = e.target.value;
+            renderPromises();
+        });
+
+        document.getElementById('categoryFilter').addEventListener('change', (e) => {
+            currentFilters.category = e.target.value;
+            renderPromises();
+        });
+
+        document.getElementById('partyFilter').addEventListener('change', (e) => {
+            currentFilters.party = e.target.value;
+            renderPromises();
+        });
+
+        document.getElementById('clearFilters').addEventListener('click', () => {
+            currentFilters = { status: '', president: '', category: '', party: '' };
+            document.getElementById('statusFilter').value = '';
+            document.getElementById('presidentFilter').value = '';
+            document.getElementById('categoryFilter').value = '';
+            document.getElementById('partyFilter').value = '';
+            renderPromises();
+        });
+
+        // Navigation feature selection
+        document.getElementById('promiseCheckerNav').addEventListener('click', (e) => {
+            e.preventDefault();
+            currentFeature = 'promise-checker';
+            updateNavActiveState();
+            renderPromises();
+        });
+
+        document.getElementById('stockPredictorNav').addEventListener('click', (e) => {
+            e.preventDefault();
+            window.location.href = 'financial-dashboard.html';
+        });
+
+        // Initialize
+        loadPromises();
+        updateNavActiveState(); // Set initial nav state
+    </script>
+</body>
+</html>

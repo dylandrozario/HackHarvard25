@@ -30,7 +30,7 @@ No special requirements! This is a vanilla web project that runs in any modern b
    ```
 
 2. **Open the website**:
-   - Simply open `index.html` in any web browser
+   - Simply open `src/frontend/landing.html` in any web browser
    - Or use a local server for development:
      ```bash
      # Using Python
@@ -44,17 +44,26 @@ No special requirements! This is a vanilla web project that runs in any modern b
      ```
 
 3. **Access the website**:
-   - If opening directly: Double-click `index.html`
-   - If using a server: Navigate to `http://localhost:8000`
+   - If opening directly: Double-click `src/frontend/landing.html`
+   - If using a server: Navigate to `http://localhost:8000/src/frontend/landing.html`
 
 ## 📁 Project Structure
 
 ```
 HackHarvard25/
-├── index.html          # Main HTML file with all sections
-├── styles.css          # All CSS styles and responsive design
-├── script.js           # JavaScript functionality and animations
-└── README.md           # This file
+├── README.md                    # This file
+├── src/
+│   ├── frontend/
+│   │   ├── landing.html         # Main landing page
+│   │   ├── dashboard.html       # Political figures dashboard
+│   │   ├── financial-dashboard.html # Stock analysis dashboard
+│   │   ├── compare.html         # Politician comparison page
+│   │   ├── styles.css           # All CSS styles and responsive design
+│   │   └── script.js            # JavaScript functionality and animations
+│   └── backend/
+│       ├── server.js            # Express.js backend server
+│       ├── services/            # AI service integrations
+│       └── data/                # JSON data files
 ```
 
 ## 🎨 Technologies Used
@@ -134,15 +143,15 @@ The website is fully responsive and optimized for:
 
 ### Making Changes
 
-1. **Edit HTML**: Modify `index.html` for content and structure
-2. **Edit Styles**: Update `styles.css` for visual changes
-3. **Edit JavaScript**: Modify `script.js` for functionality
+1. **Edit HTML**: Modify files in `src/frontend/` for content and structure
+2. **Edit Styles**: Update `src/frontend/styles.css` for visual changes
+3. **Edit JavaScript**: Modify `src/frontend/script.js` for functionality
 
 ### Adding New Features
 
-1. **New Section**: Add HTML structure to `index.html`
-2. **Styling**: Add CSS rules to `styles.css`
-3. **Interactivity**: Add JavaScript functions to `script.js`
+1. **New Section**: Add HTML structure to the appropriate HTML file in `src/frontend/`
+2. **Styling**: Add CSS rules to `src/frontend/styles.css`
+3. **Interactivity**: Add JavaScript functions to `src/frontend/script.js`
 
 ## 📄 License
 
