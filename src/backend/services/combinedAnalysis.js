@@ -49,7 +49,7 @@ You are analyzing the OVERALL promise-keeping record for ${presidentName} based 
 
 ${promiseDetails}
 
-Provide a comprehensive overall assessment following the VoteVerify System Prompt guidelines.
+Provide a comprehensive overall assessment following the Votify System Prompt guidelines.
 
 Your analysis must include:
 

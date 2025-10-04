@@ -37,10 +37,14 @@ app.get('/', (req, res) => {
       'POST /api/analyze-promise': 'Analyze specific promise',
       'POST /api/analyze-combined': 'Analyze multiple promises with overall score and verdict',
       'POST /api/analyze-combined-validated': 'Analyze promises with bias detection and auto-reloop',
-      'POST /api/bias-check': 'Check a response for bias and quality issues (single AI)',
+
       'POST /api/multi-ai-bias-check': 'Check response with multiple AIs (Gemini + Cloudflare)',
+
+      'POST /api/bias-check': 'Check a response for bias and quality issues',
+      'POST /api/market-chart': 'Generate real market chart data for specific policy/industry',
+
       'GET /api/stats': 'Get dashboard statistics',
-      'GET /api/system-prompt': 'Get VoteVerify system prompt for analysis'
+      'GET /api/system-prompt': 'Get Votify system prompt for analysis'
     }
   });
 });
@@ -103,9 +107,7 @@ app.get('/api/promises/enrich', async (req, res) => {
     
     // Run Python stock analyzer (it will update promises.json in place)
     const pythonScript = path.join(__dirname, 'services', 'stock_analyzer.py');
-    const venvPython = path.join(__dirname, '../../venv/bin/python3');
-    const pythonCommand = venvPython; // Use venv python if available
-    
+
     const result = execSync(
       `"${pythonCommand}" "${pythonScript}"`,
       { 
@@ -320,6 +322,7 @@ app.post('/api/bias-check', async (req, res) => {
   }
 });
 
+
 // Multi-AI bias check (Gemini + Cloudflare consensus)
 app.post('/api/multi-ai-bias-check', async (req, res) => {
   try {
@@ -357,6 +360,7 @@ app.post('/api/multi-ai-bias-check', async (req, res) => {
 });
 
 // Get VoteVerify system prompt
+
 app.get('/api/system-prompt', (req, res) => {
   try {
     const pythonScriptPath = path.join(__dirname, 'services', 'system_prompt.py');
@@ -378,7 +382,7 @@ app.get('/api/system-prompt', (req, res) => {
       length: systemPrompt.length,
       metadata: {
         version: '1.0.0',
-        type: 'VoteVerify Comprehensive Analysis System',
+        type: 'Votify Comprehensive Analysis System',
         features: [
           'Dual scoring system (1-5 and 0-100)',
           'Fuzzy matching algorithm',
@@ -438,10 +442,10 @@ app.get('/api/stats', async (req, res) => {
 });
 
 /**
- * Run Python VoteVerify validation on a promise
- * Calls test_voteverify.py analyze_backend_promise()
+ * Run Python Votify validation on a promise
+ * Calls test_Votify.py analyze_backend_promise()
  */
-async function runVoteVerifyValidation(promise) {
+async function runVotifyValidation(promise) {
   return new Promise((resolve, reject) => {
     // Create temporary file with promise data
     const tempFile = path.join('./data', `temp_promise_${Date.now()}.json`);
@@ -449,7 +453,7 @@ async function runVoteVerifyValidation(promise) {
     
     // Run Python validation script
     const python = spawn('python3', [
-      './python/validate_promise.py',  // We'll create this wrapper script
+      './services/validate_promise.py',  // We'll create this wrapper script
       tempFile
     ]);
     
@@ -483,16 +487,16 @@ async function runVoteVerifyValidation(promise) {
 }
 
 /**
- * Run bias checker on VoteVerify result
+ * Run bias checker on Votify result
  * Calls bias_checker.py
  */
-async function runBiasChecker(voteverifyResult) {
+async function runBiasChecker(VotifyResult) {
   return new Promise((resolve, reject) => {
     const tempFile = path.join('./data', `temp_result_${Date.now()}.json`);
-    fs.writeFileSync(tempFile, JSON.stringify(voteverifyResult));
+    fs.writeFileSync(tempFile, JSON.stringify(VotifyResult));
     
     const python = spawn('python3', [
-      './python/check_bias.py',
+      './services/check_bias.py',
       tempFile
     ]);
     
@@ -538,15 +542,15 @@ app.post('/api/validate-promise', async (req, res) => {
     
     console.log(`Validating promise: ${promise.promise.substring(0, 50)}...`);
     
-    // Layer 1: VoteVerify scoring
-    console.log('  Running VoteVerify analysis...');
-    const voteverifyResult = await runVoteVerifyValidation(promise);
+    // Layer 1: Votify scoring
+    console.log('  Running Votify analysis...');
+    const VotifyResult = await runVotifyValidation(promise);
     
-    console.log(`  VoteVerify scores: ${voteverifyResult.primary_score}/5, ${voteverifyResult.detailed_score}/100`);
+    console.log(`  Votify scores: ${VotifyResult.primary_score}/5, ${VotifyResult.detailed_score}/100`);
     
     // Layer 2: Bias checking
     console.log('  Running bias checker...');
-    const biasResult = await runBiasChecker(voteverifyResult);
+    const biasResult = await runBiasChecker(VotifyResult);
     
     console.log(`  Bias check: ${biasResult.finalDecision.action}`);
     
@@ -554,11 +558,11 @@ app.post('/api/validate-promise', async (req, res) => {
     const validation = {
       promise: promise.promise,
       president: promise.president,
-      voteverify: {
-        primary_score: voteverifyResult.primary_score,
-        detailed_score: voteverifyResult.detailed_score,
-        confidence: voteverifyResult.confidence,
-        analysis: voteverifyResult.analysis
+      Votify: {
+        primary_score: VotifyResult.primary_score,
+        detailed_score: VotifyResult.detailed_score,
+        confidence: VotifyResult.confidence,
+        analysis: VotifyResult.analysis
       },
       biasCheck: {
         biasScore: biasResult.biasDetection.score,
@@ -618,8 +622,8 @@ app.post('/api/validate-sample', async (req, res) => {
       
       try {
         // Run full validation pipeline
-        const voteverifyResult = await runVoteVerifyValidation(promise);
-        const biasResult = await runBiasChecker(voteverifyResult);
+        const VotifyResult = await runVotifyValidation(promise);
+        const biasResult = await runBiasChecker(VotifyResult);
         
         const decision = biasResult.finalDecision.action;
         
@@ -640,8 +644,8 @@ app.post('/api/validate-sample', async (req, res) => {
         results.details.push({
           promise: promise.promise.substring(0, 60) + '...',
           president: promise.president,
-          primary_score: voteverifyResult.primary_score,
-          detailed_score: voteverifyResult.detailed_score,
+          primary_score: VotifyResult.primary_score,
+          detailed_score: VotifyResult.detailed_score,
           bias_score: biasResult.biasDetection.score,
           hallucination_score: biasResult.hallucinationDetection.score,
           decision: decision
@@ -678,6 +682,68 @@ app.post('/api/validate-sample', async (req, res) => {
     console.error('Sampling validation error:', error);
     res.status(500).json({ 
       error: error.message 
+    });
+  }
+});
+
+// Generate market chart data for a specific policy
+app.post('/api/market-chart', async (req, res) => {
+  try {
+    const { promise, industry, promiseDate } = req.body;
+    
+    if (!promise || !industry || !promiseDate) {
+      return res.status(400).json({ 
+        error: 'Missing required fields',
+        message: 'Please provide promise, industry, and promiseDate'
+      });
+    }
+    
+    console.log(`Generating market chart for ${industry} after ${promiseDate}...`);
+    
+    // Run Python stock analyzer for specific industry and date
+    const pythonScript = path.join(__dirname, 'services', 'stock_analyzer.py');
+    const pythonCommand = 'python3'; // Use system Python3
+    
+    // Create temporary input file with the request data
+    const tempInputFile = path.join('./data', `temp_chart_${Date.now()}.json`);
+    const inputData = {
+      industry: industry,
+      promiseDate: promiseDate,
+      promise: promise
+    };
+    
+    await fs.writeFile(tempInputFile, JSON.stringify(inputData));
+    
+    const result = execSync(
+      `"${pythonCommand}" "${pythonScript}" --chart-data "${tempInputFile}"`,
+      { 
+        encoding: 'utf8',
+        maxBuffer: 50 * 1024 * 1024,
+        cwd: __dirname
+      }
+    );
+    
+    // Clean up temp file
+    await fs.unlink(tempInputFile);
+    
+    console.log('Stock analysis result:', result);
+    
+    // Parse the result
+    const chartData = JSON.parse(result);
+    
+    res.json({
+      success: true,
+      chartData: chartData,
+      industry: industry,
+      promiseDate: promiseDate,
+      generatedAt: new Date().toISOString()
+    });
+    
+  } catch (error) {
+    console.error('Market chart generation failed:', error);
+    res.status(500).json({ 
+      error: 'Failed to generate market chart',
+      message: error.message 
     });
   }
 });
