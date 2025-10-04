@@ -9,7 +9,7 @@
 
 import readline from 'readline';
 import { analyzePromise } from './services/gemini.js';
-import { quickBiasCheck } from './services/biasChecker.js';
+import { quickBiasCheck, validateWithReloop } from './services/biasChecker.js';
 import fs from 'fs/promises';
 
 // ANSI color codes
@@ -196,30 +196,37 @@ function displayStats(promises, presidentName) {
 
 // Get detailed analysis from VoteVerify
 async function getDetailedAnalysis(promise) {
-  log.info('Generating detailed VoteVerify analysis...\n');
+  log.info('Generating detailed VoteVerify analysis with quality validation...\n');
   
   try {
-    const analysis = await analyzePromise(promise);
+    // Generator function for reloop
+    const generateAnalysis = async (previousEvaluation) => {
+      console.log(`${colors.dim}🤖 Generating AI analysis...${colors.reset}`);
+      return await analyzePromise(promise);
+    };
     
-    // Bias check before displaying to user (silent quality control)
-    const biasCheck = await quickBiasCheck(
-      analysis,
-      `${promise.president} - ${promise.promise.substring(0, 50)}...`
+    // Validate with automatic reloop if needed
+    const result = await validateWithReloop(
+      generateAnalysis,
+      `${promise.president} - ${promise.promise.substring(0, 50)}...`,
+      3  // Max 3 attempts
     );
     
-    // Handle quality check results
-    if (biasCheck.passed) {
-      // Silent pass - user doesn't need to know about quality checks
-      // Analysis proceeds to display
-    } else if (biasCheck.needsReloop) {
-      // Show warning but no technical scores
-      console.log(`${colors.yellow}⚠️  Note: This analysis may have limitations. Please cross-reference with additional sources.${colors.reset}\n`);
-    } else if (biasCheck.rejected) {
-      // Response rejected - don't show it
-      log.error('Unable to generate reliable analysis for this promise at this time.');
-      console.log(`${colors.dim}The system detected potential quality issues. Please try again or contact support.${colors.reset}\n`);
-      return; // Don't show the response
+    // Handle validation results
+    if (!result.success) {
+      // Response rejected after all attempts
+      log.error('Unable to generate reliable analysis after multiple attempts.');
+      console.log(`${colors.dim}The system detected quality issues in all attempts. Please try a different promise.${colors.reset}\n`);
+      return;
     }
+    
+    // Show attempt info if reloop was needed
+    if (result.attempts > 1) {
+      console.log(`${colors.green}✓ Quality validated after ${result.attempts} attempts${colors.reset}\n`);
+    }
+    
+    // Use the validated analysis
+    const analysis = result.response;
     
     log.section('🔍 VOTEVERIFY DETAILED ANALYSIS');
     console.log(`\n${analysis.analysis}\n`);
@@ -256,17 +263,19 @@ async function getDetailedAnalysis(promise) {
   }
 }
 
-// Get combined analysis for all promises (uses backend API)
+// Get combined analysis for all promises (with reloop validation)
 async function getCombinedAnalysis(promises, presidentName) {
-  log.info('Calling backend API for combined analysis...\n');
+  log.info('Calling backend API for combined analysis with quality validation...\n');
   
   try {
-    const response = await fetch('http://localhost:3000/api/analyze-combined', {
+    // Use the validated endpoint that includes automatic reloop
+    const response = await fetch('http://localhost:3000/api/analyze-combined-validated', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         promises: promises,
-        president: presidentName
+        president: presidentName,
+        maxAttempts: 3
       })
     });
     
@@ -276,27 +285,21 @@ async function getCombinedAnalysis(promises, presidentName) {
     }
     
     const data = await response.json();
-    const result = data.analysis;
     
-    // Bias check before displaying to user (silent quality control)
-    const biasCheck = await quickBiasCheck(
-      result,
-      `${presidentName} combined promise analysis`
-    );
-    
-    // Handle quality check results
-    if (biasCheck.passed) {
-      // Silent pass - quality standards met
-      // Analysis proceeds to display
-    } else if (biasCheck.needsReloop) {
-      // Show warning but no technical scores
-      console.log(`${colors.yellow}⚠️  Note: This overall assessment may have limitations. Please cross-reference with additional sources.${colors.reset}\n`);
-    } else if (biasCheck.rejected) {
-      // Response rejected - don't show it
-      log.error('Unable to generate reliable overall assessment at this time.');
-      console.log(`${colors.dim}The system detected potential quality issues. Please try again or contact support.${colors.reset}\n`);
-      return; // Don't show the response
+    // Check if validation succeeded
+    if (!data.success) {
+      log.error('Unable to generate reliable overall assessment after multiple attempts.');
+      console.log(`${colors.dim}The system detected quality issues in all attempts.${colors.reset}\n`);
+      return;
     }
+    
+    // Show attempt info if reloop was needed
+    if (data.qualityCheck && data.qualityCheck.attempts > 1) {
+      console.log(`${colors.green}✓ Quality validated after ${data.qualityCheck.attempts} attempts${colors.reset}`);
+      console.log(`${colors.dim}  Bias: ${data.qualityCheck.biasScore}/100 | Hallucination: ${data.qualityCheck.hallucinationScore}/100 | Satisfaction: ${data.qualityCheck.satisfactionScore}/100${colors.reset}\n`);
+    }
+    
+    const result = data.analysis;
     
     // Display results
     log.header(`📊 OVERALL ASSESSMENT: ${presidentName.toUpperCase()}`);
