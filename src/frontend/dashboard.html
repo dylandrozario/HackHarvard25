@@ -66,25 +66,25 @@
                         <option value="Democratic">Democratic</option>
                         <option value="Independent">Independent</option>
                     </select>
-                </div>
+        </div>
 
                 <!-- Status Filter -->
                 <div class="mb-6">
                     <label class="block text-sm font-medium text-gray-700 mb-2">Promise Status</label>
                     <select id="statusFilter" class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-purple-500 focus:border-transparent">
-                        <option value="">All Status</option>
-                        <option value="kept">Kept</option>
-                        <option value="broken">Broken</option>
-                        <option value="partial">Partial</option>
-                    </select>
+                    <option value="">All Status</option>
+                    <option value="kept">Kept</option>
+                    <option value="broken">Broken</option>
+                    <option value="partial">Partial</option>
+                </select>
                 </div>
 
                 <!-- Category Filter -->
                 <div class="mb-6">
                     <label class="block text-sm font-medium text-gray-700 mb-2">Category</label>
                     <select id="categoryFilter" class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-purple-500 focus:border-transparent">
-                        <option value="">All Categories</option>
-                    </select>
+                    <option value="">All Categories</option>
+                </select>
                 </div>
 
                 <!-- Clear Filters Button -->
@@ -114,35 +114,72 @@
     </div>
 
     <!-- Analysis Modal -->
-    <div id="modal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-        <div class="bg-white rounded-xl p-8 max-w-3xl w-full max-h-[90vh] overflow-y-auto">
+    <div id="modal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50" onclick="handleModalBackdropClick(event)">
+        <div class="bg-white rounded-xl p-8 max-w-3xl w-full max-h-[90vh] overflow-y-auto" onclick="event.stopPropagation()">
             <div id="modalContent"></div>
             <button onclick="closeModal()" class="mt-6 px-6 py-3 bg-gray-500 text-white rounded-lg hover:bg-gray-600 transition">Close</button>
         </div>
     </div>
 
+    <!-- Loading Overlay -->
+    <div id="loadingOverlay" class="hidden fixed inset-0 bg-black bg-opacity-30 flex items-center justify-center z-50">
+        <div class="bg-white rounded-lg p-6 shadow-xl">
+            <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-purple-600 mx-auto"></div>
+            <p class="mt-4 text-gray-700 font-medium">Loading...</p>
+        </div>
+    </div>
+
     <script>
-        const API_BASE = 'http://localhost:3000/api';
+        // Configuration
+        const CONFIG = {
+            API_BASE: window.location.hostname === 'localhost' 
+                ? 'http://localhost:3000/api' 
+                : '/api'
+        };
+
+        // State management
         let allPromises = [];
         let currentFilters = { status: '', president: '', category: '', party: '' };
         let currentFeature = 'all'; // Track current feature selection
 
+        // Utility functions
+        function showLoading() {
+            document.getElementById('loadingOverlay').classList.remove('hidden');
+        }
+
+        function hideLoading() {
+            document.getElementById('loadingOverlay').classList.add('hidden');
+        }
+
+        function sanitizeHTML(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        function escapeJSON(obj) {
+            return JSON.stringify(obj)
+                .replace(/\\/g, '\\\\')
+                .replace(/'/g, "\\'")
+                .replace(/"/g, '&quot;');
+        }
+
         // Load promises
         async function loadPromises() {
+            showLoading();
             try {
-                const response = await fetch(`${API_BASE}/promises`);
+                const response = await fetch(`${CONFIG.API_BASE}/promises`);
                 
                 if (!response.ok) {
-                    document.getElementById('promises').innerHTML = `
-                        <div class="col-span-full bg-red-50 border border-red-200 rounded-lg p-8 text-center">
-                            <p class="text-red-600 font-semibold">No promises loaded</p>
-                            <p class="text-sm text-red-500 mt-2">Backend needs to generate data first at <code>http://localhost:3000/api/promises/generate</code></p>
-                        </div>
-                    `;
-                    return;
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
                 }
                 
                 allPromises = await response.json();
+                
+                if (!Array.isArray(allPromises)) {
+                    throw new Error('Invalid data format received from API');
+                }
+                
                 populateFilters();
                 loadStats();
                 renderPromises();
@@ -151,15 +188,22 @@
                 console.error('Failed to load promises:', error);
                 document.getElementById('promises').innerHTML = `
                     <div class="col-span-full bg-red-50 border border-red-200 rounded-lg p-8 text-center">
-                        <p class="text-red-600 font-semibold">Error: ${error.message}</p>
-                        <p class="text-sm text-red-500 mt-2">Make sure backend is running at ${API_BASE}</p>
+                        <p class="text-red-600 font-semibold text-lg mb-2">Failed to Load Data</p>
+                        <p class="text-sm text-red-500 mb-4">${sanitizeHTML(error.message)}</p>
+                        <p class="text-xs text-gray-600">Make sure the backend is running at <code class="bg-gray-100 px-2 py-1 rounded">${CONFIG.API_BASE}</code></p>
+                        <button onclick="loadPromises()" class="mt-4 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition">
+                            Retry
+                        </button>
                     </div>
                 `;
+                document.getElementById('stats').innerHTML = '';
+            } finally {
+                hideLoading();
             }
         }
 
         // Load stats
-        async function loadStats() {
+        function loadStats() {
             const stats = {
                 total: allPromises.length,
                 kept: allPromises.filter(p => p.status === 'kept').length,
@@ -167,26 +211,28 @@
                 partial: allPromises.filter(p => p.status === 'partial').length
             };
             
-            const accountabilityScore = stats.total > 0 ? Math.round((stats.kept / stats.total) * 100) : 0;
+            const accountabilityScore = stats.total > 0 
+                ? Math.round((stats.kept / stats.total) * 100) 
+                : 0;
             
             document.getElementById('stats').innerHTML = `
-                <div class="bg-white rounded-lg shadow-sm p-6">
+                <div class="bg-white rounded-lg shadow-sm p-6 hover:shadow-md transition">
                     <div class="text-3xl font-bold text-blue-600">${stats.total}</div>
                     <div class="text-sm text-gray-600 mt-1">Total Promises</div>
                 </div>
-                <div class="bg-white rounded-lg shadow-sm p-6">
+                <div class="bg-white rounded-lg shadow-sm p-6 hover:shadow-md transition">
                     <div class="text-3xl font-bold text-green-600">${stats.kept}</div>
                     <div class="text-sm text-gray-600 mt-1">Kept</div>
                 </div>
-                <div class="bg-white rounded-lg shadow-sm p-6">
+                <div class="bg-white rounded-lg shadow-sm p-6 hover:shadow-md transition">
                     <div class="text-3xl font-bold text-yellow-600">${stats.partial}</div>
                 <div class="text-sm text-gray-600 mt-1">Partial</div>
                 </div>
-                <div class="bg-white rounded-lg shadow-sm p-6">
+                <div class="bg-white rounded-lg shadow-sm p-6 hover:shadow-md transition">
                     <div class="text-3xl font-bold text-red-600">${stats.broken}</div>
                     <div class="text-sm text-gray-600 mt-1">Broken</div>
                 </div>
-                <div class="bg-white rounded-lg shadow-sm p-6">
+                <div class="bg-white rounded-lg shadow-sm p-6 hover:shadow-md transition">
                     <div class="text-3xl font-bold text-purple-600">${accountabilityScore}%</div>
                     <div class="text-sm text-gray-600 mt-1">Accountability Score</div>
                 </div>
@@ -195,17 +241,17 @@
 
         // Populate filters
         function populateFilters() {
-            const presidents = [...new Set(allPromises.map(p => p.president))];
-            const categories = [...new Set(allPromises.map(p => p.category))];
+            const presidents = [...new Set(allPromises.map(p => p.president))].filter(Boolean);
+            const categories = [...new Set(allPromises.map(p => p.category))].filter(Boolean);
             
             document.getElementById('presidentFilter').innerHTML = `
                 <option value="">All Presidents</option>
-                ${presidents.map(p => `<option value="${p}">${p}</option>`).join('')}
+                ${presidents.map(p => `<option value="${sanitizeHTML(p)}">${sanitizeHTML(p)}</option>`).join('')}
             `;
             
             document.getElementById('categoryFilter').innerHTML = `
                 <option value="">All Categories</option>
-                ${categories.map(c => `<option value="${c}">${c}</option>`).join('')}
+                ${categories.map(c => `<option value="${sanitizeHTML(c)}">${sanitizeHTML(c)}</option>`).join('')}
             `;
         }
 
@@ -222,8 +268,12 @@
             
             if (filtered.length === 0) {
                 document.getElementById('promises').innerHTML = `
-                    <div class="text-center p-12 text-gray-500">
-                        No political figures match your filters
+                    <div class="col-span-full text-center p-12">
+                        <div class="text-gray-400 text-6xl mb-4">🔍</div>
+                        <p class="text-gray-500 text-lg font-medium">No political figures match your filters</p>
+                        <button onclick="resetFilters()" class="mt-4 px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition">
+                            Clear Filters
+                        </button>
                     </div>
                 `;
                 return;
@@ -258,7 +308,7 @@
                                 <h3 class="font-bold text-gray-900 text-lg">${figure.name}</h3>
                                 <span class="px-3 py-1 rounded-full text-xs font-semibold ${getPartyColor(figure.party)}">
                                     ${figure.party}
-                                </span>
+                        </span>
                             </div>
                             <p class="text-gray-600 text-sm">President of the United States</p>
                             <p class="text-gray-500 text-sm">${figure.servicePeriod}</p>
@@ -312,7 +362,7 @@
                         <button class="w-full bg-gradient-to-r from-purple-500 to-pink-600 text-white py-2 px-4 rounded-lg hover:from-purple-600 hover:to-pink-700 transition-all duration-300 font-medium">
                             VIEW DETAILED ANALYSIS
                         </button>
-                    </div>
+                        </div>
                 </div>
             `).join('');
         }
@@ -527,11 +577,32 @@
                     </div>
                 `;
             }
-        }
+            }
 
         function closeModal() {
             document.getElementById('modal').classList.add('hidden');
         }
+
+        function handleModalBackdropClick(event) {
+            if (event.target.id === 'modal') {
+                closeModal();
+            }
+        }
+
+        function resetFilters() {
+            currentFilters = { status: '', president: '', category: '' };
+            document.getElementById('statusFilter').value = '';
+            document.getElementById('presidentFilter').value = '';
+            document.getElementById('categoryFilter').value = '';
+            renderPromises();
+        }
+
+        // Keyboard shortcuts
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeModal();
+            }
+        });
 
         // Filter handlers
         document.getElementById('statusFilter').addEventListener('change', (e) => {
