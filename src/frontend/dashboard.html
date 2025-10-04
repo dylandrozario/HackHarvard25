@@ -66,34 +66,75 @@
     </div>
 
     <!-- Analysis Modal -->
-    <div id="modal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-        <div class="bg-white rounded-xl p-8 max-w-3xl w-full max-h-[90vh] overflow-y-auto">
+    <div id="modal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50" onclick="handleModalBackdropClick(event)">
+        <div class="bg-white rounded-xl p-8 max-w-3xl w-full max-h-[90vh] overflow-y-auto" onclick="event.stopPropagation()">
             <div id="modalContent"></div>
             <button onclick="closeModal()" class="mt-6 px-6 py-3 bg-gray-500 text-white rounded-lg hover:bg-gray-600 transition">Close</button>
         </div>
     </div>
 
+    <!-- Loading Overlay -->
+    <div id="loadingOverlay" class="hidden fixed inset-0 bg-black bg-opacity-30 flex items-center justify-center z-50">
+        <div class="bg-white rounded-lg p-6 shadow-xl">
+            <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-purple-600 mx-auto"></div>
+            <p class="mt-4 text-gray-700 font-medium">Loading...</p>
+        </div>
+    </div>
+
     <script>
-        const API_BASE = 'http://localhost:3000/api';
+        // Configuration
+        const CONFIG = {
+            API_BASE: window.location.hostname === 'localhost' 
+                ? 'http://localhost:3000/api' 
+                : '/api'
+        };
+
+        // State management
         let allPromises = [];
-        let currentFilters = { status: '', president: '', category: '' };
+        let currentFilters = { 
+            status: '', 
+            president: '', 
+            category: '' 
+        };
+
+        // Utility functions
+        function showLoading() {
+            document.getElementById('loadingOverlay').classList.remove('hidden');
+        }
+
+        function hideLoading() {
+            document.getElementById('loadingOverlay').classList.add('hidden');
+        }
+
+        function sanitizeHTML(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        function escapeJSON(obj) {
+            return JSON.stringify(obj)
+                .replace(/\\/g, '\\\\')
+                .replace(/'/g, "\\'")
+                .replace(/"/g, '&quot;');
+        }
 
         // Load promises
         async function loadPromises() {
+            showLoading();
             try {
-                const response = await fetch(`${API_BASE}/promises`);
+                const response = await fetch(`${CONFIG.API_BASE}/promises`);
                 
                 if (!response.ok) {
-                    document.getElementById('promises').innerHTML = `
-                        <div class="col-span-full bg-red-50 border border-red-200 rounded-lg p-8 text-center">
-                            <p class="text-red-600 font-semibold">No promises loaded</p>
-                            <p class="text-sm text-red-500 mt-2">Backend needs to generate data first at <code>http://localhost:3000/api/promises/generate</code></p>
-                        </div>
-                    `;
-                    return;
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
                 }
                 
                 allPromises = await response.json();
+                
+                if (!Array.isArray(allPromises)) {
+                    throw new Error('Invalid data format received from API');
+                }
+                
                 populateFilters();
                 loadStats();
                 renderPromises();
@@ -102,15 +143,22 @@
                 console.error('Failed to load promises:', error);
                 document.getElementById('promises').innerHTML = `
                     <div class="col-span-full bg-red-50 border border-red-200 rounded-lg p-8 text-center">
-                        <p class="text-red-600 font-semibold">Error: ${error.message}</p>
-                        <p class="text-sm text-red-500 mt-2">Make sure backend is running at ${API_BASE}</p>
+                        <p class="text-red-600 font-semibold text-lg mb-2">Failed to Load Data</p>
+                        <p class="text-sm text-red-500 mb-4">${sanitizeHTML(error.message)}</p>
+                        <p class="text-xs text-gray-600">Make sure the backend is running at <code class="bg-gray-100 px-2 py-1 rounded">${CONFIG.API_BASE}</code></p>
+                        <button onclick="loadPromises()" class="mt-4 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition">
+                            Retry
+                        </button>
                     </div>
                 `;
+                document.getElementById('stats').innerHTML = '';
+            } finally {
+                hideLoading();
             }
         }
 
         // Load stats
-        async function loadStats() {
+        function loadStats() {
             const stats = {
                 total: allPromises.length,
                 kept: allPromises.filter(p => p.status === 'kept').length,
@@ -118,26 +166,28 @@
                 partial: allPromises.filter(p => p.status === 'partial').length
             };
             
-            const accountabilityScore = stats.total > 0 ? Math.round((stats.kept / stats.total) * 100) : 0;
+            const accountabilityScore = stats.total > 0 
+                ? Math.round((stats.kept / stats.total) * 100) 
+                : 0;
             
             document.getElementById('stats').innerHTML = `
-                <div class="bg-white rounded-lg shadow-sm p-6">
+                <div class="bg-white rounded-lg shadow-sm p-6 hover:shadow-md transition">
                     <div class="text-3xl font-bold text-blue-600">${stats.total}</div>
                     <div class="text-sm text-gray-600 mt-1">Total Promises</div>
                 </div>
-                <div class="bg-white rounded-lg shadow-sm p-6">
+                <div class="bg-white rounded-lg shadow-sm p-6 hover:shadow-md transition">
                     <div class="text-3xl font-bold text-green-600">${stats.kept}</div>
                     <div class="text-sm text-gray-600 mt-1">Kept</div>
                 </div>
-                <div class="bg-white rounded-lg shadow-sm p-6">
+                <div class="bg-white rounded-lg shadow-sm p-6 hover:shadow-md transition">
                     <div class="text-3xl font-bold text-yellow-600">${stats.partial}</div>
-                <div class="text-sm text-gray-600 mt-1">Partial</div>
+                    <div class="text-sm text-gray-600 mt-1">Partial</div>
                 </div>
-                <div class="bg-white rounded-lg shadow-sm p-6">
+                <div class="bg-white rounded-lg shadow-sm p-6 hover:shadow-md transition">
                     <div class="text-3xl font-bold text-red-600">${stats.broken}</div>
                     <div class="text-sm text-gray-600 mt-1">Broken</div>
                 </div>
-                <div class="bg-white rounded-lg shadow-sm p-6">
+                <div class="bg-white rounded-lg shadow-sm p-6 hover:shadow-md transition">
                     <div class="text-3xl font-bold text-purple-600">${accountabilityScore}%</div>
                     <div class="text-sm text-gray-600 mt-1">Accountability Score</div>
                 </div>
@@ -146,17 +196,17 @@
 
         // Populate filters
         function populateFilters() {
-            const presidents = [...new Set(allPromises.map(p => p.president))];
-            const categories = [...new Set(allPromises.map(p => p.category))];
+            const presidents = [...new Set(allPromises.map(p => p.president))].filter(Boolean);
+            const categories = [...new Set(allPromises.map(p => p.category))].filter(Boolean);
             
             document.getElementById('presidentFilter').innerHTML = `
                 <option value="">All Presidents</option>
-                ${presidents.map(p => `<option value="${p}">${p}</option>`).join('')}
+                ${presidents.map(p => `<option value="${sanitizeHTML(p)}">${sanitizeHTML(p)}</option>`).join('')}
             `;
             
             document.getElementById('categoryFilter').innerHTML = `
                 <option value="">All Categories</option>
-                ${categories.map(c => `<option value="${c}">${c}</option>`).join('')}
+                ${categories.map(c => `<option value="${sanitizeHTML(c)}">${sanitizeHTML(c)}</option>`).join('')}
             `;
         }
 
@@ -171,42 +221,75 @@
             
             if (filtered.length === 0) {
                 document.getElementById('promises').innerHTML = `
-                    <div class="col-span-full text-center p-12 text-gray-500">
-                        No promises match your filters
+                    <div class="col-span-full text-center p-12">
+                        <div class="text-gray-400 text-6xl mb-4">🔍</div>
+                        <p class="text-gray-500 text-lg font-medium">No promises match your filters</p>
+                        <button onclick="resetFilters()" class="mt-4 px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition">
+                            Clear Filters
+                        </button>
                     </div>
                 `;
                 return;
             }
             
-            document.getElementById('promises').innerHTML = filtered.map(promise => `
-                <div class="bg-white rounded-lg shadow-sm hover:shadow-md transition p-6 cursor-pointer"
-                     onclick='openAnalysis(${JSON.stringify(promise).replace(/'/g, "&#39;")})'>
-                    
-                    <div class="flex justify-between items-start mb-4">
-                        <span class="px-3 py-1 rounded-full text-xs font-semibold ${getStatusColor(promise.status)}">
-                            ${promise.status.toUpperCase()}
-                        </span>
-                        <span class="px-3 py-1 rounded-full text-xs font-semibold ${getCredibilityColor(promise.credibilityLevel)}">
-                            ${promise.verified ? '✓ Verified' : '⚠ Unverified'}
-                        </span>
-                    </div>
-                    
-                    <h3 class="font-bold text-gray-900 mb-3 line-clamp-2">${promise.promise}</h3>
-                    
-                    <div class="text-sm text-gray-600 space-y-1 mb-4">
-                        <p class="font-semibold">${promise.president}</p>
-                        <p>${promise.date} • ${promise.category}</p>
-                    </div>
-                    
-                    ${promise.affectedIndustries?.length > 0 ? `
-                        <div class="flex flex-wrap gap-2">
-                            ${promise.affectedIndustries.slice(0, 3).map(ind => `
-                                <span class="px-2 py-1 bg-gray-100 text-gray-700 rounded text-xs">${ind.name}</span>
-                            `).join('')}
+            document.getElementById('promises').innerHTML = filtered.map((promise, index) => {
+                const safePromise = {
+                    id: promise.id || index,
+                    promise: sanitizeHTML(promise.promise || 'No description'),
+                    president: sanitizeHTML(promise.president || 'Unknown'),
+                    date: sanitizeHTML(promise.date || 'Unknown date'),
+                    category: sanitizeHTML(promise.category || 'Uncategorized'),
+                    status: promise.status || 'unknown',
+                    verified: Boolean(promise.verified),
+                    credibilityLevel: promise.credibilityLevel || 'unverified',
+                    affectedIndustries: Array.isArray(promise.affectedIndustries) ? promise.affectedIndustries : []
+                };
+
+                return `
+                    <div class="bg-white rounded-lg shadow-sm hover:shadow-md transition p-6 cursor-pointer"
+                         data-promise-id="${safePromise.id}">
+                        
+                        <div class="flex justify-between items-start mb-4">
+                            <span class="px-3 py-1 rounded-full text-xs font-semibold ${getStatusColor(safePromise.status)}">
+                                ${sanitizeHTML(safePromise.status.toUpperCase())}
+                            </span>
+                            <span class="px-3 py-1 rounded-full text-xs font-semibold ${getCredibilityColor(safePromise.credibilityLevel)}">
+                                ${safePromise.verified ? '✓ Verified' : '⚠ Unverified'}
+                            </span>
                         </div>
-                    ` : ''}
-                </div>
-            `).join('');
+                        
+                        <h3 class="font-bold text-gray-900 mb-3 line-clamp-2">${safePromise.promise}</h3>
+                        
+                        <div class="text-sm text-gray-600 space-y-1 mb-4">
+                            <p class="font-semibold">${safePromise.president}</p>
+                            <p>${safePromise.date} • ${safePromise.category}</p>
+                        </div>
+                        
+                        ${safePromise.affectedIndustries.length > 0 ? `
+                            <div class="flex flex-wrap gap-2">
+                                ${safePromise.affectedIndustries.slice(0, 3).map(ind => `
+                                    <span class="px-2 py-1 bg-gray-100 text-gray-700 rounded text-xs">
+                                        ${sanitizeHTML(ind.name || ind)}
+                                    </span>
+                                `).join('')}
+                            </div>
+                        ` : ''}
+                    </div>
+                `;
+            }).join('');
+
+            // Add click handlers
+            document.querySelectorAll('[data-promise-id]').forEach((card, index) => {
+                card.addEventListener('click', () => {
+                    const filtered = allPromises.filter(p => {
+                        if (currentFilters.status && p.status !== currentFilters.status) return false;
+                        if (currentFilters.president && p.president !== currentFilters.president) return false;
+                        if (currentFilters.category && p.category !== currentFilters.category) return false;
+                        return true;
+                    });
+                    openAnalysis(filtered[index]);
+                });
+            });
         }
 
         function getStatusColor(status) {
@@ -229,56 +312,111 @@
         }
 
         async function openAnalysis(promise) {
-            const response = await fetch('http://localhost:3000/api/cross-verify', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ promise: promise.promise })
-            });
-
-            if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-            }
-
-            const result = await crossCheck.json();
-
-            // Display comparison
-            document.getElementById('modalContent').innerHTML = `
-            <h2 class="text-2xl font-bold mb-4">${promise.promise}</h2>
+            const modal = document.getElementById('modal');
+            const modalContent = document.getElementById('modalContent');
             
-            ${result.biasWarning ? `
-                <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4 mb-4">
-                <p class="text-yellow-800"><strong>⚠️ ${result.biasWarning}</strong></p>
-                <p class="text-sm text-yellow-700">AIs disagree - review sources carefully</p>
+            // Show modal with loading state
+            modal.classList.remove('hidden');
+            modalContent.innerHTML = `
+                <div class="text-center py-12">
+                    <div class="animate-spin rounded-full h-16 w-16 border-b-2 border-purple-600 mx-auto mb-4"></div>
+                    <p class="text-gray-600">Analyzing promise...</p>
                 </div>
-            ` : ''}
-            
-            <div class="grid grid-cols-2 gap-4 mb-6">
-                <div class="border-l-4 border-purple-500 pl-4">
-                <h3 class="font-bold text-purple-700 mb-2">Gemini Analysis</h3>
-                <p class="text-sm text-gray-700">${result.gemini.analysis}</p>
-                <p class="text-xs text-purple-600 mt-2">Confidence: ${result.gemini.confidence}%</p>
-                </div>
-                <div class="border-l-4 border-blue-500 pl-4">
-                <h3 class="font-bold text-blue-700 mb-2">Perplexity Verification</h3>
-                <p class="text-sm text-gray-700">${result.perplexity.analysis}</p>
-                <p class="text-xs text-blue-600 mt-2">Sources: ${result.perplexity.sources.length}</p>
-                </div>
-            </div>
-            
-            <div class="bg-gray-100 p-4 rounded">
-                <strong>AI Agreement Score: ${result.agreementScore}%</strong>
-                <div class="w-full bg-gray-300 rounded-full h-2 mt-2">
-                <div class="bg-green-500 h-2 rounded-full" style="width: ${result.agreementScore}%"></div>
-                </div>
-            </div>
             `;
+
+            try {
+                const response = await fetch(`${CONFIG.API_BASE}/cross-verify`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ 
+                        promise: promise.promise || 'No description available'
+                    })
+                });
+
+                if (!response.ok) {
+                    throw new Error(`Analysis failed: ${response.status} ${response.statusText}`);
+                }
+
+                const result = await response.json();
+
+                // Display comparison
+                modalContent.innerHTML = `
+                    <h2 class="text-2xl font-bold mb-4">${sanitizeHTML(promise.promise)}</h2>
+                    
+                    ${result.biasWarning ? `
+                        <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4 mb-4">
+                            <p class="text-yellow-800"><strong>⚠️ ${sanitizeHTML(result.biasWarning)}</strong></p>
+                            <p class="text-sm text-yellow-700">AIs disagree - review sources carefully</p>
+                        </div>
+                    ` : ''}
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                        <div class="border-l-4 border-purple-500 pl-4 bg-purple-50 p-4 rounded">
+                            <h3 class="font-bold text-purple-700 mb-2">Gemini Analysis</h3>
+                            <p class="text-sm text-gray-700 mb-2">${sanitizeHTML(result.gemini?.analysis || 'No analysis available')}</p>
+                            <p class="text-xs text-purple-600 font-semibold">Confidence: ${result.gemini?.confidence || 0}%</p>
+                        </div>
+                        <div class="border-l-4 border-blue-500 pl-4 bg-blue-50 p-4 rounded">
+                            <h3 class="font-bold text-blue-700 mb-2">Perplexity Verification</h3>
+                            <p class="text-sm text-gray-700 mb-2">${sanitizeHTML(result.perplexity?.analysis || 'No verification available')}</p>
+                            <p class="text-xs text-blue-600 font-semibold">Sources: ${result.perplexity?.sources?.length || 0}</p>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-gray-100 p-4 rounded">
+                        <div class="flex justify-between items-center mb-2">
+                            <strong class="text-gray-800">AI Agreement Score</strong>
+                            <span class="text-2xl font-bold text-gray-900">${result.agreementScore || 0}%</span>
+                        </div>
+                        <div class="w-full bg-gray-300 rounded-full h-3">
+                            <div class="bg-gradient-to-r from-purple-500 to-blue-500 h-3 rounded-full transition-all duration-500" 
+                                 style="width: ${result.agreementScore || 0}%"></div>
+                        </div>
+                    </div>
+                `;
+            } catch (error) {
+                console.error('Analysis failed:', error);
+                modalContent.innerHTML = `
+                    <div class="text-center py-8">
+                        <div class="text-red-500 text-5xl mb-4">⚠️</div>
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">Analysis Failed</h3>
+                        <p class="text-red-600 mb-4">${sanitizeHTML(error.message)}</p>
+                        <p class="text-sm text-gray-600 mb-4">The cross-verification service may be unavailable.</p>
+                        <button onclick="openAnalysis(${escapeJSON(promise)})" 
+                                class="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition">
+                            Retry
+                        </button>
+                    </div>
+                `;
             }
+        }
 
         function closeModal() {
             document.getElementById('modal').classList.add('hidden');
         }
+
+        function handleModalBackdropClick(event) {
+            if (event.target.id === 'modal') {
+                closeModal();
+            }
+        }
+
+        function resetFilters() {
+            currentFilters = { status: '', president: '', category: '' };
+            document.getElementById('statusFilter').value = '';
+            document.getElementById('presidentFilter').value = '';
+            document.getElementById('categoryFilter').value = '';
+            renderPromises();
+        }
+
+        // Keyboard shortcuts
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeModal();
+            }
+        });
 
         // Filter handlers
         document.getElementById('statusFilter').addEventListener('change', (e) => {
