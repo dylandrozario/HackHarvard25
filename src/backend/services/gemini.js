@@ -1,11 +1,31 @@
 import { GoogleGenAI } from "@google/genai";
 import 'dotenv/config';
 
-const ai = new GoogleGenAI({ 
-  apiKey: process.env.GEMINI_API_KEY 
-});
+// Initialize client only if API key is available
+let ai = null;
+if (process.env.GEMINI_API_KEY && process.env.GEMINI_API_KEY !== 'placeholder_key') {
+  try {
+    ai = new GoogleGenAI({ 
+      apiKey: process.env.GEMINI_API_KEY 
+    });
+  } catch (error) {
+    console.warn('⚠️  Gemini API key invalid or missing. Using mock data.');
+  }
+}
 
 export async function parsePromisesFromText(rawText, president) {
+  if (!ai) {
+    return [{
+      president: president,
+      promise: "Mock promise: Improve healthcare access",
+      date: "2021-01-20",
+      category: "Healthcare",
+      status: "partial",
+      source: "https://example.gov/mock",
+      evidence: "Mock evidence"
+    }];
+  }
+
   const prompt = `
 Extract political promises from this text into structured JSON.
 
@@ -52,6 +72,16 @@ Return ONLY a valid JSON array (no markdown, no explanation):
 }
 
 export async function analyzePromise(promise) {
+  if (!ai) {
+    return {
+      analysis: `Mock analysis for: ${promise.promise}`,
+      confidence: 0.5,
+      developments: ["Mock development 1", "Mock development 2"],
+      credibilityLevel: "medium",
+      error: "Gemini API key not configured"
+    };
+  }
+
   const prompt = `
 Analyze this political promise:
 

@@ -1,11 +1,29 @@
 import Perplexity from '@perplexity-ai/perplexity_ai';
 import 'dotenv/config';
 
-const client = new Perplexity({
-  apiKey: process.env.PERPLEXITY_API_KEY
-});
+// Initialize client only if API key is available
+let client = null;
+if (process.env.PERPLEXITY_API_KEY && process.env.PERPLEXITY_API_KEY !== 'placeholder_key') {
+  try {
+    client = new Perplexity({
+      apiKey: process.env.PERPLEXITY_API_KEY
+    });
+  } catch (error) {
+    console.warn('⚠️  Perplexity API key invalid or missing. Using mock data.');
+  }
+}
 
 export async function findRealPromises(president, yearStart, yearEnd, count = 5) {
+  if (!client) {
+    return {
+      rawText: `Mock data for ${president}: Sample political promises during ${yearStart}-${yearEnd}`,
+      sources: ['https://example.gov/sample'],
+      verified: false,
+      hasContent: true,
+      error: 'Perplexity API key not configured'
+    };
+  }
+
   const searchQuery = `
 Find ${count} specific, verifiable political promises made by ${president} during ${yearStart}-${yearEnd}.
 
@@ -81,6 +99,16 @@ Format each promise clearly with its source URL.
 }
 
 export async function verifyPromise(promise) {
+  if (!client) {
+    return {
+      verified: false,
+      analysis: `Mock verification for: ${promise.promise || 'promise'}`,
+      sources: ['https://example.gov/mock'],
+      credibilityLevel: 'unverified',
+      error: 'Perplexity API key not configured'
+    };
+  }
+
   const searchQuery = `
 Verify this political promise with authoritative sources:
 

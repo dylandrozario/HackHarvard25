@@ -1,5 +1,5 @@
 """
-Wrapper script for VoteVerify validation
+Wrapper script for Votify validation
 Called by Node.js API to validate a single promise
 """
 
@@ -8,15 +8,15 @@ import json
 import os
 from .env import GEMINI_API_KEY
 
-# Add parent directory to path to import test_voteverify
+# Add parent directory to path to import test_Votify
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
-from test_voteverify import VoteVerifyAnalyzer
+from backend.services.test_votify import VotifyAnalyzer
 
 
 def validate_promise(promise_data):
     """
-    Validate a single promise using VoteVerify
+    Validate a single promise using Votify
     
     Args:
         promise_data: Dict with promise from promises.json
@@ -34,8 +34,8 @@ def validate_promise(promise_data):
         }
     
     try:
-        # Initialize VoteVerify analyzer
-        analyzer = VoteVerifyAnalyzer(api_key=api_key)
+        # Initialize Votify analyzer
+        analyzer = VotifyAnalyzer(api_key=api_key)
         
         # Run analysis using analyze_backend_promise
         result = analyzer.analyze_backend_promise(promise_data)
