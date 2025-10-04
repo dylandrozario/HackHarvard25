@@ -8,6 +8,7 @@ import { generateVerifiedPromises } from './services/dataGenerator.js';
 import { analyzePromise } from './services/gemini.js';
 import { verifyPromise } from './services/perplexity.js';
 import { analyzeCombinedPromises, getPromiseStatistics } from './services/combinedAnalysis.js';
+import { evaluateResponse, validateWithReloop, quickBiasCheck } from './services/biasChecker.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -29,6 +30,8 @@ app.get('/', (req, res) => {
       'GET /api/promises/enrich': 'Add stock market analysis to existing promises',
       'POST /api/analyze-promise': 'Analyze specific promise',
       'POST /api/analyze-combined': 'Analyze multiple promises with overall score and verdict',
+      'POST /api/analyze-combined-validated': 'Analyze promises with bias detection and auto-reloop',
+      'POST /api/bias-check': 'Check a response for bias and quality issues',
       'GET /api/stats': 'Get dashboard statistics',
       'GET /api/system-prompt': 'Get VoteVerify system prompt for analysis'
     }
@@ -189,6 +192,114 @@ app.post('/api/analyze-combined', async (req, res) => {
     console.error('Combined analysis failed:', error);
     res.status(500).json({ 
       error: 'Failed to analyze combined promises',
+      message: error.message 
+    });
+  }
+});
+
+// Analyze combined promises with bias detection and auto-reloop
+app.post('/api/analyze-combined-validated', async (req, res) => {
+  try {
+    const { promises, president, maxAttempts = 3 } = req.body;
+    
+    if (!promises || !Array.isArray(promises) || promises.length === 0) {
+      return res.status(400).json({ 
+        error: 'Array of promises required',
+        message: 'Please provide an array of promise objects in the request body'
+      });
+    }
+    
+    const presidentName = president || promises[0].president || 'Unknown';
+    
+    console.log(`Analyzing ${promises.length} promises for ${presidentName} with bias detection...`);
+    
+    // Generator function that can be called multiple times if reloop needed
+    const generateAnalysis = async (previousEvaluation) => {
+      console.log('🤖 Generating analysis...');
+      
+      // Get basic statistics
+      const stats = getPromiseStatistics(promises);
+      
+      // Get AI-powered combined analysis
+      const analysis = await analyzeCombinedPromises(promises, presidentName);
+      
+      return {
+        president: presidentName,
+        promisesAnalyzed: promises.length,
+        statistics: stats,
+        analysis: analysis,
+        generatedAt: new Date().toISOString()
+      };
+    };
+    
+    // Validate with automatic reloop
+    const result = await validateWithReloop(
+      generateAnalysis,
+      `${presidentName} combined promise analysis`,
+      maxAttempts
+    );
+    
+    if (result.success) {
+      res.json({
+        success: true,
+        validated: true,
+        ...result.response,
+        qualityCheck: {
+          biasScore: result.evaluation.biasDetection.score,
+          hallucinationScore: result.evaluation.hallucinationDetection.score,
+          satisfactionScore: result.evaluation.overallSatisfaction.score,
+          decision: result.evaluation.finalDecision.action,
+          attempts: result.attempts
+        },
+        warning: result.warning || null
+      });
+    } else {
+      res.status(500).json({
+        success: false,
+        error: result.error,
+        attempts: result.attempts,
+        lastEvaluation: result.evaluation
+      });
+    }
+    
+  } catch (error) {
+    console.error('Validated combined analysis failed:', error);
+    res.status(500).json({ 
+      error: 'Failed to analyze and validate combined promises',
+      message: error.message 
+    });
+  }
+});
+
+// Check a response for bias and quality issues
+app.post('/api/bias-check', async (req, res) => {
+  try {
+    const { response, context = 'Promise analysis' } = req.body;
+    
+    if (!response) {
+      return res.status(400).json({ 
+        error: 'Response required',
+        message: 'Please provide a response object or text to evaluate'
+      });
+    }
+    
+    console.log(`Running bias check on: ${context}`);
+    
+    const result = await quickBiasCheck(response, context);
+    
+    res.json({
+      success: true,
+      passed: result.passed,
+      needsReloop: result.needsReloop,
+      rejected: result.rejected,
+      evaluation: result.evaluation,
+      checkedAt: new Date().toISOString()
+    });
+    
+  } catch (error) {
+    console.error('Bias check failed:', error);
+    res.status(500).json({ 
+      error: 'Failed to check for bias',
       message: error.message 
     });
   }

@@ -9,6 +9,7 @@
 
 import readline from 'readline';
 import { analyzePromise } from './services/gemini.js';
+import { quickBiasCheck } from './services/biasChecker.js';
 import fs from 'fs/promises';
 
 // ANSI color codes
@@ -200,6 +201,26 @@ async function getDetailedAnalysis(promise) {
   try {
     const analysis = await analyzePromise(promise);
     
+    // Bias check before displaying to user (silent quality control)
+    const biasCheck = await quickBiasCheck(
+      analysis,
+      `${promise.president} - ${promise.promise.substring(0, 50)}...`
+    );
+    
+    // Handle quality check results
+    if (biasCheck.passed) {
+      // Silent pass - user doesn't need to know about quality checks
+      // Analysis proceeds to display
+    } else if (biasCheck.needsReloop) {
+      // Show warning but no technical scores
+      console.log(`${colors.yellow}⚠️  Note: This analysis may have limitations. Please cross-reference with additional sources.${colors.reset}\n`);
+    } else if (biasCheck.rejected) {
+      // Response rejected - don't show it
+      log.error('Unable to generate reliable analysis for this promise at this time.');
+      console.log(`${colors.dim}The system detected potential quality issues. Please try again or contact support.${colors.reset}\n`);
+      return; // Don't show the response
+    }
+    
     log.section('🔍 VOTEVERIFY DETAILED ANALYSIS');
     console.log(`\n${analysis.analysis}\n`);
     
@@ -256,6 +277,26 @@ async function getCombinedAnalysis(promises, presidentName) {
     
     const data = await response.json();
     const result = data.analysis;
+    
+    // Bias check before displaying to user (silent quality control)
+    const biasCheck = await quickBiasCheck(
+      result,
+      `${presidentName} combined promise analysis`
+    );
+    
+    // Handle quality check results
+    if (biasCheck.passed) {
+      // Silent pass - quality standards met
+      // Analysis proceeds to display
+    } else if (biasCheck.needsReloop) {
+      // Show warning but no technical scores
+      console.log(`${colors.yellow}⚠️  Note: This overall assessment may have limitations. Please cross-reference with additional sources.${colors.reset}\n`);
+    } else if (biasCheck.rejected) {
+      // Response rejected - don't show it
+      log.error('Unable to generate reliable overall assessment at this time.');
+      console.log(`${colors.dim}The system detected potential quality issues. Please try again or contact support.${colors.reset}\n`);
+      return; // Don't show the response
+    }
     
     // Display results
     log.header(`📊 OVERALL ASSESSMENT: ${presidentName.toUpperCase()}`);
