@@ -545,7 +545,7 @@ body::before {
   margin-bottom: 16px;
 }
 
-.tech-stack-subtitle {
+.tech-stack p {
   font-size: 1.2rem;
   color: #6b7280;
   max-width: 600px;
@@ -560,42 +560,37 @@ body::before {
   margin-bottom: 80px;
 }
 
-.tech-btn-primary {
-  background: #1a1a1a;
-  color: white;
-  border: none;
+.tech-btn {
   padding: 12px 24px;
   border-radius: 8px;
   font-weight: 600;
   font-size: 1rem;
   cursor: pointer;
   transition: all 0.2s ease;
-  display: flex;
+  border: none;
+  text-decoration: none;
+  display: inline-flex;
   align-items: center;
   gap: 8px;
 }
 
-.tech-btn-primary:hover {
+.tech-btn.primary {
+  background: #1a1a1a;
+  color: white;
+}
+
+.tech-btn.primary:hover {
   background: #333;
   transform: translateY(-1px);
 }
 
-.tech-btn-secondary {
+.tech-btn.secondary {
   background: white;
   color: #1a1a1a;
   border: 1px solid #ced4da;
-  padding: 12px 24px;
-  border-radius: 8px;
-  font-weight: 600;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  display: flex;
-  align-items: center;
-  gap: 8px;
 }
 
-.tech-btn-secondary:hover {
+.tech-btn.secondary:hover {
   background: #f8f9fa;
   transform: translateY(-1px);
 }
@@ -1031,62 +1026,6 @@ body::before {
   font-size: 14px;
 }
 
-
-/* Results Section */
-.results-section {
-  padding: 80px 0;
-  background: white;
-}
-
-.result-card {
-  background: white;
-  border: 1px solid #e5e7eb;
-  border-radius: 12px;
-  padding: 24px;
-  margin-bottom: 16px;
-  transition: all 0.2s ease;
-}
-
-.result-card:hover {
-  border-color: #d1d5db;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-}
-
-.result-header {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin-bottom: 12px;
-}
-
-.result-status {
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-}
-
-.result-status.verified {
-  background: #10b981;
-}
-
-.result-status.false {
-  background: #ef4444;
-}
-
-.result-status.unverified {
-  background: #f59e0b;
-}
-
-.result-title {
-  font-weight: 600;
-  color: #1a1a1a;
-}
-
-.result-text {
-  color: #6b7280;
-  line-height: 1.5;
-}
-
 /* Responsive design */
 @media (max-width: 768px) {
   .navbar {
@@ -1198,14 +1137,6 @@ body::before {
   
   .footer-social {
     justify-content: center;
-  }
-  
-  .feature-card {
-    padding: 32px 24px;
-  }
-  
-  .upload-area {
-    padding: 40px 24px;
   }
   
   .container {
