@@ -6,6 +6,7 @@ import { spawn } from 'child_process';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { generateVerifiedPromises } from './services/dataGenerator.js';
+// import { crossVerifyPromise } from './services/crossVertification.js';
 import { analyzePromise } from './services/gemini.js';
 import { verifyPromise } from './services/perplexity.js';
 import { analyzeCombinedPromises, getPromiseStatistics } from './services/combinedAnalysis.js';
@@ -17,6 +18,9 @@ const __dirname = path.dirname(__filename);
 const app = express();
 app.use(cors());
 app.use(express.json({ limit: '50mb' }));  // Increased limit for large promise datasets
+
+// Serve static files from frontend directory
+app.use(express.static(path.join(__dirname, '../frontend')));
 
 const CACHE_FILE = './data/promises.json';
 
