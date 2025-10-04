@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Votify - Political Promise Accountability Tracker</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @keyframes slideLeft {
+            from { transform: translateX(0); }
+            to { transform: translateX(-50%); }
+        }
+        .slide-track {
+            animation: slideLeft 20s linear infinite;
+            display: flex;
+            width: 200%;
+        }
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="landing.html" class="flex items-center gap-2">
+                <div class="w-10 h-10 gradient-bg rounded-lg flex items-center justify-center text-white font-bold text-xl">V</div>
+                <span class="text-2xl font-bold text-gray-900">Votify</span>
+            </a>
+            <div class="flex items-center gap-8">
+                <a href="#features" class="text-gray-600 hover:text-gray-900">Features</a>
+                <a href="#how-it-works" class="text-gray-600 hover:text-gray-900">How It Works</a>
+                <a href="dashboard.html" class="px-6 py-2 gradient-bg text-white rounded-lg hover:opacity-90 transition">View Dashboard</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="gradient-bg text-white py-20">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div>
+                    <h1 class="text-5xl font-bold mb-6">Track Political Promises with AI-Powered Verification</h1>
+                    <p class="text-xl text-purple-100 mb-8">
+                        Analyze campaign promises from Bush, Obama, Trump, and Biden. See which promises were kept, broken, or partially fulfilled—verified with real government sources.
+                    </p>
+                    <div class="flex gap-4">
+                        <a href="dashboard.html" class="px-8 py-4 bg-white text-purple-600 rounded-lg font-semibold hover:bg-gray-100 transition">
+                            View Dashboard
+                        </a>
+                        <a href="#demo" class="px-8 py-4 border-2 border-white text-white rounded-lg font-semibold hover:bg-white hover:text-purple-600 transition">
+                            See How It Works →
+                        </a>
+                    </div>
+                    <div class="mt-8 flex items-center gap-4">
+                        <div class="flex -space-x-2">
+                            <div class="w-10 h-10 rounded-full bg-purple-400 flex items-center justify-center text-sm font-semibold">JB</div>
+                            <div class="w-10 h-10 rounded-full bg-purple-300 flex items-center justify-center text-sm font-semibold">DT</div>
+                            <div class="w-10 h-10 rounded-full bg-purple-200 flex items-center justify-center text-sm font-semibold">BO</div>
+                            <div class="w-10 h-10 rounded-full bg-purple-100 flex items-center justify-center text-sm font-semibold text-purple-800">GB</div>
+                        </div>
+                        <span class="text-purple-100">Tracking 20+ verified promises from 4 presidents</span>
+                    </div>
+                </div>
+                <div class="bg-white rounded-2xl shadow-2xl p-8">
+                    <div class="flex items-center gap-2 mb-4">
+                        <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                        <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                        <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                        <span class="ml-4 text-sm text-gray-500">votify.ai/dashboard</span>
+                    </div>
+                    <div class="bg-gray-900 rounded-lg p-6 text-green-400 font-mono text-sm">
+                        <div class="mb-2">// Live Promise Data</div>
+                        <div class="text-white">const promises = await fetch('/api/promises');</div>
+                        <div class="mt-4 text-gray-400">
+                            <div>✓ 20 promises verified</div>
+                            <div>✓ 13 kept (65%)</div>
+                            <div>✓ Sources: congress.gov, whitehouse.gov</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="py-20">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold text-gray-900 mb-4">How Votify Works</h2>
+                <p class="text-xl text-gray-600">AI-powered promise tracking with real source verification</p>
+            </div>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="bg-white p-8 rounded-xl shadow-sm hover:shadow-md transition">
+                    <div class="w-16 h-16 gradient-bg rounded-lg flex items-center justify-center text-3xl mb-4">🔍</div>
+                    <h3 class="text-2xl font-bold mb-3">AI Search & Verification</h3>
+                    <p class="text-gray-600">Perplexity AI searches the web for real political promises, then verifies them with official government sources (.gov, congress.gov).</p>
+                </div>
+                <div class="bg-white p-8 rounded-xl shadow-sm hover:shadow-md transition">
+                    <div class="w-16 h-16 gradient-bg rounded-lg flex items-center justify-center text-3xl mb-4">📊</div>
+                    <h3 class="text-2xl font-bold mb-3">Status Tracking</h3>
+                    <p class="text-gray-600">See which promises were kept, broken, or partially fulfilled. Filter by president, category, or industry impact.</p>
+                </div>
+                <div class="bg-white p-8 rounded-xl shadow-sm hover:shadow-md transition">
+                    <div class="w-16 h-16 gradient-bg rounded-lg flex items-center justify-center text-3xl mb-4">🏭</div>
+                    <h3 class="text-2xl font-bold mb-3">Industry Impact Analysis</h3>
+                    <p class="text-gray-600">Gemini AI analyzes how each promise affected specific industries—from healthcare to energy to defense.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Presidents Section -->
+    <section id="how-it-works" class="py-20 bg-gray-100">
+        <div class="max-w-7xl mx-auto px-6">
+            <h2 class="text-4xl font-bold text-center mb-4">Track Promises From Every President</h2>
+            <p class="text-center text-gray-600 mb-12">Click any president to see their promises</p>
+            <div class="overflow-hidden">
+                <div class="slide-track">
+                    <div class="flex gap-4 min-w-max">
+                        <div class="px-6 py-3 bg-white rounded-full shadow-sm whitespace-nowrap">George W. Bush</div>
+                        <div class="px-6 py-3 bg-white rounded-full shadow-sm whitespace-nowrap">Barack Obama</div>
+                        <div class="px-6 py-3 bg-white rounded-full shadow-sm whitespace-nowrap">Donald Trump</div>
+                        <div class="px-6 py-3 bg-white rounded-full shadow-sm whitespace-nowrap">Joe Biden</div>
+                        <div class="px-6 py-3 bg-white rounded-full shadow-sm whitespace-nowrap">George W. Bush</div>
+                        <div class="px-6 py-3 bg-white rounded-full shadow-sm whitespace-nowrap">Barack Obama</div>
+                        <div class="px-6 py-3 bg-white rounded-full shadow-sm whitespace-nowrap">Donald Trump</div>
+                        <div class="px-6 py-3 bg-white rounded-full shadow-sm whitespace-nowrap">Joe Biden</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tech Stack -->
+    <section class="py-20">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold mb-4">Powered by Advanced AI</h2>
+                <p class="text-xl text-gray-600">Real-time verification with cutting-edge technology</p>
+            </div>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="bg-gradient-to-br from-blue-500 to-purple-600 text-white p-8 rounded-2xl">
+                    <h3 class="text-2xl font-bold mb-4">Perplexity AI</h3>
+                    <p class="mb-4">Searches the web for real political promises and returns verified sources from government databases.</p>
+                    <div class="bg-white/20 rounded-lg p-4 font-mono text-sm">
+                        <div>const result = await perplexity.search(</div>
+                        <div className="ml-4">"Obama healthcare promises 2009"</div>
+                        <div>);</div>
+                        <div className="mt-2 text-blue-200">// Returns real .gov sources</div>
+                    </div>
+                </div>
+                <div class="bg-gradient-to-br from-purple-500 to-pink-600 text-white p-8 rounded-2xl">
+                    <h3 class="text-2xl font-bold mb-4">Gemini AI</h3>
+                    <p class="mb-4">Analyzes economic impacts and structures promise data for easy understanding.</p>
+                    <div class="bg-white/20 rounded-lg p-4 font-mono text-sm">
+                        <div>const analysis = await gemini.analyze(</div>
+                        <div className="ml-4">promise, industries</div>
+                        <div>);</div>
+                        <div className="mt-2 text-pink-200">// Industry impact predictions</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-6">
+            <h2 class="text-4xl font-bold text-center mb-12">What People Are Saying</h2>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="bg-white p-6 rounded-xl shadow-sm">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-12 h-12 gradient-bg rounded-full flex items-center justify-center text-white font-bold">SC</div>
+                        <div>
+                            <div class="font-bold">Sarah Chen</div>
+                            <div class="text-sm text-gray-500">Policy Researcher</div>
+                        </div>
+                    </div>
+                    <p class="text-gray-700">"Finally, a tool that shows me actual promise tracking with real sources. The industry impact analysis is incredibly helpful for my research."</p>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-sm">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-12 h-12 gradient-bg rounded-full flex items-center justify-center text-white font-bold">MR</div>
+                        <div>
+                            <div class="font-bold">Mike Rodriguez</div>
+                            <div class="text-sm text-gray-500">Political Analyst</div>
+                        </div>
+                    </div>
+                    <p class="text-gray-700">"Love how transparent Votify is about verification. Being able to click through to congress.gov and see the actual bills is game-changing."</p>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-sm">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-12 h-12 gradient-bg rounded-full flex items-center justify-center text-white font-bold">LP</div>
+                        <div>
+                            <div class="font-bold">Dr. Lisa Park</div>
+                            <div class="text-sm text-gray-500">Political Science Prof</div>
+                        </div>
+                    </div>
+                    <p class="text-gray-700">"I use Votify in my classes to teach students about political accountability. The AI verification layer is perfect for demonstrating fact-checking."</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="gradient-bg text-white py-20">
+        <div class="max-w-4xl mx-auto px-6 text-center">
+            <h2 class="text-4xl font-bold mb-6">Start Tracking Political Accountability Today</h2>
+            <p class="text-xl text-purple-100 mb-8">View verified promises from 4 presidents. No signup required.</p>
+            <a href="dashboard.html" class="inline-block px-10 py-4 bg-white text-purple-600 rounded-lg font-bold text-lg hover:bg-gray-100 transition">
+                View Dashboard →
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-gray-300 py-12">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="flex justify-between items-center">
+                <div>
+                    <div class="flex items-center gap-2 mb-4">
+                        <div class="w-10 h-10 gradient-bg rounded-lg flex items-center justify-center text-white font-bold">V</div>
+                        <span class="text-xl font-bold text-white">Votify</span>
+                    </div>
+                    <p class="text-gray-400">AI-powered political promise accountability tracker</p>
+                </div>
+                <div class="text-sm text-gray-500">
+                    © 2025 Votify. Built for HackHarvard 2025.
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

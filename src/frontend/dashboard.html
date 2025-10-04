@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Votify Dashboard - Promise Tracker</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50">
+    
+    <!-- Navigation -->
+    <nav class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="landing.html" class="flex items-center gap-2">
+                <div class="w-10 h-10 bg-gradient-to-br from-purple-500 to-pink-600 rounded-lg flex items-center justify-center text-white font-bold text-xl">V</div>
+                <span class="text-2xl font-bold text-gray-900">Votify</span>
+            </a>
+            <div class="flex items-center gap-4">
+                <span class="text-sm text-gray-500">Demo User</span>
+                <div class="w-8 h-8 bg-gray-300 rounded-full flex items-center justify-center text-sm font-bold">D</div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Warning Banner -->
+    <div class="bg-yellow-50 border-b border-yellow-200">
+        <div class="max-w-7xl mx-auto px-6 py-3">
+            <p class="text-sm text-yellow-800">
+                <strong>Demo Mode:</strong> Data verified using AI search (Perplexity) with government sources. Users should verify important claims via provided links.
+            </p>
+        </div>
+    </div>
+
+    <!-- Stats Dashboard -->
+    <div class="max-w-7xl mx-auto px-6 py-8">
+        <h1 class="text-3xl font-bold mb-6">Political Promise Tracker</h1>
+        
+        <div id="stats" class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+            <!-- Stats cards inserted here by JavaScript -->
+        </div>
+
+        <!-- Filters -->
+        <div class="bg-white rounded-lg shadow-sm p-4 mb-6">
+            <div class="flex flex-wrap gap-4">
+                <select id="statusFilter" class="border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-purple-500 focus:border-transparent">
+                    <option value="">All Status</option>
+                    <option value="kept">Kept</option>
+                    <option value="broken">Broken</option>
+                    <option value="partial">Partial</option>
+                </select>
+                
+                <select id="presidentFilter" class="border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-purple-500 focus:border-transparent">
+                    <option value="">All Presidents</option>
+                </select>
+
+                <select id="categoryFilter" class="border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-purple-500 focus:border-transparent">
+                    <option value="">All Categories</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Promises Grid -->
+        <div id="promises" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Promise cards inserted here -->
+        </div>
+    </div>
+
+    <!-- Analysis Modal -->
+    <div id="modal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+        <div class="bg-white rounded-xl p-8 max-w-3xl w-full max-h-[90vh] overflow-y-auto">
+            <div id="modalContent"></div>
+            <button onclick="closeModal()" class="mt-6 px-6 py-3 bg-gray-500 text-white rounded-lg hover:bg-gray-600 transition">Close</button>
+        </div>
+    </div>
+
+    <script>
+        const API_BASE = 'http://localhost:3000/api';
+        let allPromises = [];
+        let currentFilters = { status: '', president: '', category: '' };
+
+        // Load promises
+        async function loadPromises() {
+            try {
+                const response = await fetch(`${API_BASE}/promises`);
+                
+                if (!response.ok) {
+                    document.getElementById('promises').innerHTML = `
+                        <div class="col-span-full bg-red-50 border border-red-200 rounded-lg p-8 text-center">
+                            <p class="text-red-600 font-semibold">No promises loaded</p>
+                            <p class="text-sm text-red-500 mt-2">Backend needs to generate data first at <code>http://localhost:3000/api/promises/generate</code></p>
+                        </div>
+                    `;
+                    return;
+                }
+                
+                allPromises = await response.json();
+                populateFilters();
+                loadStats();
+                renderPromises();
+                
+            } catch (error) {
+                console.error('Failed to load promises:', error);
+                document.getElementById('promises').innerHTML = `
+                    <div class="col-span-full bg-red-50 border border-red-200 rounded-lg p-8 text-center">
+                        <p class="text-red-600 font-semibold">Error: ${error.message}</p>
+                        <p class="text-sm text-red-500 mt-2">Make sure backend is running at ${API_BASE}</p>
+                    </div>
+                `;
+            }
+        }
+
+        // Load stats
+        async function loadStats() {
+            const stats = {
+                total: allPromises.length,
+                kept: allPromises.filter(p => p.status === 'kept').length,
+                broken: allPromises.filter(p => p.status === 'broken').length,
+                partial: allPromises.filter(p => p.status === 'partial').length
+            };
+            
+            const accountabilityScore = stats.total > 0 ? Math.round((stats.kept / stats.total) * 100) : 0;
+            
+            document.getElementById('stats').innerHTML = `
+                <div class="bg-white rounded-lg shadow-sm p-6">
+                    <div class="text-3xl font-bold text-blue-600">${stats.total}</div>
+                    <div class="text-sm text-gray-600 mt-1">Total Promises</div>
+                </div>
+                <div class="bg-white rounded-lg shadow-sm p-6">
+                    <div class="text-3xl font-bold text-green-600">${stats.kept}</div>
+                    <div class="text-sm text-gray-600 mt-1">Kept</div>
+                </div>
+                <div class="bg-white rounded-lg shadow-sm p-6">
+                    <div class="text-3xl font-bold text-red-600">${stats.broken}</div>
+                    <div class="text-sm text-gray-600 mt-1">Broken</div>
+                </div>
+                <div class="bg-white rounded-lg shadow-sm p-6">
+                    <div class="text-3xl font-bold text-purple-600">${accountabilityScore}%</div>
+                    <div class="text-sm text-gray-600 mt-1">Accountability Score</div>
+                </div>
+            `;
+        }
+
+        // Populate filters
+        function populateFilters() {
+            const presidents = [...new Set(allPromises.map(p => p.president))];
+            const categories = [...new Set(allPromises.map(p => p.category))];
+            
+            document.getElementById('presidentFilter').innerHTML = `
+                <option value="">All Presidents</option>
+                ${presidents.map(p => `<option value="${p}">${p}</option>`).join('')}
+            `;
+            
+            document.getElementById('categoryFilter').innerHTML = `
+                <option value="">All Categories</option>
+                ${categories.map(c => `<option value="${c}">${c}</option>`).join('')}
+            `;
+        }
+
+        // Render promises
+        function renderPromises() {
+            const filtered = allPromises.filter(p => {
+                if (currentFilters.status && p.status !== currentFilters.status) return false;
+                if (currentFilters.president && p.president !== currentFilters.president) return false;
+                if (currentFilters.category && p.category !== currentFilters.category) return false;
+                return true;
+            });
+            
+            if (filtered.length === 0) {
+                document.getElementById('promises').innerHTML = `
+                    <div class="col-span-full text-center p-12 text-gray-500">
+                        No promises match your filters
+                    </div>
+                `;
+                return;
+            }
+            
+            document.getElementById('promises').innerHTML = filtered.map(promise => `
+                <div class="bg-white rounded-lg shadow-sm hover:shadow-md transition p-6 cursor-pointer"
+                     onclick='openAnalysis(${JSON.stringify(promise).replace(/'/g, "&#39;")})'>
+                    
+                    <div class="flex justify-between items-start mb-4">
+                        <span class="px-3 py-1 rounded-full text-xs font-semibold ${getStatusColor(promise.status)}">
+                            ${promise.status.toUpperCase()}
+                        </span>
+                        <span class="px-3 py-1 rounded-full text-xs font-semibold ${getCredibilityColor(promise.credibilityLevel)}">
+                            ${promise.verified ? '✓ Verified' : '⚠ Unverified'}
+                        </span>
+                    </div>
+                    
+                    <h3 class="font-bold text-gray-900 mb-3 line-clamp-2">${promise.promise}</h3>
+                    
+                    <div class="text-sm text-gray-600 space-y-1 mb-4">
+                        <p class="font-semibold">${promise.president}</p>
+                        <p>${promise.date} • ${promise.category}</p>
+                    </div>
+                    
+                    ${promise.affectedIndustries?.length > 0 ? `
+                        <div class="flex flex-wrap gap-2">
+                            ${promise.affectedIndustries.slice(0, 3).map(ind => `
+                                <span class="px-2 py-1 bg-gray-100 text-gray-700 rounded text-xs">${ind.name}</span>
+                            `).join('')}
+                        </div>
+                    ` : ''}
+                </div>
+            `).join('');
+        }
+
+        function getStatusColor(status) {
+            const colors = {
+                kept: 'bg-green-100 text-green-800',
+                broken: 'bg-red-100 text-red-800',
+                partial: 'bg-yellow-100 text-yellow-800'
+            };
+            return colors[status] || 'bg-gray-100 text-gray-800';
+        }
+
+        function getCredibilityColor(level) {
+            const colors = {
+                high: 'bg-green-100 text-green-700',
+                medium: 'bg-yellow-100 text-yellow-700',
+                low: 'bg-orange-100 text-orange-700',
+                unverified: 'bg-red-100 text-red-700'
+            };
+            return colors[level] || 'bg-gray-100 text-gray-700';
+        }
+
+        async function openAnalysis(promise) {
+            document.getElementById('modal').classList.remove('hidden');
+            document.getElementById('modalContent').innerHTML = '<p class="text-center py-8">Loading analysis...</p>';
+            
+            try {
+                const response = await fetch(`${API_BASE}/analyze-promise`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ promise })
+                });
+                
+                const analysis = await response.json();
+                
+                document.getElementById('modalContent').innerHTML = `
+                    <h2 class="text-2xl font-bold mb-4">${promise.promise}</h2>
+                    
+                    <div class="mb-6">
+                        <span class="px-3 py-1 rounded-full text-sm font-semibold ${getStatusColor(promise.status)}">${promise.status}</span>
+                        <span class="ml-2 text-gray-600">${promise.president} • ${promise.date}</span>
+                    </div>
+                    
+                    <div class="bg-blue-50 border border-blue-200 rounded-lg p-6 mb-6">
+                        <h3 class="font-bold text-blue-900 mb-2">AI Analysis</h3>
+                        <p class="text-gray-700 mb-2">${analysis.analysis}</p>
+                        <p class="text-sm text-blue-600">Confidence: ${analysis.confidence}%</p>
+                    </div>
+                    
+                    ${analysis.keyDevelopments?.length > 0 ? `
+                        <div class="mb-6">
+                            <h3 class="font-bold mb-3">Key Developments</h3>
+                            <ul class="list-disc list-inside space-y-2">
+                                ${analysis.keyDevelopments.map(d => `<li class="text-gray-700">${d}</li>`).join('')}
+                            </ul>
+                        </div>
+                    ` : ''}
+                    
+                    ${promise.realSources?.length > 0 ? `
+                        <div>
+                            <h3 class="font-bold mb-3">Verified Sources</h3>
+                            <ul class="space-y-2">
+                                ${promise.realSources.slice(0, 5).map(s => `
+                                    <li><a href="${s}" target="_blank" class="text-blue-600 hover:underline text-sm break-all">${s}</a></li>
+                                `).join('')}
+                            </ul>
+                        </div>
+                    ` : ''}
+                `;
+                
+            } catch (error) {
+                document.getElementById('modalContent').innerHTML = `
+                    <p class="text-red-600">Failed to load analysis: ${error.message}</p>
+                `;
+            }
+        }
+
+        function closeModal() {
+            document.getElementById('modal').classList.add('hidden');
+        }
+
+        // Filter handlers
+        document.getElementById('statusFilter').addEventListener('change', (e) => {
+            currentFilters.status = e.target.value;
+            renderPromises();
+        });
+
+        document.getElementById('presidentFilter').addEventListener('change', (e) => {
+            currentFilters.president = e.target.value;
+            renderPromises();
+        });
+
+        document.getElementById('categoryFilter').addEventListener('change', (e) => {
+            currentFilters.category = e.target.value;
+            renderPromises();
+        });
+
+        // Initialize
+        loadPromises();
+    </script>
+</body>
+</html>
