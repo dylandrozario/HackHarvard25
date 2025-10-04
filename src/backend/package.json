@@ -11,6 +11,7 @@
     "@perplexity-ai/perplexity_ai": "^0.8.0",
     "cors": "^2.8.5",
     "dotenv": "^16.3.1",
+    "express": "^5.1.0",
     "perplexity": "^1.0.1"
   }
 }
