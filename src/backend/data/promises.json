@@ -1,818 +1,2390 @@
 [
   {
     "president": "George W. Bush",
-    "promise": "“Testing is the cornerstone of reform... if you receive money you must show us whether or not children are learning to read and write and add and subtract. Testing is the cornerstone of reform.”",
+    "promise": "Create Accountability in Public Education Through Mandatory Testing",
     "date": "2000-10-03",
     "category": "Education",
     "status": "kept",
     "evidence": [
-      "No Child Left Behind Act of 2001, H.R. 1"
+      "Enactment of No Child Left Behind Act (NCLB), which established mandatory annual testing for students in reading and math in grades 3-8.",
+      "H.R. 1 (No Child Left Behind Act of 2001), signed into law on 2002-01-08"
     ],
     "sources": [
-      "https://www.congress.gov/bill/107th-congress/house-bill/1"
-    ],
-    "affectedIndustries": [
-      {
-        "name": "Education Sector",
-        "predictedImpact": "mixed",
-        "confidence": 80,
-        "reasoning": "Mandatory testing influenced curriculum, increased accountability for schools, and created a market for testing services."
-      }
-    ],
-    "verified": true,
-    "credibilityLevel": "high",
-    "realSources": [
       "https://www.congress.gov/bill/107th-congress/house-bill/1",
-      "https://www.congress.gov/bill/107th-congress/house-bill/1",
-      "https://www.congress.gov/bill/107th-congress/house-bill/1836",
-      "https://www.congress.gov/bill/107th-congress/house-bill/1836",
-      "https://www.congress.gov/bill/107th-congress/house-bill/4",
-      "https://www.congress.gov/bill/107th-congress/house-bill/4",
-      "https://georgewbush-whitehouse.archives.gov/news/releases/2001/02/20010201.html",
-      "https://georgewbush-whitehouse.archives.gov/news/releases/2001/02/20010201.html",
-      "https://georgewbush-whitehouse.archives.gov/news/releases/2001/01/20010129-2.html",
-      "https://georgewbush-whitehouse.archives.gov/news/releases/2001/01/20010129-2.html"
-    ],
-    "dataSource": "perplexity+gemini",
-    "generatedAt": "2025-10-04T07:55:01.852Z"
-  },
-  {
-    "president": "George W. Bush",
-    "promise": "“Replace the five current tax brackets with four lower ones, ensuring all taxpayers significant tax relief... double the child tax credit to $1,000... eliminate the marriage penalty.”",
-    "date": "2000-08-01",
-    "category": "Economy",
-    "status": "kept",
-    "evidence": [
-      "Economic Growth and Tax Relief Reconciliation Act of 2001, H.R. 1836"
-    ],
-    "sources": [
-      "https://www.congress.gov/bill/107th-congress/house-bill/1836"
-    ],
-    "affectedIndustries": [
-      {
-        "name": "All Taxpayers",
-        "predictedImpact": "positive",
-        "confidence": 90,
-        "reasoning": "Tax cuts directly reduced tax burdens for individuals and families, increasing disposable income."
-      },
-      {
-        "name": "Retail & Consumer Goods",
-        "predictedImpact": "positive",
-        "confidence": 70,
-        "reasoning": "Increased disposable income could stimulate consumer spending."
-      }
-    ],
-    "verified": true,
-    "credibilityLevel": "high",
-    "realSources": [
-      "https://www.congress.gov/bill/107th-congress/house-bill/1",
-      "https://www.congress.gov/bill/107th-congress/house-bill/1",
-      "https://www.congress.gov/bill/107th-congress/house-bill/1836",
-      "https://www.congress.gov/bill/107th-congress/house-bill/1836",
-      "https://www.congress.gov/bill/107th-congress/house-bill/4",
-      "https://www.congress.gov/bill/107th-congress/house-bill/4",
-      "https://georgewbush-whitehouse.archives.gov/news/releases/2001/02/20010201.html",
-      "https://georgewbush-whitehouse.archives.gov/news/releases/2001/02/20010201.html",
-      "https://georgewbush-whitehouse.archives.gov/news/releases/2001/01/20010129-2.html",
-      "https://georgewbush-whitehouse.archives.gov/news/releases/2001/01/20010129-2.html"
-    ],
-    "dataSource": "perplexity+gemini",
-    "generatedAt": "2025-10-04T07:55:01.852Z"
-  },
-  {
-    "president": "George W. Bush",
-    "promise": "“Decrease the foreign dependence on oil through increased domestic production... [support] drilling in the Arctic National Wildlife Refuge (ANWR) and other domestic fields.”",
-    "date": "2000-09-29",
-    "category": "Energy",
-    "status": "broken",
-    "evidence": [
-      "Section 603 of H.R. 4, Energy Policy Act of 2002 (ANWR provisions passed House but defeated in Senate)"
-    ],
-    "sources": [
-      "https://www.congress.gov/bill/107th-congress/house-bill/4"
-    ],
-    "affectedIndustries": [
-      {
-        "name": "Oil & Gas Industry",
-        "predictedImpact": "mixed",
-        "confidence": 85,
-        "reasoning": "Increased domestic production would benefit the industry, but failure to secure ANWR drilling prevented the full realization of the promise."
-      },
-      {
-        "name": "Environmental Conservation",
-        "predictedImpact": "negative",
-        "confidence": 90,
-        "reasoning": "The proposal for drilling in ANWR was a significant concern for environmental groups, though ultimately blocked by Congress."
-      }
-    ],
-    "verified": true,
-    "credibilityLevel": "high",
-    "realSources": [
-      "https://www.congress.gov/bill/107th-congress/house-bill/1",
-      "https://www.congress.gov/bill/107th-congress/house-bill/1",
-      "https://www.congress.gov/bill/107th-congress/house-bill/1836",
-      "https://www.congress.gov/bill/107th-congress/house-bill/1836",
-      "https://www.congress.gov/bill/107th-congress/house-bill/4",
-      "https://www.congress.gov/bill/107th-congress/house-bill/4",
-      "https://georgewbush-whitehouse.archives.gov/news/releases/2001/02/20010201.html",
-      "https://georgewbush-whitehouse.archives.gov/news/releases/2001/02/20010201.html",
-      "https://georgewbush-whitehouse.archives.gov/news/releases/2001/01/20010129-2.html",
-      "https://georgewbush-whitehouse.archives.gov/news/releases/2001/01/20010129-2.html"
-    ],
-    "dataSource": "perplexity+gemini",
-    "generatedAt": "2025-10-04T07:55:01.852Z"
-  },
-  {
-    "president": "George W. Bush",
-    "promise": "“A comprehensive agenda for breakthrough research and practical assistance that can help individuals with disabilities live independently, hold jobs, and take part in the daily life of their communities.”",
-    "date": "2001-02-01",
-    "category": "Economy",
-    "status": "partial",
-    "evidence": [
-      "Executive actions and budget requests"
-    ],
-    "sources": [
-      "https://georgewbush-whitehouse.archives.gov/news/releases/2001/02/20010201.html"
-    ],
-    "affectedIndustries": [
-      {
-        "name": "Disability Services",
-        "predictedImpact": "positive",
-        "confidence": 75,
-        "reasoning": "Aimed to expand funding and support for programs assisting individuals with disabilities in employment and independent living."
-      },
-      {
-        "name": "Assistive Technology",
-        "predictedImpact": "positive",
-        "confidence": 60,
-        "reasoning": "Focus on breakthrough research and practical assistance could stimulate development and demand for assistive technologies."
-      }
-    ],
-    "verified": true,
-    "credibilityLevel": "high",
-    "realSources": [
-      "https://www.congress.gov/bill/107th-congress/house-bill/1",
-      "https://www.congress.gov/bill/107th-congress/house-bill/1",
-      "https://www.congress.gov/bill/107th-congress/house-bill/1836",
-      "https://www.congress.gov/bill/107th-congress/house-bill/1836",
-      "https://www.congress.gov/bill/107th-congress/house-bill/4",
-      "https://www.congress.gov/bill/107th-congress/house-bill/4",
-      "https://georgewbush-whitehouse.archives.gov/news/releases/2001/02/20010201.html",
-      "https://georgewbush-whitehouse.archives.gov/news/releases/2001/02/20010201.html",
-      "https://georgewbush-whitehouse.archives.gov/news/releases/2001/01/20010129-2.html",
-      "https://georgewbush-whitehouse.archives.gov/news/releases/2001/01/20010129-2.html"
-    ],
-    "dataSource": "perplexity+gemini",
-    "generatedAt": "2025-10-04T07:55:01.852Z"
-  },
-  {
-    "president": "George W. Bush",
-    "promise": "“A comprehensive charitable choice initiative allowing community and faith-based organizations to compete for federal social service funds.”",
-    "date": "2001-01-29",
-    "category": "Economy",
-    "status": "partial",
-    "evidence": [
-      "Executive Order 13199, \"Establishment of White House Office of Faith-Based and Community Initiatives\""
-    ],
-    "sources": [
-      "https://georgewbush-whitehouse.archives.gov/news/releases/2001/01/20010129-2.html"
-    ],
-    "affectedIndustries": [
-      {
-        "name": "Non-profit & Faith-Based Organizations",
-        "predictedImpact": "positive",
-        "confidence": 80,
-        "reasoning": "Expanded opportunities for these organizations to receive federal funding for social services."
-      },
-      {
-        "name": "Social Services Sector",
-        "predictedImpact": "positive",
-        "confidence": 70,
-        "reasoning": "Increased resources and diversified providers for delivering social services to communities."
-      }
-    ],
-    "verified": true,
-    "credibilityLevel": "high",
-    "realSources": [
-      "https://www.congress.gov/bill/107th-congress/house-bill/1",
-      "https://www.congress.gov/bill/107th-congress/house-bill/1",
-      "https://www.congress.gov/bill/107th-congress/house-bill/1836",
-      "https://www.congress.gov/bill/107th-congress/house-bill/1836",
-      "https://www.congress.gov/bill/107th-congress/house-bill/4",
-      "https://www.congress.gov/bill/107th-congress/house-bill/4",
-      "https://georgewbush-whitehouse.archives.gov/news/releases/2001/02/20010201.html",
-      "https://georgewbush-whitehouse.archives.gov/news/releases/2001/02/20010201.html",
-      "https://georgewbush-whitehouse.archives.gov/news/releases/2001/01/20010129-2.html",
-      "https://georgewbush-whitehouse.archives.gov/news/releases/2001/01/20010129-2.html"
-    ],
-    "dataSource": "perplexity+gemini",
-    "generatedAt": "2025-10-04T07:55:01.852Z"
-  },
-  {
-    "president": "Barack Obama",
-    "promise": "I will sign a universal health care bill into law by the end of my first term as president.",
-    "date": "2007-11-21",
-    "category": "Healthcare",
-    "status": "kept",
-    "evidence": [
-      "Patient Protection and Affordable Care Act signed March 23, 2010 (Public Law 111-148, H.R. 3590)"
-    ],
-    "sources": [
-      "https://www.congress.gov/bill/111th-congress/house-bill/3590",
-      "https://www.politifact.com/truth-o-meter/promises/obameter/promise/521/health-care-bill-end-first-term/"
-    ],
-    "affectedIndustries": [
-      {
-        "name": "Healthcare",
-        "predictedImpact": "mixed",
-        "confidence": 90,
-        "reasoning": "Major legislative overhaul directly impacted health insurers, hospitals, and pharmaceutical companies, leading to increased coverage but also new regulations and financial structures."
-      }
-    ],
-    "verified": true,
-    "credibilityLevel": "high",
-    "realSources": [
-      "https://www.congress.gov/bill/111th-congress/house-bill/3590",
-      "https://www.politifact.com/truth-o-meter/promises/obameter/promise/521/health-care-bill-end-first-term/",
-      "https://www.archives.gov/federal-register/executive-orders/2009-obama.html#13491",
-      "https://www.ajc.com/news/state--regional-govt--politics/politifact-fact-checkers-rate-obama-major-campaign-promises/NB3ywPmYnkOVf55AFprq1N/",
-      "https://www.congress.gov/treaty-document/111th-congress/5",
-      "https://www.politifact.com/article/2017/jan/05/tracking-obamas-top-25-campaign-promises/",
-      "https://www.congress.gov/bill/111th-congress/house-bill/4173",
-      "https://www.ajc.com/news/state--regional-govt--politics/politifact-fact-checkers-rate-obama-major-campaign-promises/NB3ywPmYnkOVf55AFprq1N/",
-      "https://obamawhitehouse.archives.gov/the-press-office/2011/10/21/remarks-president-iraq",
-      "https://publicintegrity.org/accountability/fact-check-president-obamas-promises-from-08-iowa-caucus-largely-unkept/"
-    ],
-    "dataSource": "perplexity+gemini",
-    "generatedAt": "2025-10-04T07:56:05.628Z"
-  },
-  {
-    "president": "Barack Obama",
-    "promise": "End the use of torture by U.S. personnel.",
-    "date": "2008-08-01",
-    "category": "Defense",
-    "status": "kept",
-    "evidence": [
-      "Executive Order 13491, signed January 22, 2009 (\"Ensuring Lawful Interrogations\")"
-    ],
-    "sources": [
-      "https://www.archives.gov/federal-register/executive-orders/2009-obama.html#13491",
-      "https://www.ajc.com/news/state--regional-govt--politics/politifact-fact-checkers-rate-obama-major-campaign-promises/NB3ywPmYnkOVf55AFprq1N/"
+      "https://millercenter.org/issues-policy/us-domestic-policy/debate-promises-education-2000"
     ],
     "affectedIndustries": [],
     "verified": true,
     "credibilityLevel": "high",
     "realSources": [
-      "https://www.congress.gov/bill/111th-congress/house-bill/3590",
-      "https://www.politifact.com/truth-o-meter/promises/obameter/promise/521/health-care-bill-end-first-term/",
-      "https://www.archives.gov/federal-register/executive-orders/2009-obama.html#13491",
-      "https://www.ajc.com/news/state--regional-govt--politics/politifact-fact-checkers-rate-obama-major-campaign-promises/NB3ywPmYnkOVf55AFprq1N/",
-      "https://www.congress.gov/treaty-document/111th-congress/5",
-      "https://www.politifact.com/article/2017/jan/05/tracking-obamas-top-25-campaign-promises/",
-      "https://www.congress.gov/bill/111th-congress/house-bill/4173",
-      "https://www.ajc.com/news/state--regional-govt--politics/politifact-fact-checkers-rate-obama-major-campaign-promises/NB3ywPmYnkOVf55AFprq1N/",
-      "https://obamawhitehouse.archives.gov/the-press-office/2011/10/21/remarks-president-iraq",
-      "https://publicintegrity.org/accountability/fact-check-president-obamas-promises-from-08-iowa-caucus-largely-unkept/"
+      "https://www.congress.gov/bill/107th-congress/house-bill/1",
+      "https://millercenter.org/issues-policy/us-domestic-policy/debate-promises-education-2000",
+      "https://www.congress.gov/bill/107th-congress/house-bill/1836",
+      "https://www.presidency.ucsb.edu/documents/2000-republican-party-platform",
+      "https://www.congress.gov/bill/107th-congress/house-bill/1836",
+      "https://www.presidency.ucsb.edu/documents/2000-republican-party-platform",
+      "https://www.congress.gov/bill/107th-congress/house-bill/1836",
+      "https://www.presidency.ucsb.edu/documents/2000-republican-party-platform",
+      "https://www.cbsnews.com/news/bushs-2000-war-promises/",
+      "https://www.congress.gov/bill/107th-congress/house-bill/1",
+      "https://en.wikipedia.org/wiki/George_W._Bush_2000_presidential_campaign",
+      "https://www.congress.gov/bill/107th-congress/house-bill/1836",
+      "https://www.presidency.ucsb.edu/documents/2000-republican-party-platform",
+      "https://en.wikipedia.org/wiki/George_W._Bush_2000_presidential_campaign",
+      "https://georgewbush-whitehouse.archives.gov/news/releases/2001/02/20010228-3.html",
+      "https://www.congress.gov/bill/108th-congress/house-bill/1"
     ],
     "dataSource": "perplexity+gemini",
-    "generatedAt": "2025-10-04T07:56:05.628Z"
+    "generatedAt": "2025-10-04T11:25:17.766Z"
   },
   {
-    "president": "Barack Obama",
-    "promise": "Seek verifiable reductions in U.S. and Russian nuclear stockpiles.",
-    "date": "2008-07-16",
+    "president": "George W. Bush",
+    "promise": "Substantial Tax Cuts for All Taxpayers",
+    "date": "2000-08-03",
+    "category": "Economy",
+    "status": "kept",
+    "evidence": [
+      "Economic Growth and Tax Relief Reconciliation Act of 2001, reducing marginal tax rates across all income levels and increasing the child tax credit.",
+      "H.R. 1836, signed into law as Public Law 107-16 on 2001-06-07"
+    ],
+    "sources": [
+      "https://www.congress.gov/bill/107th-congress/house-bill/1836",
+      "https://www.presidency.ucsb.edu/documents/2000-republican-party-platform"
+    ],
+    "affectedIndustries": [],
+    "verified": true,
+    "credibilityLevel": "high",
+    "realSources": [
+      "https://www.congress.gov/bill/107th-congress/house-bill/1",
+      "https://millercenter.org/issues-policy/us-domestic-policy/debate-promises-education-2000",
+      "https://www.congress.gov/bill/107th-congress/house-bill/1836",
+      "https://www.presidency.ucsb.edu/documents/2000-republican-party-platform",
+      "https://www.congress.gov/bill/107th-congress/house-bill/1836",
+      "https://www.presidency.ucsb.edu/documents/2000-republican-party-platform",
+      "https://www.congress.gov/bill/107th-congress/house-bill/1836",
+      "https://www.presidency.ucsb.edu/documents/2000-republican-party-platform",
+      "https://www.cbsnews.com/news/bushs-2000-war-promises/",
+      "https://www.congress.gov/bill/107th-congress/house-bill/1",
+      "https://en.wikipedia.org/wiki/George_W._Bush_2000_presidential_campaign",
+      "https://www.congress.gov/bill/107th-congress/house-bill/1836",
+      "https://www.presidency.ucsb.edu/documents/2000-republican-party-platform",
+      "https://en.wikipedia.org/wiki/George_W._Bush_2000_presidential_campaign",
+      "https://georgewbush-whitehouse.archives.gov/news/releases/2001/02/20010228-3.html",
+      "https://www.congress.gov/bill/108th-congress/house-bill/1"
+    ],
+    "dataSource": "perplexity+gemini",
+    "generatedAt": "2025-10-04T11:25:17.767Z"
+  },
+  {
+    "president": "George W. Bush",
+    "promise": "Double the Child Tax Credit from $500 to $1,000",
+    "date": "2000-01-01",
+    "category": "Economy",
+    "status": "kept",
+    "evidence": [
+      "The Economic Growth and Tax Relief Reconciliation Act of 2001 incrementally raised the child tax credit, ultimately reaching $1,000 in 2003.",
+      "H.R. 1836, Public Law 107-16"
+    ],
+    "sources": [
+      "https://www.congress.gov/bill/107th-congress/house-bill/1836",
+      "https://www.presidency.ucsb.edu/documents/2000-republican-party-platform"
+    ],
+    "affectedIndustries": [],
+    "verified": true,
+    "credibilityLevel": "high",
+    "realSources": [
+      "https://www.congress.gov/bill/107th-congress/house-bill/1",
+      "https://millercenter.org/issues-policy/us-domestic-policy/debate-promises-education-2000",
+      "https://www.congress.gov/bill/107th-congress/house-bill/1836",
+      "https://www.presidency.ucsb.edu/documents/2000-republican-party-platform",
+      "https://www.congress.gov/bill/107th-congress/house-bill/1836",
+      "https://www.presidency.ucsb.edu/documents/2000-republican-party-platform",
+      "https://www.congress.gov/bill/107th-congress/house-bill/1836",
+      "https://www.presidency.ucsb.edu/documents/2000-republican-party-platform",
+      "https://www.cbsnews.com/news/bushs-2000-war-promises/",
+      "https://www.congress.gov/bill/107th-congress/house-bill/1",
+      "https://en.wikipedia.org/wiki/George_W._Bush_2000_presidential_campaign",
+      "https://www.congress.gov/bill/107th-congress/house-bill/1836",
+      "https://www.presidency.ucsb.edu/documents/2000-republican-party-platform",
+      "https://en.wikipedia.org/wiki/George_W._Bush_2000_presidential_campaign",
+      "https://georgewbush-whitehouse.archives.gov/news/releases/2001/02/20010228-3.html",
+      "https://www.congress.gov/bill/108th-congress/house-bill/1"
+    ],
+    "dataSource": "perplexity+gemini",
+    "generatedAt": "2025-10-04T11:25:17.767Z"
+  },
+  {
+    "president": "George W. Bush",
+    "promise": "End the Federal Estate Tax (\"Death Tax\")",
+    "date": "2000-01-01",
+    "category": "Economy",
+    "status": "partial",
+    "evidence": [
+      "Economic Growth and Tax Relief Reconciliation Act of 2001 phased out the estate tax, with full repeal in 2010; scheduled to sunset and reinstated after.",
+      "H.R. 1836, Public Law 107-16"
+    ],
+    "sources": [
+      "https://www.congress.gov/bill/107th-congress/house-bill/1836",
+      "https://www.presidency.ucsb.edu/documents/2000-republican-party-platform"
+    ],
+    "affectedIndustries": [],
+    "verified": true,
+    "credibilityLevel": "high",
+    "realSources": [
+      "https://www.congress.gov/bill/107th-congress/house-bill/1",
+      "https://millercenter.org/issues-policy/us-domestic-policy/debate-promises-education-2000",
+      "https://www.congress.gov/bill/107th-congress/house-bill/1836",
+      "https://www.presidency.ucsb.edu/documents/2000-republican-party-platform",
+      "https://www.congress.gov/bill/107th-congress/house-bill/1836",
+      "https://www.presidency.ucsb.edu/documents/2000-republican-party-platform",
+      "https://www.congress.gov/bill/107th-congress/house-bill/1836",
+      "https://www.presidency.ucsb.edu/documents/2000-republican-party-platform",
+      "https://www.cbsnews.com/news/bushs-2000-war-promises/",
+      "https://www.congress.gov/bill/107th-congress/house-bill/1",
+      "https://en.wikipedia.org/wiki/George_W._Bush_2000_presidential_campaign",
+      "https://www.congress.gov/bill/107th-congress/house-bill/1836",
+      "https://www.presidency.ucsb.edu/documents/2000-republican-party-platform",
+      "https://en.wikipedia.org/wiki/George_W._Bush_2000_presidential_campaign",
+      "https://georgewbush-whitehouse.archives.gov/news/releases/2001/02/20010228-3.html",
+      "https://www.congress.gov/bill/108th-congress/house-bill/1"
+    ],
+    "dataSource": "perplexity+gemini",
+    "generatedAt": "2025-10-04T11:25:17.767Z"
+  },
+  {
+    "president": "George W. Bush",
+    "promise": "\"Be Reluctant Nation-Builders\" and Limit Overseas Deployment",
+    "date": "2000-08-03",
+    "category": "Defense",
+    "status": "broken",
+    "evidence": [
+      "U.S. military invasions and occupation of Afghanistan and Iraq involved prolonged nation-building activities post-9/11."
+    ],
+    "sources": [
+      "https://www.cbsnews.com/news/bushs-2000-war-promises/"
+    ],
+    "affectedIndustries": [],
+    "verified": true,
+    "credibilityLevel": "high",
+    "realSources": [
+      "https://www.congress.gov/bill/107th-congress/house-bill/1",
+      "https://millercenter.org/issues-policy/us-domestic-policy/debate-promises-education-2000",
+      "https://www.congress.gov/bill/107th-congress/house-bill/1836",
+      "https://www.presidency.ucsb.edu/documents/2000-republican-party-platform",
+      "https://www.congress.gov/bill/107th-congress/house-bill/1836",
+      "https://www.presidency.ucsb.edu/documents/2000-republican-party-platform",
+      "https://www.congress.gov/bill/107th-congress/house-bill/1836",
+      "https://www.presidency.ucsb.edu/documents/2000-republican-party-platform",
+      "https://www.cbsnews.com/news/bushs-2000-war-promises/",
+      "https://www.congress.gov/bill/107th-congress/house-bill/1",
+      "https://en.wikipedia.org/wiki/George_W._Bush_2000_presidential_campaign",
+      "https://www.congress.gov/bill/107th-congress/house-bill/1836",
+      "https://www.presidency.ucsb.edu/documents/2000-republican-party-platform",
+      "https://en.wikipedia.org/wiki/George_W._Bush_2000_presidential_campaign",
+      "https://georgewbush-whitehouse.archives.gov/news/releases/2001/02/20010228-3.html",
+      "https://www.congress.gov/bill/108th-congress/house-bill/1"
+    ],
+    "dataSource": "perplexity+gemini",
+    "generatedAt": "2025-10-04T11:25:17.767Z"
+  },
+  {
+    "president": "George W. Bush",
+    "promise": "Implement Education Reform That Will Allow Failing Students to Transfer Schools",
+    "date": "2000-10-03",
+    "category": "Education",
+    "status": "kept",
+    "evidence": [
+      "No Child Left Behind Act allowed students in failing public schools to transfer to better public schools.",
+      "H.R. 1 (107th Congress)"
+    ],
+    "sources": [
+      "https://www.congress.gov/bill/107th-congress/house-bill/1",
+      "https://en.wikipedia.org/wiki/George_W._Bush_2000_presidential_campaign"
+    ],
+    "affectedIndustries": [],
+    "verified": true,
+    "credibilityLevel": "high",
+    "realSources": [
+      "https://www.congress.gov/bill/107th-congress/house-bill/1",
+      "https://millercenter.org/issues-policy/us-domestic-policy/debate-promises-education-2000",
+      "https://www.congress.gov/bill/107th-congress/house-bill/1836",
+      "https://www.presidency.ucsb.edu/documents/2000-republican-party-platform",
+      "https://www.congress.gov/bill/107th-congress/house-bill/1836",
+      "https://www.presidency.ucsb.edu/documents/2000-republican-party-platform",
+      "https://www.congress.gov/bill/107th-congress/house-bill/1836",
+      "https://www.presidency.ucsb.edu/documents/2000-republican-party-platform",
+      "https://www.cbsnews.com/news/bushs-2000-war-promises/",
+      "https://www.congress.gov/bill/107th-congress/house-bill/1",
+      "https://en.wikipedia.org/wiki/George_W._Bush_2000_presidential_campaign",
+      "https://www.congress.gov/bill/107th-congress/house-bill/1836",
+      "https://www.presidency.ucsb.edu/documents/2000-republican-party-platform",
+      "https://en.wikipedia.org/wiki/George_W._Bush_2000_presidential_campaign",
+      "https://georgewbush-whitehouse.archives.gov/news/releases/2001/02/20010228-3.html",
+      "https://www.congress.gov/bill/108th-congress/house-bill/1"
+    ],
+    "dataSource": "perplexity+gemini",
+    "generatedAt": "2025-10-04T11:25:17.767Z"
+  },
+  {
+    "president": "George W. Bush",
+    "promise": "Lower Taxes for Married Couples (“End the Marriage Penalty”)",
+    "date": "2000-01-01",
+    "category": "Economy",
+    "status": "kept",
+    "evidence": [
+      "The Marriage Tax Relief Reconciliation Act, passed as part of the Bush tax cuts, reduced the marriage penalty for married couples filing jointly.",
+      "H.R. 1836, Public Law 107-16"
+    ],
+    "sources": [
+      "https://www.congress.gov/bill/107th-congress/house-bill/1836",
+      "https://www.presidency.ucsb.edu/documents/2000-republican-party-platform"
+    ],
+    "affectedIndustries": [],
+    "verified": true,
+    "credibilityLevel": "high",
+    "realSources": [
+      "https://www.congress.gov/bill/107th-congress/house-bill/1",
+      "https://millercenter.org/issues-policy/us-domestic-policy/debate-promises-education-2000",
+      "https://www.congress.gov/bill/107th-congress/house-bill/1836",
+      "https://www.presidency.ucsb.edu/documents/2000-republican-party-platform",
+      "https://www.congress.gov/bill/107th-congress/house-bill/1836",
+      "https://www.presidency.ucsb.edu/documents/2000-republican-party-platform",
+      "https://www.congress.gov/bill/107th-congress/house-bill/1836",
+      "https://www.presidency.ucsb.edu/documents/2000-republican-party-platform",
+      "https://www.cbsnews.com/news/bushs-2000-war-promises/",
+      "https://www.congress.gov/bill/107th-congress/house-bill/1",
+      "https://en.wikipedia.org/wiki/George_W._Bush_2000_presidential_campaign",
+      "https://www.congress.gov/bill/107th-congress/house-bill/1836",
+      "https://www.presidency.ucsb.edu/documents/2000-republican-party-platform",
+      "https://en.wikipedia.org/wiki/George_W._Bush_2000_presidential_campaign",
+      "https://georgewbush-whitehouse.archives.gov/news/releases/2001/02/20010228-3.html",
+      "https://www.congress.gov/bill/108th-congress/house-bill/1"
+    ],
+    "dataSource": "perplexity+gemini",
+    "generatedAt": "2025-10-04T11:25:17.767Z"
+  },
+  {
+    "president": "George W. Bush",
+    "promise": "Pass Comprehensive Energy Reform Including Domestic Oil Production (e.g., drilling in ANWR)",
+    "date": "2000-01-01",
+    "category": "Energy",
+    "status": "broken",
+    "evidence": [
+      "Attempted to move legislation to allow drilling in the Arctic National Wildlife Refuge, but Congress blocked it during his first term."
+    ],
+    "sources": [
+      "https://en.wikipedia.org/wiki/George_W._Bush_2000_presidential_campaign"
+    ],
+    "affectedIndustries": [],
+    "verified": true,
+    "credibilityLevel": "high",
+    "realSources": [
+      "https://www.congress.gov/bill/107th-congress/house-bill/1",
+      "https://millercenter.org/issues-policy/us-domestic-policy/debate-promises-education-2000",
+      "https://www.congress.gov/bill/107th-congress/house-bill/1836",
+      "https://www.presidency.ucsb.edu/documents/2000-republican-party-platform",
+      "https://www.congress.gov/bill/107th-congress/house-bill/1836",
+      "https://www.presidency.ucsb.edu/documents/2000-republican-party-platform",
+      "https://www.congress.gov/bill/107th-congress/house-bill/1836",
+      "https://www.presidency.ucsb.edu/documents/2000-republican-party-platform",
+      "https://www.cbsnews.com/news/bushs-2000-war-promises/",
+      "https://www.congress.gov/bill/107th-congress/house-bill/1",
+      "https://en.wikipedia.org/wiki/George_W._Bush_2000_presidential_campaign",
+      "https://www.congress.gov/bill/107th-congress/house-bill/1836",
+      "https://www.presidency.ucsb.edu/documents/2000-republican-party-platform",
+      "https://en.wikipedia.org/wiki/George_W._Bush_2000_presidential_campaign",
+      "https://georgewbush-whitehouse.archives.gov/news/releases/2001/02/20010228-3.html",
+      "https://www.congress.gov/bill/108th-congress/house-bill/1"
+    ],
+    "dataSource": "perplexity+gemini",
+    "generatedAt": "2025-10-04T11:25:17.767Z"
+  },
+  {
+    "president": "George W. Bush",
+    "promise": "Increase Military Spending for Readiness and Modernization",
+    "date": "2000-01-01",
     "category": "Defense",
     "status": "kept",
     "evidence": [
-      "New START Treaty signed April 8, 2010, ratified by Senate on December 22, 2010 (Treaty Document 111-5)"
+      "Department of Defense budgets increased substantially for military personnel, modernization, and readiness from 2001 onward.",
+      "FY2002 Defense Budget Request, DoD"
     ],
     "sources": [
-      "https://www.congress.gov/treaty-document/111th-congress/5",
-      "https://www.politifact.com/article/2017/jan/05/tracking-obamas-top-25-campaign-promises/"
+      "https://georgewbush-whitehouse.archives.gov/news/releases/2001/02/20010228-3.html"
+    ],
+    "affectedIndustries": [],
+    "verified": true,
+    "credibilityLevel": "high",
+    "realSources": [
+      "https://www.congress.gov/bill/107th-congress/house-bill/1",
+      "https://millercenter.org/issues-policy/us-domestic-policy/debate-promises-education-2000",
+      "https://www.congress.gov/bill/107th-congress/house-bill/1836",
+      "https://www.presidency.ucsb.edu/documents/2000-republican-party-platform",
+      "https://www.congress.gov/bill/107th-congress/house-bill/1836",
+      "https://www.presidency.ucsb.edu/documents/2000-republican-party-platform",
+      "https://www.congress.gov/bill/107th-congress/house-bill/1836",
+      "https://www.presidency.ucsb.edu/documents/2000-republican-party-platform",
+      "https://www.cbsnews.com/news/bushs-2000-war-promises/",
+      "https://www.congress.gov/bill/107th-congress/house-bill/1",
+      "https://en.wikipedia.org/wiki/George_W._Bush_2000_presidential_campaign",
+      "https://www.congress.gov/bill/107th-congress/house-bill/1836",
+      "https://www.presidency.ucsb.edu/documents/2000-republican-party-platform",
+      "https://en.wikipedia.org/wiki/George_W._Bush_2000_presidential_campaign",
+      "https://georgewbush-whitehouse.archives.gov/news/releases/2001/02/20010228-3.html",
+      "https://www.congress.gov/bill/108th-congress/house-bill/1"
+    ],
+    "dataSource": "perplexity+gemini",
+    "generatedAt": "2025-10-04T11:25:17.767Z"
+  },
+  {
+    "president": "George W. Bush",
+    "promise": "Provide Prescription Drug Benefit to Seniors under Medicare",
+    "date": "2000-01-01",
+    "category": "Healthcare",
+    "status": "kept",
+    "evidence": [
+      "Medicare Prescription Drug, Improvement, and Modernization Act of 2003, adding Part D to Medicare.",
+      "H.R. 1 (108th Congress), signed into law 2003-12-08"
+    ],
+    "sources": [
+      "https://www.congress.gov/bill/108th-congress/house-bill/1"
+    ],
+    "affectedIndustries": [],
+    "verified": true,
+    "credibilityLevel": "high",
+    "realSources": [
+      "https://www.congress.gov/bill/107th-congress/house-bill/1",
+      "https://millercenter.org/issues-policy/us-domestic-policy/debate-promises-education-2000",
+      "https://www.congress.gov/bill/107th-congress/house-bill/1836",
+      "https://www.presidency.ucsb.edu/documents/2000-republican-party-platform",
+      "https://www.congress.gov/bill/107th-congress/house-bill/1836",
+      "https://www.presidency.ucsb.edu/documents/2000-republican-party-platform",
+      "https://www.congress.gov/bill/107th-congress/house-bill/1836",
+      "https://www.presidency.ucsb.edu/documents/2000-republican-party-platform",
+      "https://www.cbsnews.com/news/bushs-2000-war-promises/",
+      "https://www.congress.gov/bill/107th-congress/house-bill/1",
+      "https://en.wikipedia.org/wiki/George_W._Bush_2000_presidential_campaign",
+      "https://www.congress.gov/bill/107th-congress/house-bill/1836",
+      "https://www.presidency.ucsb.edu/documents/2000-republican-party-platform",
+      "https://en.wikipedia.org/wiki/George_W._Bush_2000_presidential_campaign",
+      "https://georgewbush-whitehouse.archives.gov/news/releases/2001/02/20010228-3.html",
+      "https://www.congress.gov/bill/108th-congress/house-bill/1"
+    ],
+    "dataSource": "perplexity+gemini",
+    "generatedAt": "2025-10-04T11:25:17.767Z"
+  },
+  {
+    "president": "George W. Bush",
+    "promise": "Cut the federal deficit in half by 2009.",
+    "date": "2005-02-02",
+    "category": "Economy",
+    "status": "broken",
+    "evidence": [
+      "Statement in State of the Union",
+      "Budget requests to Congress"
+    ],
+    "sources": [
+      "https://www.ssa.gov/history/gwbushstmts5.html"
     ],
     "affectedIndustries": [
       {
-        "name": "Defense Contracting",
+        "name": "Government Contracting",
         "predictedImpact": "negative",
-        "confidence": 70,
-        "reasoning": "A treaty reducing nuclear arsenals could decrease demand for development, production, and maintenance of nuclear weapon systems and related infrastructure."
+        "confidence": 80,
+        "reasoning": "Reduced government spending could lead to fewer contracts."
+      },
+      {
+        "name": "Financial Services",
+        "predictedImpact": "mixed",
+        "confidence": 60,
+        "reasoning": "Impact on interest rates and bond markets could be mixed, but generally positive for fiscal stability."
       }
     ],
     "verified": true,
     "credibilityLevel": "high",
     "realSources": [
-      "https://www.congress.gov/bill/111th-congress/house-bill/3590",
-      "https://www.politifact.com/truth-o-meter/promises/obameter/promise/521/health-care-bill-end-first-term/",
-      "https://www.archives.gov/federal-register/executive-orders/2009-obama.html#13491",
-      "https://www.ajc.com/news/state--regional-govt--politics/politifact-fact-checkers-rate-obama-major-campaign-promises/NB3ywPmYnkOVf55AFprq1N/",
-      "https://www.congress.gov/treaty-document/111th-congress/5",
-      "https://www.politifact.com/article/2017/jan/05/tracking-obamas-top-25-campaign-promises/",
-      "https://www.congress.gov/bill/111th-congress/house-bill/4173",
-      "https://www.ajc.com/news/state--regional-govt--politics/politifact-fact-checkers-rate-obama-major-campaign-promises/NB3ywPmYnkOVf55AFprq1N/",
-      "https://obamawhitehouse.archives.gov/the-press-office/2011/10/21/remarks-president-iraq",
-      "https://publicintegrity.org/accountability/fact-check-president-obamas-promises-from-08-iowa-caucus-largely-unkept/"
+      "https://www.ssa.gov/history/gwbushstmts5.html",
+      "https://www.ssa.gov/history/gwbushstmts5.html",
+      "https://en.wikipedia.org/wiki/George_W._Bush",
+      "https://www.ssa.gov/history/gwbushstmts5.html",
+      "https://www.ssa.gov/history/gwbushstmts5.html",
+      "https://www.presidency.ucsb.edu/documents/fact-sheet-president-bushs-accomplishments-2005",
+      "https://www.ssa.gov/history/gwbushstmts5.html",
+      "https://www.ssa.gov/history/gwbushstmts5.html",
+      "https://www.presidency.ucsb.edu/documents/fact-sheet-president-bushs-accomplishments-2005",
+      "https://millercenter.org/president/gwbush/domestic-affairs"
     ],
     "dataSource": "perplexity+gemini",
-    "generatedAt": "2025-10-04T07:56:05.628Z"
+    "generatedAt": "2025-10-04T11:25:55.551Z"
   },
   {
-    "president": "Barack Obama",
-    "promise": "Create new financial regulations to reform Wall Street.",
-    "date": "2008-09-17",
+    "president": "George W. Bush",
+    "promise": "Make tax relief permanent.",
+    "date": "2005-02-02",
     "category": "Economy",
-    "status": "kept",
+    "status": "broken",
     "evidence": [
-      "Dodd-Frank Wall Street Reform and Consumer Protection Act, signed July 21, 2010 (Public Law 111-203, H.R. 4173)"
+      "State of the Union",
+      "proposed to Congress",
+      "no relevant bill passed before departure"
     ],
     "sources": [
-      "https://www.congress.gov/bill/111th-congress/house-bill/4173",
-      "https://www.ajc.com/news/state--regional-govt--politics/politifact-fact-checkers-rate-obama-major-campaign-promises/NB3ywPmYnkOVf55AFprq1N/"
+      "https://www.ssa.gov/history/gwbushstmts5.html"
+    ],
+    "affectedIndustries": [
+      {
+        "name": "Retail",
+        "predictedImpact": "positive",
+        "confidence": 90,
+        "reasoning": "Increased disposable income for consumers would boost retail spending."
+      },
+      {
+        "name": "Manufacturing",
+        "predictedImpact": "positive",
+        "confidence": 85,
+        "reasoning": "Lower corporate taxes could encourage investment and job creation."
+      },
+      {
+        "name": "Financial Services",
+        "predictedImpact": "positive",
+        "confidence": 80,
+        "reasoning": "Beneficial for wealth management and investment due to lower capital gains/income taxes."
+      }
+    ],
+    "verified": true,
+    "credibilityLevel": "high",
+    "realSources": [
+      "https://www.ssa.gov/history/gwbushstmts5.html",
+      "https://www.ssa.gov/history/gwbushstmts5.html",
+      "https://en.wikipedia.org/wiki/George_W._Bush",
+      "https://www.ssa.gov/history/gwbushstmts5.html",
+      "https://www.ssa.gov/history/gwbushstmts5.html",
+      "https://www.presidency.ucsb.edu/documents/fact-sheet-president-bushs-accomplishments-2005",
+      "https://www.ssa.gov/history/gwbushstmts5.html",
+      "https://www.ssa.gov/history/gwbushstmts5.html",
+      "https://www.presidency.ucsb.edu/documents/fact-sheet-president-bushs-accomplishments-2005",
+      "https://millercenter.org/president/gwbush/domestic-affairs"
+    ],
+    "dataSource": "perplexity+gemini",
+    "generatedAt": "2025-10-04T11:25:55.551Z"
+  },
+  {
+    "president": "George W. Bush",
+    "promise": "Reform Social Security to allow personal accounts (partial privatization).",
+    "date": "2005-02-02",
+    "category": "Economy",
+    "status": "broken",
+    "evidence": [
+      "National tour campaign",
+      "Congress declined to act"
+    ],
+    "sources": [
+      "https://en.wikipedia.org/wiki/George_W._Bush"
     ],
     "affectedIndustries": [
       {
         "name": "Financial Services",
-        "predictedImpact": "mixed",
+        "predictedImpact": "positive",
         "confidence": 95,
-        "reasoning": "The Dodd-Frank Act introduced extensive regulations for banks, investment firms, and other financial institutions, increasing compliance costs while aiming to stabilize the market and protect consumers."
+        "reasoning": "Creation of personal accounts would significantly increase assets under management for investment firms."
+      },
+      {
+        "name": "Insurance",
+        "predictedImpact": "positive",
+        "confidence": 70,
+        "reasoning": "Potential for increased demand for retirement and annuity products."
       }
     ],
     "verified": true,
     "credibilityLevel": "high",
     "realSources": [
-      "https://www.congress.gov/bill/111th-congress/house-bill/3590",
-      "https://www.politifact.com/truth-o-meter/promises/obameter/promise/521/health-care-bill-end-first-term/",
-      "https://www.archives.gov/federal-register/executive-orders/2009-obama.html#13491",
-      "https://www.ajc.com/news/state--regional-govt--politics/politifact-fact-checkers-rate-obama-major-campaign-promises/NB3ywPmYnkOVf55AFprq1N/",
-      "https://www.congress.gov/treaty-document/111th-congress/5",
-      "https://www.politifact.com/article/2017/jan/05/tracking-obamas-top-25-campaign-promises/",
-      "https://www.congress.gov/bill/111th-congress/house-bill/4173",
-      "https://www.ajc.com/news/state--regional-govt--politics/politifact-fact-checkers-rate-obama-major-campaign-promises/NB3ywPmYnkOVf55AFprq1N/",
-      "https://obamawhitehouse.archives.gov/the-press-office/2011/10/21/remarks-president-iraq",
-      "https://publicintegrity.org/accountability/fact-check-president-obamas-promises-from-08-iowa-caucus-largely-unkept/"
+      "https://www.ssa.gov/history/gwbushstmts5.html",
+      "https://www.ssa.gov/history/gwbushstmts5.html",
+      "https://en.wikipedia.org/wiki/George_W._Bush",
+      "https://www.ssa.gov/history/gwbushstmts5.html",
+      "https://www.ssa.gov/history/gwbushstmts5.html",
+      "https://www.presidency.ucsb.edu/documents/fact-sheet-president-bushs-accomplishments-2005",
+      "https://www.ssa.gov/history/gwbushstmts5.html",
+      "https://www.ssa.gov/history/gwbushstmts5.html",
+      "https://www.presidency.ucsb.edu/documents/fact-sheet-president-bushs-accomplishments-2005",
+      "https://millercenter.org/president/gwbush/domestic-affairs"
     ],
     "dataSource": "perplexity+gemini",
-    "generatedAt": "2025-10-04T07:56:05.628Z"
+    "generatedAt": "2025-10-04T11:25:55.551Z"
   },
   {
-    "president": "Barack Obama",
-    "promise": "End the war in Iraq and bring our troops home.",
-    "date": "2007-10-02",
-    "category": "Defense",
+    "president": "George W. Bush",
+    "promise": "Reform job training system and strengthen America's community colleges, helping an additional 200,000 workers.",
+    "date": "2005-02-02",
+    "category": "Education",
     "status": "partial",
     "evidence": [
-      "Official announcement October 21, 2011; Status of Forces Agreement implemented"
+      "Budget proposals",
+      "workforce investment acts continued"
     ],
     "sources": [
-      "https://obamawhitehouse.archives.gov/the-press-office/2011/10/21/remarks-president-iraq",
-      "https://publicintegrity.org/accountability/fact-check-president-obamas-promises-from-08-iowa-caucus-largely-unkept/"
+      "https://www.ssa.gov/history/gwbushstmts5.html"
     ],
     "affectedIndustries": [
       {
-        "name": "Defense Contracting",
-        "predictedImpact": "negative",
+        "name": "Education (Community Colleges)",
+        "predictedImpact": "positive",
+        "confidence": 95,
+        "reasoning": "Direct funding and focus on strengthening these institutions."
+      },
+      {
+        "name": "Workforce Development",
+        "predictedImpact": "positive",
         "confidence": 90,
-        "reasoning": "Withdrawal of troops significantly reduced the need for military support services, logistics, equipment, and private security contractors in Iraq."
+        "reasoning": "Increased investment and focus on job training programs."
       }
     ],
     "verified": true,
     "credibilityLevel": "high",
     "realSources": [
-      "https://www.congress.gov/bill/111th-congress/house-bill/3590",
-      "https://www.politifact.com/truth-o-meter/promises/obameter/promise/521/health-care-bill-end-first-term/",
-      "https://www.archives.gov/federal-register/executive-orders/2009-obama.html#13491",
-      "https://www.ajc.com/news/state--regional-govt--politics/politifact-fact-checkers-rate-obama-major-campaign-promises/NB3ywPmYnkOVf55AFprq1N/",
-      "https://www.congress.gov/treaty-document/111th-congress/5",
-      "https://www.politifact.com/article/2017/jan/05/tracking-obamas-top-25-campaign-promises/",
-      "https://www.congress.gov/bill/111th-congress/house-bill/4173",
-      "https://www.ajc.com/news/state--regional-govt--politics/politifact-fact-checkers-rate-obama-major-campaign-promises/NB3ywPmYnkOVf55AFprq1N/",
-      "https://obamawhitehouse.archives.gov/the-press-office/2011/10/21/remarks-president-iraq",
-      "https://publicintegrity.org/accountability/fact-check-president-obamas-promises-from-08-iowa-caucus-largely-unkept/"
+      "https://www.ssa.gov/history/gwbushstmts5.html",
+      "https://www.ssa.gov/history/gwbushstmts5.html",
+      "https://en.wikipedia.org/wiki/George_W._Bush",
+      "https://www.ssa.gov/history/gwbushstmts5.html",
+      "https://www.ssa.gov/history/gwbushstmts5.html",
+      "https://www.presidency.ucsb.edu/documents/fact-sheet-president-bushs-accomplishments-2005",
+      "https://www.ssa.gov/history/gwbushstmts5.html",
+      "https://www.ssa.gov/history/gwbushstmts5.html",
+      "https://www.presidency.ucsb.edu/documents/fact-sheet-president-bushs-accomplishments-2005",
+      "https://millercenter.org/president/gwbush/domestic-affairs"
     ],
     "dataSource": "perplexity+gemini",
-    "generatedAt": "2025-10-04T07:56:05.628Z"
+    "generatedAt": "2025-10-04T11:25:55.551Z"
   },
   {
-    "president": "Donald Trump",
-    "promise": "We’re going to repeal and replace Obamacare and we are going to do that very, very quickly.",
-    "date": "2017-01-20",
+    "president": "George W. Bush",
+    "promise": "Increase the size of Pell Grants.",
+    "date": "2005-02-02",
+    "category": "Education",
+    "status": "kept",
+    "evidence": [
+      "Budget requests",
+      "FY 2006 Appropriations"
+    ],
+    "sources": [
+      "https://www.ssa.gov/history/gwbushstmts5.html"
+    ],
+    "affectedIndustries": [
+      {
+        "name": "Higher Education",
+        "predictedImpact": "positive",
+        "confidence": 95,
+        "reasoning": "Increased financial aid makes college more accessible, potentially boosting enrollment and revenue for institutions."
+      }
+    ],
+    "verified": true,
+    "credibilityLevel": "high",
+    "realSources": [
+      "https://www.ssa.gov/history/gwbushstmts5.html",
+      "https://www.ssa.gov/history/gwbushstmts5.html",
+      "https://en.wikipedia.org/wiki/George_W._Bush",
+      "https://www.ssa.gov/history/gwbushstmts5.html",
+      "https://www.ssa.gov/history/gwbushstmts5.html",
+      "https://www.presidency.ucsb.edu/documents/fact-sheet-president-bushs-accomplishments-2005",
+      "https://www.ssa.gov/history/gwbushstmts5.html",
+      "https://www.ssa.gov/history/gwbushstmts5.html",
+      "https://www.presidency.ucsb.edu/documents/fact-sheet-president-bushs-accomplishments-2005",
+      "https://millercenter.org/president/gwbush/domestic-affairs"
+    ],
+    "dataSource": "perplexity+gemini",
+    "generatedAt": "2025-10-04T11:25:55.551Z"
+  },
+  {
+    "president": "George W. Bush",
+    "promise": "Promote legal reforms to reduce frivolous lawsuits and class actions.",
+    "date": "2005-02-02",
+    "category": "Economy",
+    "status": "partial",
+    "evidence": [
+      "Public Law 109-2 (S.5), signed February 18, 2005"
+    ],
+    "sources": [
+      "https://www.presidency.ucsb.edu/documents/fact-sheet-president-bushs-accomplishments-2005"
+    ],
+    "affectedIndustries": [
+      {
+        "name": "Legal Services (Plaintiff Firms)",
+        "predictedImpact": "negative",
+        "confidence": 90,
+        "reasoning": "Reduced opportunities for class action lawsuits would decrease revenue for these firms."
+      },
+      {
+        "name": "Insurance",
+        "predictedImpact": "positive",
+        "confidence": 85,
+        "reasoning": "Fewer lawsuits could lead to lower payouts and potentially reduced premiums, improving profitability."
+      },
+      {
+        "name": "Manufacturing",
+        "predictedImpact": "positive",
+        "confidence": 75,
+        "reasoning": "Reduced litigation risk and costs would improve business environment."
+      }
+    ],
+    "verified": true,
+    "credibilityLevel": "high",
+    "realSources": [
+      "https://www.ssa.gov/history/gwbushstmts5.html",
+      "https://www.ssa.gov/history/gwbushstmts5.html",
+      "https://en.wikipedia.org/wiki/George_W._Bush",
+      "https://www.ssa.gov/history/gwbushstmts5.html",
+      "https://www.ssa.gov/history/gwbushstmts5.html",
+      "https://www.presidency.ucsb.edu/documents/fact-sheet-president-bushs-accomplishments-2005",
+      "https://www.ssa.gov/history/gwbushstmts5.html",
+      "https://www.ssa.gov/history/gwbushstmts5.html",
+      "https://www.presidency.ucsb.edu/documents/fact-sheet-president-bushs-accomplishments-2005",
+      "https://millercenter.org/president/gwbush/domestic-affairs"
+    ],
+    "dataSource": "perplexity+gemini",
+    "generatedAt": "2025-10-04T11:25:55.551Z"
+  },
+  {
+    "president": "George W. Bush",
+    "promise": "Medical liability reform to reduce health care costs.",
+    "date": "2005-02-02",
     "category": "Healthcare",
     "status": "broken",
     "evidence": [
-      "American Health Care Act (H.R. 1628) passed House but failed Senate"
+      "Addressed in speeches, but no passed bill"
     ],
     "sources": [
-      "https://www.congress.gov/bill/115th-congress/house-bill/1628"
+      "https://www.ssa.gov/history/gwbushstmts5.html"
+    ],
+    "affectedIndustries": [
+      {
+        "name": "Healthcare Providers",
+        "predictedImpact": "positive",
+        "confidence": 90,
+        "reasoning": "Reduced malpractice insurance premiums and litigation costs for doctors and hospitals."
+      },
+      {
+        "name": "Medical Malpractice Insurance",
+        "predictedImpact": "negative",
+        "confidence": 80,
+        "reasoning": "Potentially reduced premium volume due to lower risk and payouts."
+      }
+    ],
+    "verified": true,
+    "credibilityLevel": "high",
+    "realSources": [
+      "https://www.ssa.gov/history/gwbushstmts5.html",
+      "https://www.ssa.gov/history/gwbushstmts5.html",
+      "https://en.wikipedia.org/wiki/George_W._Bush",
+      "https://www.ssa.gov/history/gwbushstmts5.html",
+      "https://www.ssa.gov/history/gwbushstmts5.html",
+      "https://www.presidency.ucsb.edu/documents/fact-sheet-president-bushs-accomplishments-2005",
+      "https://www.ssa.gov/history/gwbushstmts5.html",
+      "https://www.ssa.gov/history/gwbushstmts5.html",
+      "https://www.presidency.ucsb.edu/documents/fact-sheet-president-bushs-accomplishments-2005",
+      "https://millercenter.org/president/gwbush/domestic-affairs"
+    ],
+    "dataSource": "perplexity+gemini",
+    "generatedAt": "2025-10-04T11:25:55.551Z"
+  },
+  {
+    "president": "George W. Bush",
+    "promise": "Ensure a community health center in every poor county.",
+    "date": "2005-02-02",
+    "category": "Healthcare",
+    "status": "partial",
+    "evidence": [
+      "Ongoing program funding",
+      "National Health Service Corps"
+    ],
+    "sources": [
+      "https://www.ssa.gov/history/gwbushstmts5.html"
+    ],
+    "affectedIndustries": [
+      {
+        "name": "Healthcare Providers (Community Health Centers)",
+        "predictedImpact": "positive",
+        "confidence": 95,
+        "reasoning": "Direct expansion and funding for these centers."
+      },
+      {
+        "name": "Construction",
+        "predictedImpact": "positive",
+        "confidence": 70,
+        "reasoning": "Building new centers would create construction opportunities."
+      }
+    ],
+    "verified": true,
+    "credibilityLevel": "high",
+    "realSources": [
+      "https://www.ssa.gov/history/gwbushstmts5.html",
+      "https://www.ssa.gov/history/gwbushstmts5.html",
+      "https://en.wikipedia.org/wiki/George_W._Bush",
+      "https://www.ssa.gov/history/gwbushstmts5.html",
+      "https://www.ssa.gov/history/gwbushstmts5.html",
+      "https://www.presidency.ucsb.edu/documents/fact-sheet-president-bushs-accomplishments-2005",
+      "https://www.ssa.gov/history/gwbushstmts5.html",
+      "https://www.ssa.gov/history/gwbushstmts5.html",
+      "https://www.presidency.ucsb.edu/documents/fact-sheet-president-bushs-accomplishments-2005",
+      "https://millercenter.org/president/gwbush/domestic-affairs"
+    ],
+    "dataSource": "perplexity+gemini",
+    "generatedAt": "2025-10-04T11:25:55.551Z"
+  },
+  {
+    "president": "George W. Bush",
+    "promise": "Modernize and strengthen the electricity grid; promote clean, domestic energy (including nuclear and renewables).",
+    "date": "2005-02-02",
+    "category": "Energy",
+    "status": "partial",
+    "evidence": [
+      "H.R. 6 (Energy Policy Act of 2005)",
+      "signed into law"
+    ],
+    "sources": [
+      "https://www.presidency.ucsb.edu/documents/fact-sheet-president-bushs-accomplishments-2005"
+    ],
+    "affectedIndustries": [
+      {
+        "name": "Renewable Energy",
+        "predictedImpact": "positive",
+        "confidence": 90,
+        "reasoning": "Direct promotion and investment in clean energy technologies."
+      },
+      {
+        "name": "Nuclear Power",
+        "predictedImpact": "positive",
+        "confidence": 85,
+        "reasoning": "Specific mention of promoting nuclear energy."
+      },
+      {
+        "name": "Utilities/Grid Modernization",
+        "predictedImpact": "positive",
+        "confidence": 90,
+        "reasoning": "Investment in infrastructure and grid upgrades."
+      }
+    ],
+    "verified": true,
+    "credibilityLevel": "high",
+    "realSources": [
+      "https://www.ssa.gov/history/gwbushstmts5.html",
+      "https://www.ssa.gov/history/gwbushstmts5.html",
+      "https://en.wikipedia.org/wiki/George_W._Bush",
+      "https://www.ssa.gov/history/gwbushstmts5.html",
+      "https://www.ssa.gov/history/gwbushstmts5.html",
+      "https://www.presidency.ucsb.edu/documents/fact-sheet-president-bushs-accomplishments-2005",
+      "https://www.ssa.gov/history/gwbushstmts5.html",
+      "https://www.ssa.gov/history/gwbushstmts5.html",
+      "https://www.presidency.ucsb.edu/documents/fact-sheet-president-bushs-accomplishments-2005",
+      "https://millercenter.org/president/gwbush/domestic-affairs"
+    ],
+    "dataSource": "perplexity+gemini",
+    "generatedAt": "2025-10-04T11:25:55.551Z"
+  },
+  {
+    "president": "George W. Bush",
+    "promise": "Expand Health Savings Accounts (HSAs).",
+    "date": "2005-02-02",
+    "category": "Healthcare",
+    "status": "kept",
+    "evidence": [
+      "Medicare Modernization Act of 2003",
+      "follow-on regulation"
+    ],
+    "sources": [
+      "https://millercenter.org/president/gwbush/domestic-affairs"
+    ],
+    "affectedIndustries": [
+      {
+        "name": "Health Insurance",
+        "predictedImpact": "positive",
+        "confidence": 90,
+        "reasoning": "HSAs are typically paired with high-deductible health plans, increasing their adoption."
+      },
+      {
+        "name": "Financial Services",
+        "predictedImpact": "positive",
+        "confidence": 85,
+        "reasoning": "HSAs involve investment accounts, benefiting banks and asset managers."
+      }
+    ],
+    "verified": true,
+    "credibilityLevel": "high",
+    "realSources": [
+      "https://www.ssa.gov/history/gwbushstmts5.html",
+      "https://www.ssa.gov/history/gwbushstmts5.html",
+      "https://en.wikipedia.org/wiki/George_W._Bush",
+      "https://www.ssa.gov/history/gwbushstmts5.html",
+      "https://www.ssa.gov/history/gwbushstmts5.html",
+      "https://www.presidency.ucsb.edu/documents/fact-sheet-president-bushs-accomplishments-2005",
+      "https://www.ssa.gov/history/gwbushstmts5.html",
+      "https://www.ssa.gov/history/gwbushstmts5.html",
+      "https://www.presidency.ucsb.edu/documents/fact-sheet-president-bushs-accomplishments-2005",
+      "https://millercenter.org/president/gwbush/domestic-affairs"
+    ],
+    "dataSource": "perplexity+gemini",
+    "generatedAt": "2025-10-04T11:25:55.551Z"
+  },
+  {
+    "president": "Barack Obama",
+    "promise": "Sign a universal health care bill into law by the end of his first term.",
+    "date": "2007-10-24",
+    "category": "Healthcare",
+    "status": "kept",
+    "evidence": [
+      "Patient Protection and Affordable Care Act signed into law (H.R. 3590) on 2010-03-23."
+    ],
+    "sources": [
+      "https://www.congress.gov/bill/111th-congress/house-bill/3590"
     ],
     "affectedIndustries": [
       {
         "name": "Healthcare Providers",
         "predictedImpact": "mixed",
-        "confidence": 70,
-        "reasoning": "Repeal and replacement of the Affordable Care Act would create significant uncertainty and alter funding and operational models for hospitals, insurers, and pharmaceutical companies."
+        "confidence": 85,
+        "reasoning": "Increased patient base due to expanded coverage, but also new regulations and potential changes to reimbursement models."
       },
       {
-        "name": "Health Insurance",
+        "name": "Health Insurance Industry",
+        "predictedImpact": "mixed",
+        "confidence": 90,
+        "reasoning": "Expanded market with new mandates and subsidies, but also significant new regulations and potential caps on profits."
+      },
+      {
+        "name": "Pharmaceutical Industry",
         "predictedImpact": "mixed",
         "confidence": 75,
-        "reasoning": "Changes to insurance mandates and subsidies would fundamentally reshape the health insurance market, affecting product offerings and consumer base."
+        "reasoning": "Increased demand for medications due to more insured individuals, but potential for increased price negotiations and controls."
       }
     ],
     "verified": true,
     "credibilityLevel": "high",
     "realSources": [
-      "https://www.congress.gov/bill/115th-congress/house-bill/1628",
-      "https://www.federalregister.gov/documents/2019/02/20/2019-03011/declaring-a-national-emergency-concerning-the-southern-border-of-the-united-states",
-      "https://www.congress.gov/bill/115th-congress/house-bill/1",
-      "https://www.state.gov/secretary-pompeos-remarks-on-the-u-s-notification-of-withdrawal-from-the-paris-agreement/",
-      "https://www.whitehouse.gov/people/neil-gorsuch/",
-      "https://www.whitehouse.gov/people/brett-m-kavanaugh/",
-      "https://www.supremecourt.gov/about/biographies.aspx",
-      "https://www.politifact.com/truth-o-meter/promises/trumpometer/"
+      "https://www.congress.gov/bill/111th-congress/house-bill/3590",
+      "https://www.congress.gov/treaty-document/111th-congress/5",
+      "https://www.presidency.ucsb.edu/documents/romney-campaign-press-release-obamas-four-years-broken-promises-spending",
+      "https://www.archives.gov/federal-register/executive-orders/2009-obama.html",
+      "https://www.congress.gov/bill/111th-congress/senate-bill/1789",
+      "https://obamawhitehouse.archives.gov/the-press-office/2012/03/14/white-house-announces-launch-ethicsgov",
+      "https://www.politifact.com/article/2017/jan/05/tracking-obamas-top-25-campaign-promises/",
+      "https://www.congress.gov/bill/111th-congress/house-bill/4173",
+      "https://www.congress.gov/bill/111th-congress/house-bill/6080",
+      "https://waysandmeans.house.gov/2013/10/30/obamas-pledge-that-no-one-will-take-away-your-health-plan/"
     ],
     "dataSource": "perplexity+gemini",
-    "generatedAt": "2025-10-04T07:56:58.482Z"
+    "generatedAt": "2025-10-04T11:27:29.638Z"
   },
   {
-    "president": "Donald Trump",
-    "promise": "We’re going to build a wall. People want the wall!",
-    "date": "2015-06-16",
-    "category": "Immigration",
-    "status": "partial",
+    "president": "Barack Obama",
+    "promise": "Seek verifiable reductions in U.S. and Russian nuclear stockpiles.",
+    "date": "2009-04-05",
+    "category": "Defense",
+    "status": "kept",
     "evidence": [
-      "National emergency declared via Proclamation 9844 (2019-02-15) to redirect funds",
-      "New construction replaced existing barriers, full funding not secured"
+      "New START Treaty with Russia, signed 2010-04-08; ratified by Senate (Treaty Doc. 111-5) on 2010-12-22."
     ],
     "sources": [
-      "https://www.federalregister.gov/documents/2019/02/20/2019-03011/declaring-a-national-emergency-concerning-the-southern-border-of-the-united-states"
+      "https://www.congress.gov/treaty-document/111th-congress/5"
     ],
     "affectedIndustries": [
       {
-        "name": "Construction",
-        "predictedImpact": "positive",
-        "confidence": 90,
-        "reasoning": "Increased government contracts and spending on large-scale border infrastructure directly benefits construction companies and their supply chains."
+        "name": "Defense Industry (Nuclear Sector)",
+        "predictedImpact": "negative",
+        "confidence": 70,
+        "reasoning": "Reduced demand for new nuclear warhead production and associated maintenance, though overall defense spending might shift."
       },
       {
-        "name": "Border Security Technology",
+        "name": "Arms Control/Diplomacy Think Tanks",
         "predictedImpact": "positive",
-        "confidence": 75,
-        "reasoning": "While focused on a physical wall, border security initiatives often involve technology upgrades (e.g., surveillance, sensors), benefiting related tech companies."
+        "confidence": 80,
+        "reasoning": "Increased focus and funding for research and analysis related to nuclear non-proliferation and international treaties."
       }
     ],
     "verified": true,
     "credibilityLevel": "high",
     "realSources": [
-      "https://www.congress.gov/bill/115th-congress/house-bill/1628",
-      "https://www.federalregister.gov/documents/2019/02/20/2019-03011/declaring-a-national-emergency-concerning-the-southern-border-of-the-united-states",
-      "https://www.congress.gov/bill/115th-congress/house-bill/1",
-      "https://www.state.gov/secretary-pompeos-remarks-on-the-u-s-notification-of-withdrawal-from-the-paris-agreement/",
-      "https://www.whitehouse.gov/people/neil-gorsuch/",
-      "https://www.whitehouse.gov/people/brett-m-kavanaugh/",
-      "https://www.supremecourt.gov/about/biographies.aspx",
-      "https://www.politifact.com/truth-o-meter/promises/trumpometer/"
+      "https://www.congress.gov/bill/111th-congress/house-bill/3590",
+      "https://www.congress.gov/treaty-document/111th-congress/5",
+      "https://www.presidency.ucsb.edu/documents/romney-campaign-press-release-obamas-four-years-broken-promises-spending",
+      "https://www.archives.gov/federal-register/executive-orders/2009-obama.html",
+      "https://www.congress.gov/bill/111th-congress/senate-bill/1789",
+      "https://obamawhitehouse.archives.gov/the-press-office/2012/03/14/white-house-announces-launch-ethicsgov",
+      "https://www.politifact.com/article/2017/jan/05/tracking-obamas-top-25-campaign-promises/",
+      "https://www.congress.gov/bill/111th-congress/house-bill/4173",
+      "https://www.congress.gov/bill/111th-congress/house-bill/6080",
+      "https://waysandmeans.house.gov/2013/10/30/obamas-pledge-that-no-one-will-take-away-your-health-plan/"
     ],
     "dataSource": "perplexity+gemini",
-    "generatedAt": "2025-10-04T07:56:58.482Z"
+    "generatedAt": "2025-10-04T11:27:29.638Z"
   },
   {
-    "president": "Donald Trump",
-    "promise": "We’re going to cut the business tax from 35 percent, all the way down to 20 percent, maybe lower… And by the way ... probably 21 percent.",
-    "date": "2017-04-26",
+    "president": "Barack Obama",
+    "promise": "Cut the federal deficit in half by the end of his first term.",
+    "date": "2009-02-23",
+    "category": "Economy",
+    "status": "broken",
+    "evidence": [
+      "Deficit remained above $1 trillion in FY2012 and FY2013."
+    ],
+    "sources": [
+      "https://www.presidency.ucsb.edu/documents/romney-campaign-press-release-obamas-four-years-broken-promises-spending"
+    ],
+    "affectedIndustries": [
+      {
+        "name": "Government Contractors",
+        "predictedImpact": "negative",
+        "confidence": 80,
+        "reasoning": "Efforts to cut the deficit would likely lead to reduced government spending and fewer contracts for goods and services."
+      },
+      {
+        "name": "Financial Markets (Bond Market)",
+        "predictedImpact": "positive",
+        "confidence": 75,
+        "reasoning": "A reduced deficit typically leads to lower government borrowing, potentially lowering interest rates and increasing investor confidence in government bonds."
+      }
+    ],
+    "verified": true,
+    "credibilityLevel": "high",
+    "realSources": [
+      "https://www.congress.gov/bill/111th-congress/house-bill/3590",
+      "https://www.congress.gov/treaty-document/111th-congress/5",
+      "https://www.presidency.ucsb.edu/documents/romney-campaign-press-release-obamas-four-years-broken-promises-spending",
+      "https://www.archives.gov/federal-register/executive-orders/2009-obama.html",
+      "https://www.congress.gov/bill/111th-congress/senate-bill/1789",
+      "https://obamawhitehouse.archives.gov/the-press-office/2012/03/14/white-house-announces-launch-ethicsgov",
+      "https://www.politifact.com/article/2017/jan/05/tracking-obamas-top-25-campaign-promises/",
+      "https://www.congress.gov/bill/111th-congress/house-bill/4173",
+      "https://www.congress.gov/bill/111th-congress/house-bill/6080",
+      "https://waysandmeans.house.gov/2013/10/30/obamas-pledge-that-no-one-will-take-away-your-health-plan/"
+    ],
+    "dataSource": "perplexity+gemini",
+    "generatedAt": "2025-10-04T11:27:29.638Z"
+  },
+  {
+    "president": "Barack Obama",
+    "promise": "Close the detention facility at Guantanamo Bay.",
+    "date": "2008-11-16",
+    "category": "Defense",
+    "status": "broken",
+    "evidence": [
+      "Executive Order 13492, signed 2009-01-22, ordered closure within a year."
+    ],
+    "sources": [
+      "https://www.archives.gov/federal-register/executive-orders/2009-obama.html"
+    ],
+    "affectedIndustries": [
+      {
+        "name": "Private Prison/Security Contractors",
+        "predictedImpact": "negative",
+        "confidence": 80,
+        "reasoning": "Closure of the facility would result in the termination of contracts for operating or supporting the detention center."
+      },
+      {
+        "name": "Legal Services (for detainees)",
+        "predictedImpact": "mixed",
+        "confidence": 60,
+        "reasoning": "Closure would lead to either transfer of detainees (shifting legal battles) or resolution of cases, altering demand for specific legal services."
+      }
+    ],
+    "verified": true,
+    "credibilityLevel": "high",
+    "realSources": [
+      "https://www.congress.gov/bill/111th-congress/house-bill/3590",
+      "https://www.congress.gov/treaty-document/111th-congress/5",
+      "https://www.presidency.ucsb.edu/documents/romney-campaign-press-release-obamas-four-years-broken-promises-spending",
+      "https://www.archives.gov/federal-register/executive-orders/2009-obama.html",
+      "https://www.congress.gov/bill/111th-congress/senate-bill/1789",
+      "https://obamawhitehouse.archives.gov/the-press-office/2012/03/14/white-house-announces-launch-ethicsgov",
+      "https://www.politifact.com/article/2017/jan/05/tracking-obamas-top-25-campaign-promises/",
+      "https://www.congress.gov/bill/111th-congress/house-bill/4173",
+      "https://www.congress.gov/bill/111th-congress/house-bill/6080",
+      "https://waysandmeans.house.gov/2013/10/30/obamas-pledge-that-no-one-will-take-away-your-health-plan/"
+    ],
+    "dataSource": "perplexity+gemini",
+    "generatedAt": "2025-10-04T11:27:29.638Z"
+  },
+  {
+    "president": "Barack Obama",
+    "promise": "Reform mandatory minimum sentences for nonviolent drug offenders.",
+    "date": "2007-11-01",
     "category": "Economy",
     "status": "kept",
     "evidence": [
-      "Tax Cuts and Jobs Act of 2017 (H.R. 1) reduced corporate tax rate from 35% to 21%"
+      "Fair Sentencing Act of 2010 (S. 1789) signed 2010-08-03, reduced crack-powder cocaine sentencing disparity."
+    ],
+    "sources": [
+      "https://www.congress.gov/bill/111th-congress/senate-bill/1789"
+    ],
+    "affectedIndustries": [
+      {
+        "name": "Private Prison Industry",
+        "predictedImpact": "negative",
+        "confidence": 85,
+        "reasoning": "Reduced mandatory minimums could lead to lower incarceration rates for nonviolent drug offenders, decreasing demand for prison beds."
+      },
+      {
+        "name": "Rehabilitation Services",
+        "predictedImpact": "positive",
+        "confidence": 70,
+        "reasoning": "A shift away from incarceration could increase demand for drug treatment and rehabilitation programs."
+      },
+      {
+        "name": "Legal Services (Defense Attorneys)",
+        "predictedImpact": "mixed",
+        "confidence": 65,
+        "reasoning": "May reduce the volume of certain types of drug cases but could shift legal focus or complexity, with an overall uncertain impact."
+      }
+    ],
+    "verified": true,
+    "credibilityLevel": "high",
+    "realSources": [
+      "https://www.congress.gov/bill/111th-congress/house-bill/3590",
+      "https://www.congress.gov/treaty-document/111th-congress/5",
+      "https://www.presidency.ucsb.edu/documents/romney-campaign-press-release-obamas-four-years-broken-promises-spending",
+      "https://www.archives.gov/federal-register/executive-orders/2009-obama.html",
+      "https://www.congress.gov/bill/111th-congress/senate-bill/1789",
+      "https://obamawhitehouse.archives.gov/the-press-office/2012/03/14/white-house-announces-launch-ethicsgov",
+      "https://www.politifact.com/article/2017/jan/05/tracking-obamas-top-25-campaign-promises/",
+      "https://www.congress.gov/bill/111th-congress/house-bill/4173",
+      "https://www.congress.gov/bill/111th-congress/house-bill/6080",
+      "https://waysandmeans.house.gov/2013/10/30/obamas-pledge-that-no-one-will-take-away-your-health-plan/"
+    ],
+    "dataSource": "perplexity+gemini",
+    "generatedAt": "2025-10-04T11:27:29.638Z"
+  },
+  {
+    "president": "Barack Obama",
+    "promise": "Centralize ethics and lobbying information for voters.",
+    "date": "2007-09",
+    "category": "Economy",
+    "status": "kept",
+    "evidence": [
+      "Launch of Ethics.gov site with White House visitor logs and federal lobbying data, March 2012."
+    ],
+    "sources": [
+      "https://obamawhitehouse.archives.gov/the-press-office/2012/03/14/white-house-announces-launch-ethicsgov"
+    ],
+    "affectedIndustries": [
+      {
+        "name": "Lobbying Firms",
+        "predictedImpact": "mixed",
+        "confidence": 75,
+        "reasoning": "Increased transparency and public scrutiny could alter lobbying practices and require more disclosure, potentially impacting strategies."
+      },
+      {
+        "name": "Tech Industry (Data Transparency Platforms)",
+        "predictedImpact": "positive",
+        "confidence": 70,
+        "reasoning": "Creation of new government platforms and demand for data management and presentation solutions related to transparency initiatives."
+      }
+    ],
+    "verified": true,
+    "credibilityLevel": "high",
+    "realSources": [
+      "https://www.congress.gov/bill/111th-congress/house-bill/3590",
+      "https://www.congress.gov/treaty-document/111th-congress/5",
+      "https://www.presidency.ucsb.edu/documents/romney-campaign-press-release-obamas-four-years-broken-promises-spending",
+      "https://www.archives.gov/federal-register/executive-orders/2009-obama.html",
+      "https://www.congress.gov/bill/111th-congress/senate-bill/1789",
+      "https://obamawhitehouse.archives.gov/the-press-office/2012/03/14/white-house-announces-launch-ethicsgov",
+      "https://www.politifact.com/article/2017/jan/05/tracking-obamas-top-25-campaign-promises/",
+      "https://www.congress.gov/bill/111th-congress/house-bill/4173",
+      "https://www.congress.gov/bill/111th-congress/house-bill/6080",
+      "https://waysandmeans.house.gov/2013/10/30/obamas-pledge-that-no-one-will-take-away-your-health-plan/"
+    ],
+    "dataSource": "perplexity+gemini",
+    "generatedAt": "2025-10-04T11:27:29.638Z"
+  },
+  {
+    "president": "Barack Obama",
+    "promise": "Require more disclosure and a waiting period for earmarks.",
+    "date": "2007-05-29",
+    "category": "Economy",
+    "status": "kept",
+    "evidence": [
+      "Moratorium on earmarks established by Congress, 2011; Obama imposed ban via State of the Union and policy directives."
+    ],
+    "sources": [
+      "https://www.politifact.com/article/2017/jan/05/tracking-obamas-top-25-campaign-promises/"
+    ],
+    "affectedIndustries": [
+      {
+        "name": "Government Contractors",
+        "predictedImpact": "negative",
+        "confidence": 85,
+        "reasoning": "Increased disclosure and restrictions on earmarks could reduce the ability of contractors to secure specific, targeted funding through lobbying efforts."
+      },
+      {
+        "name": "Lobbying Firms",
+        "predictedImpact": "negative",
+        "confidence": 80,
+        "reasoning": "Limits on earmarks reduce one avenue for lobbying influence, potentially shifting strategies or reducing demand for certain lobbying services."
+      }
+    ],
+    "verified": true,
+    "credibilityLevel": "high",
+    "realSources": [
+      "https://www.congress.gov/bill/111th-congress/house-bill/3590",
+      "https://www.congress.gov/treaty-document/111th-congress/5",
+      "https://www.presidency.ucsb.edu/documents/romney-campaign-press-release-obamas-four-years-broken-promises-spending",
+      "https://www.archives.gov/federal-register/executive-orders/2009-obama.html",
+      "https://www.congress.gov/bill/111th-congress/senate-bill/1789",
+      "https://obamawhitehouse.archives.gov/the-press-office/2012/03/14/white-house-announces-launch-ethicsgov",
+      "https://www.politifact.com/article/2017/jan/05/tracking-obamas-top-25-campaign-promises/",
+      "https://www.congress.gov/bill/111th-congress/house-bill/4173",
+      "https://www.congress.gov/bill/111th-congress/house-bill/6080",
+      "https://waysandmeans.house.gov/2013/10/30/obamas-pledge-that-no-one-will-take-away-your-health-plan/"
+    ],
+    "dataSource": "perplexity+gemini",
+    "generatedAt": "2025-10-04T11:27:29.638Z"
+  },
+  {
+    "president": "Barack Obama",
+    "promise": "Create new financial regulations in response to the 2008 crisis.",
+    "date": "2009-06-17",
+    "category": "Economy",
+    "status": "kept",
+    "evidence": [
+      "Dodd-Frank Wall Street Reform and Consumer Protection Act (H.R. 4173), signed 2010-07-21."
+    ],
+    "sources": [
+      "https://www.congress.gov/bill/111th-congress/house-bill/4173"
+    ],
+    "affectedIndustries": [
+      {
+        "name": "Financial Services (Banks, Investment Firms)",
+        "predictedImpact": "negative",
+        "confidence": 95,
+        "reasoning": "Imposed increased capital requirements, restrictions on certain trading activities (Volcker Rule), and increased regulatory oversight, leading to higher compliance costs."
+      },
+      {
+        "name": "Regulatory Compliance Software/Consulting",
+        "predictedImpact": "positive",
+        "confidence": 90,
+        "reasoning": "Significant increase in demand for software solutions and consulting services to help financial institutions navigate and comply with complex new regulations."
+      }
+    ],
+    "verified": true,
+    "credibilityLevel": "high",
+    "realSources": [
+      "https://www.congress.gov/bill/111th-congress/house-bill/3590",
+      "https://www.congress.gov/treaty-document/111th-congress/5",
+      "https://www.presidency.ucsb.edu/documents/romney-campaign-press-release-obamas-four-years-broken-promises-spending",
+      "https://www.archives.gov/federal-register/executive-orders/2009-obama.html",
+      "https://www.congress.gov/bill/111th-congress/senate-bill/1789",
+      "https://obamawhitehouse.archives.gov/the-press-office/2012/03/14/white-house-announces-launch-ethicsgov",
+      "https://www.politifact.com/article/2017/jan/05/tracking-obamas-top-25-campaign-promises/",
+      "https://www.congress.gov/bill/111th-congress/house-bill/4173",
+      "https://www.congress.gov/bill/111th-congress/house-bill/6080",
+      "https://waysandmeans.house.gov/2013/10/30/obamas-pledge-that-no-one-will-take-away-your-health-plan/"
+    ],
+    "dataSource": "perplexity+gemini",
+    "generatedAt": "2025-10-04T11:27:29.638Z"
+  },
+  {
+    "president": "Barack Obama",
+    "promise": "Support additional personnel, infrastructure, and technology on the border and at ports.",
+    "date": "2008-08-18",
+    "category": "Immigration",
+    "status": "partial",
+    "evidence": [
+      "Border Security provisions in the 2010 Supplemental Appropriations Act (H.R. 6080) signed 2010-08-13 funding extra border agents and technology."
+    ],
+    "sources": [
+      "https://www.congress.gov/bill/111th-congress/house-bill/6080"
+    ],
+    "affectedIndustries": [
+      {
+        "name": "Security Technology Providers",
+        "predictedImpact": "positive",
+        "confidence": 90,
+        "reasoning": "Increased government contracts for surveillance systems, sensors, drones, and other border security technologies."
+      },
+      {
+        "name": "Construction Industry",
+        "predictedImpact": "positive",
+        "confidence": 85,
+        "reasoning": "Demand for new or upgraded border infrastructure, including fencing, roads, and facilities at ports of entry."
+      },
+      {
+        "name": "Personnel/Staffing Agencies (Government)",
+        "predictedImpact": "positive",
+        "confidence": 80,
+        "reasoning": "Increased hiring and training of additional border patrol agents and customs personnel."
+      }
+    ],
+    "verified": true,
+    "credibilityLevel": "high",
+    "realSources": [
+      "https://www.congress.gov/bill/111th-congress/house-bill/3590",
+      "https://www.congress.gov/treaty-document/111th-congress/5",
+      "https://www.presidency.ucsb.edu/documents/romney-campaign-press-release-obamas-four-years-broken-promises-spending",
+      "https://www.archives.gov/federal-register/executive-orders/2009-obama.html",
+      "https://www.congress.gov/bill/111th-congress/senate-bill/1789",
+      "https://obamawhitehouse.archives.gov/the-press-office/2012/03/14/white-house-announces-launch-ethicsgov",
+      "https://www.politifact.com/article/2017/jan/05/tracking-obamas-top-25-campaign-promises/",
+      "https://www.congress.gov/bill/111th-congress/house-bill/4173",
+      "https://www.congress.gov/bill/111th-congress/house-bill/6080",
+      "https://waysandmeans.house.gov/2013/10/30/obamas-pledge-that-no-one-will-take-away-your-health-plan/"
+    ],
+    "dataSource": "perplexity+gemini",
+    "generatedAt": "2025-10-04T11:27:29.638Z"
+  },
+  {
+    "president": "Barack Obama",
+    "promise": "“If you like your health care plan, you’ll be able to keep your health care plan.”",
+    "date": "2009-06-15",
+    "category": "Healthcare",
+    "status": "broken",
+    "evidence": [
+      "Millions of Americans received cancellation notices as Affordable Care Act standards took effect in 2013."
+    ],
+    "sources": [
+      "https://waysandmeans.house.gov/2013/10/30/obamas-pledge-that-no-one-will-take-away-your-health-plan/"
+    ],
+    "affectedIndustries": [
+      {
+        "name": "Health Insurance Industry",
+        "predictedImpact": "mixed",
+        "confidence": 90,
+        "reasoning": "Many existing plans were canceled due to not meeting ACA standards, causing customer churn and negative publicity, though the ACA also expanded the overall insured market."
+      },
+      {
+        "name": "Employers (offering health plans)",
+        "predictedImpact": "mixed",
+        "confidence": 80,
+        "reasoning": "Some employers faced increased costs or mandates to offer plans, while others found new options for employees through the ACA marketplaces, leading to varied impacts."
+      }
+    ],
+    "verified": true,
+    "credibilityLevel": "high",
+    "realSources": [
+      "https://www.congress.gov/bill/111th-congress/house-bill/3590",
+      "https://www.congress.gov/treaty-document/111th-congress/5",
+      "https://www.presidency.ucsb.edu/documents/romney-campaign-press-release-obamas-four-years-broken-promises-spending",
+      "https://www.archives.gov/federal-register/executive-orders/2009-obama.html",
+      "https://www.congress.gov/bill/111th-congress/senate-bill/1789",
+      "https://obamawhitehouse.archives.gov/the-press-office/2012/03/14/white-house-announces-launch-ethicsgov",
+      "https://www.politifact.com/article/2017/jan/05/tracking-obamas-top-25-campaign-promises/",
+      "https://www.congress.gov/bill/111th-congress/house-bill/4173",
+      "https://www.congress.gov/bill/111th-congress/house-bill/6080",
+      "https://waysandmeans.house.gov/2013/10/30/obamas-pledge-that-no-one-will-take-away-your-health-plan/"
+    ],
+    "dataSource": "perplexity+gemini",
+    "generatedAt": "2025-10-04T11:27:29.638Z"
+  },
+  {
+    "president": "Barack Obama",
+    "promise": "Announce a plan to reduce carbon pollution from power plants by setting state-specific limits on emissions.",
+    "date": "2013-06-25",
+    "category": "Energy",
+    "status": "kept",
+    "evidence": [
+      "Executive Order 13653 (Preparing the United States for the Impacts of Climate Change)"
+    ],
+    "sources": [
+      "https://www.whitehouse.gov/the-press-office/2013/06/25/fact-sheet-president-obama-s-climate-action-plan"
+    ],
+    "affectedIndustries": [],
+    "verified": true,
+    "credibilityLevel": "high",
+    "realSources": [
+      "https://www.whitehouse.gov/the-press-office/2013/06/25/fact-sheet-president-obama-s-climate-action-plan",
+      "https://www.congress.gov/congressional-hearings/2013/11/14/ACA-Implementation",
+      "https://www.whitehouse.gov/the-press-office/2014/01/28/president-barack-obamas-state-union-address",
+      "https://www.whitehouse.gov/the-press-office/2014/11/20/fact-sheet-immigration-accountability-executive-action",
+      "https://www.fcc.gov/restoring-internet-freedom",
+      "https://www.congress.gov/bill/114th-congress/house-bill/653",
+      "https://unfccc.int/process-and-meetings/the-paris-agreement/the-paris-agreement",
+      "https://www.federalregister.gov/documents/2015/04/01/2015-07641/improving-critical-infrastructure-cybersecurity",
+      "https://www.congress.gov/bill/111th-congress/house-bill/2965",
+      "https://www.whitehouse.gov/the-press-office/2015/07/14/fact-sheet-joint-comprehensive-plan-action-jcpoa"
+    ],
+    "dataSource": "perplexity+gemini",
+    "generatedAt": "2025-10-04T11:28:13.689Z"
+  },
+  {
+    "president": "Barack Obama",
+    "promise": "Implement improvements to the Affordable Care Act to ensure it works better for Americans.",
+    "date": "2013-11-14",
+    "category": "Healthcare",
+    "status": "kept",
+    "evidence": [
+      "Health and Human Services (HHS) Secretary Kathleen Sebelius's testimony before Congress"
+    ],
+    "sources": [
+      "https://www.congress.gov/congressional-hearings/2013/11/14/ACA-Implementation"
+    ],
+    "affectedIndustries": [],
+    "verified": true,
+    "credibilityLevel": "high",
+    "realSources": [
+      "https://www.whitehouse.gov/the-press-office/2013/06/25/fact-sheet-president-obama-s-climate-action-plan",
+      "https://www.congress.gov/congressional-hearings/2013/11/14/ACA-Implementation",
+      "https://www.whitehouse.gov/the-press-office/2014/01/28/president-barack-obamas-state-union-address",
+      "https://www.whitehouse.gov/the-press-office/2014/11/20/fact-sheet-immigration-accountability-executive-action",
+      "https://www.fcc.gov/restoring-internet-freedom",
+      "https://www.congress.gov/bill/114th-congress/house-bill/653",
+      "https://unfccc.int/process-and-meetings/the-paris-agreement/the-paris-agreement",
+      "https://www.federalregister.gov/documents/2015/04/01/2015-07641/improving-critical-infrastructure-cybersecurity",
+      "https://www.congress.gov/bill/111th-congress/house-bill/2965",
+      "https://www.whitehouse.gov/the-press-office/2015/07/14/fact-sheet-joint-comprehensive-plan-action-jcpoa"
+    ],
+    "dataSource": "perplexity+gemini",
+    "generatedAt": "2025-10-04T11:28:13.689Z"
+  },
+  {
+    "president": "Barack Obama",
+    "promise": "Increase the federal minimum wage to $10.10 per hour.",
+    "date": "2014-01-28",
+    "category": "Economy",
+    "status": "broken",
+    "evidence": [
+      "State of the Union Address transcript"
+    ],
+    "sources": [
+      "https://www.whitehouse.gov/the-press-office/2014/01/28/president-barack-obamas-state-union-address"
+    ],
+    "affectedIndustries": [],
+    "verified": true,
+    "credibilityLevel": "high",
+    "realSources": [
+      "https://www.whitehouse.gov/the-press-office/2013/06/25/fact-sheet-president-obama-s-climate-action-plan",
+      "https://www.congress.gov/congressional-hearings/2013/11/14/ACA-Implementation",
+      "https://www.whitehouse.gov/the-press-office/2014/01/28/president-barack-obamas-state-union-address",
+      "https://www.whitehouse.gov/the-press-office/2014/11/20/fact-sheet-immigration-accountability-executive-action",
+      "https://www.fcc.gov/restoring-internet-freedom",
+      "https://www.congress.gov/bill/114th-congress/house-bill/653",
+      "https://unfccc.int/process-and-meetings/the-paris-agreement/the-paris-agreement",
+      "https://www.federalregister.gov/documents/2015/04/01/2015-07641/improving-critical-infrastructure-cybersecurity",
+      "https://www.congress.gov/bill/111th-congress/house-bill/2965",
+      "https://www.whitehouse.gov/the-press-office/2015/07/14/fact-sheet-joint-comprehensive-plan-action-jcpoa"
+    ],
+    "dataSource": "perplexity+gemini",
+    "generatedAt": "2025-10-04T11:28:13.689Z"
+  },
+  {
+    "president": "Barack Obama",
+    "promise": "Take executive actions to reform immigration if Congress does not act.",
+    "date": "2014-06-30",
+    "category": "Immigration",
+    "status": "partial",
+    "evidence": [
+      "Executive actions on immigration reform"
+    ],
+    "sources": [
+      "https://www.whitehouse.gov/the-press-office/2014/11/20/fact-sheet-immigration-accountability-executive-action"
+    ],
+    "affectedIndustries": [],
+    "verified": true,
+    "credibilityLevel": "high",
+    "realSources": [
+      "https://www.whitehouse.gov/the-press-office/2013/06/25/fact-sheet-president-obama-s-climate-action-plan",
+      "https://www.congress.gov/congressional-hearings/2013/11/14/ACA-Implementation",
+      "https://www.whitehouse.gov/the-press-office/2014/01/28/president-barack-obamas-state-union-address",
+      "https://www.whitehouse.gov/the-press-office/2014/11/20/fact-sheet-immigration-accountability-executive-action",
+      "https://www.fcc.gov/restoring-internet-freedom",
+      "https://www.congress.gov/bill/114th-congress/house-bill/653",
+      "https://unfccc.int/process-and-meetings/the-paris-agreement/the-paris-agreement",
+      "https://www.federalregister.gov/documents/2015/04/01/2015-07641/improving-critical-infrastructure-cybersecurity",
+      "https://www.congress.gov/bill/111th-congress/house-bill/2965",
+      "https://www.whitehouse.gov/the-press-office/2015/07/14/fact-sheet-joint-comprehensive-plan-action-jcpoa"
+    ],
+    "dataSource": "perplexity+gemini",
+    "generatedAt": "2025-10-04T11:28:13.689Z"
+  },
+  {
+    "president": "Barack Obama",
+    "promise": "Support strong net neutrality rules to regulate internet service providers.",
+    "date": "2014-11-10",
+    "category": "Economy",
+    "status": "kept",
+    "evidence": [
+      "FCC's Open Internet Order (2015)"
+    ],
+    "sources": [
+      "https://www.fcc.gov/restoring-internet-freedom"
+    ],
+    "affectedIndustries": [],
+    "verified": true,
+    "credibilityLevel": "high",
+    "realSources": [
+      "https://www.whitehouse.gov/the-press-office/2013/06/25/fact-sheet-president-obama-s-climate-action-plan",
+      "https://www.congress.gov/congressional-hearings/2013/11/14/ACA-Implementation",
+      "https://www.whitehouse.gov/the-press-office/2014/01/28/president-barack-obamas-state-union-address",
+      "https://www.whitehouse.gov/the-press-office/2014/11/20/fact-sheet-immigration-accountability-executive-action",
+      "https://www.fcc.gov/restoring-internet-freedom",
+      "https://www.congress.gov/bill/114th-congress/house-bill/653",
+      "https://unfccc.int/process-and-meetings/the-paris-agreement/the-paris-agreement",
+      "https://www.federalregister.gov/documents/2015/04/01/2015-07641/improving-critical-infrastructure-cybersecurity",
+      "https://www.congress.gov/bill/111th-congress/house-bill/2965",
+      "https://www.whitehouse.gov/the-press-office/2015/07/14/fact-sheet-joint-comprehensive-plan-action-jcpoa"
+    ],
+    "dataSource": "perplexity+gemini",
+    "generatedAt": "2025-10-04T11:28:13.689Z"
+  },
+  {
+    "president": "Barack Obama",
+    "promise": "Enhance transparency in government through improved FOIA processes.",
+    "date": "2015-01-20",
+    "category": "Economy",
+    "status": "partial",
+    "evidence": [
+      "FOIA Improvement Act of 2016"
+    ],
+    "sources": [
+      "https://www.congress.gov/bill/114th-congress/house-bill/653"
+    ],
+    "affectedIndustries": [],
+    "verified": true,
+    "credibilityLevel": "high",
+    "realSources": [
+      "https://www.whitehouse.gov/the-press-office/2013/06/25/fact-sheet-president-obama-s-climate-action-plan",
+      "https://www.congress.gov/congressional-hearings/2013/11/14/ACA-Implementation",
+      "https://www.whitehouse.gov/the-press-office/2014/01/28/president-barack-obamas-state-union-address",
+      "https://www.whitehouse.gov/the-press-office/2014/11/20/fact-sheet-immigration-accountability-executive-action",
+      "https://www.fcc.gov/restoring-internet-freedom",
+      "https://www.congress.gov/bill/114th-congress/house-bill/653",
+      "https://unfccc.int/process-and-meetings/the-paris-agreement/the-paris-agreement",
+      "https://www.federalregister.gov/documents/2015/04/01/2015-07641/improving-critical-infrastructure-cybersecurity",
+      "https://www.congress.gov/bill/111th-congress/house-bill/2965",
+      "https://www.whitehouse.gov/the-press-office/2015/07/14/fact-sheet-joint-comprehensive-plan-action-jcpoa"
+    ],
+    "dataSource": "perplexity+gemini",
+    "generatedAt": "2025-10-04T11:28:13.689Z"
+  },
+  {
+    "president": "Barack Obama",
+    "promise": "Negotiate and sign the Paris Agreement to address global climate change.",
+    "date": "2015-08-03",
+    "category": "Energy",
+    "status": "kept",
+    "evidence": [
+      "Paris Agreement"
+    ],
+    "sources": [
+      "https://unfccc.int/process-and-meetings/the-paris-agreement/the-paris-agreement"
+    ],
+    "affectedIndustries": [],
+    "verified": true,
+    "credibilityLevel": "high",
+    "realSources": [
+      "https://www.whitehouse.gov/the-press-office/2013/06/25/fact-sheet-president-obama-s-climate-action-plan",
+      "https://www.congress.gov/congressional-hearings/2013/11/14/ACA-Implementation",
+      "https://www.whitehouse.gov/the-press-office/2014/01/28/president-barack-obamas-state-union-address",
+      "https://www.whitehouse.gov/the-press-office/2014/11/20/fact-sheet-immigration-accountability-executive-action",
+      "https://www.fcc.gov/restoring-internet-freedom",
+      "https://www.congress.gov/bill/114th-congress/house-bill/653",
+      "https://unfccc.int/process-and-meetings/the-paris-agreement/the-paris-agreement",
+      "https://www.federalregister.gov/documents/2015/04/01/2015-07641/improving-critical-infrastructure-cybersecurity",
+      "https://www.congress.gov/bill/111th-congress/house-bill/2965",
+      "https://www.whitehouse.gov/the-press-office/2015/07/14/fact-sheet-joint-comprehensive-plan-action-jcpoa"
+    ],
+    "dataSource": "perplexity+gemini",
+    "generatedAt": "2025-10-04T11:28:13.689Z"
+  },
+  {
+    "president": "Barack Obama",
+    "promise": "Enhance cybersecurity measures to protect Americans' personal data.",
+    "date": "2015-01-20",
+    "category": "Defense",
+    "status": "kept",
+    "evidence": [
+      "Executive Order 13693 (Cybersecurity Information Sharing)"
+    ],
+    "sources": [
+      "https://www.federalregister.gov/documents/2015/04/01/2015-07641/improving-critical-infrastructure-cybersecurity"
+    ],
+    "affectedIndustries": [],
+    "verified": true,
+    "credibilityLevel": "high",
+    "realSources": [
+      "https://www.whitehouse.gov/the-press-office/2013/06/25/fact-sheet-president-obama-s-climate-action-plan",
+      "https://www.congress.gov/congressional-hearings/2013/11/14/ACA-Implementation",
+      "https://www.whitehouse.gov/the-press-office/2014/01/28/president-barack-obamas-state-union-address",
+      "https://www.whitehouse.gov/the-press-office/2014/11/20/fact-sheet-immigration-accountability-executive-action",
+      "https://www.fcc.gov/restoring-internet-freedom",
+      "https://www.congress.gov/bill/114th-congress/house-bill/653",
+      "https://unfccc.int/process-and-meetings/the-paris-agreement/the-paris-agreement",
+      "https://www.federalregister.gov/documents/2015/04/01/2015-07641/improving-critical-infrastructure-cybersecurity",
+      "https://www.congress.gov/bill/111th-congress/house-bill/2965",
+      "https://www.whitehouse.gov/the-press-office/2015/07/14/fact-sheet-joint-comprehensive-plan-action-jcpoa"
+    ],
+    "dataSource": "perplexity+gemini",
+    "generatedAt": "2025-10-04T11:28:13.689Z"
+  },
+  {
+    "president": "Barack Obama",
+    "promise": "Support the repeal of \"Don't Ask, Don't Tell\" and ensure equal rights for LGBTQ individuals.",
+    "date": "2010",
+    "category": "Defense",
+    "status": "kept",
+    "evidence": [
+      "Repeal of Don't Ask, Don't Tell Act of 2010"
+    ],
+    "sources": [
+      "https://www.congress.gov/bill/111th-congress/house-bill/2965"
+    ],
+    "affectedIndustries": [],
+    "verified": true,
+    "credibilityLevel": "high",
+    "realSources": [
+      "https://www.whitehouse.gov/the-press-office/2013/06/25/fact-sheet-president-obama-s-climate-action-plan",
+      "https://www.congress.gov/congressional-hearings/2013/11/14/ACA-Implementation",
+      "https://www.whitehouse.gov/the-press-office/2014/01/28/president-barack-obamas-state-union-address",
+      "https://www.whitehouse.gov/the-press-office/2014/11/20/fact-sheet-immigration-accountability-executive-action",
+      "https://www.fcc.gov/restoring-internet-freedom",
+      "https://www.congress.gov/bill/114th-congress/house-bill/653",
+      "https://unfccc.int/process-and-meetings/the-paris-agreement/the-paris-agreement",
+      "https://www.federalregister.gov/documents/2015/04/01/2015-07641/improving-critical-infrastructure-cybersecurity",
+      "https://www.congress.gov/bill/111th-congress/house-bill/2965",
+      "https://www.whitehouse.gov/the-press-office/2015/07/14/fact-sheet-joint-comprehensive-plan-action-jcpoa"
+    ],
+    "dataSource": "perplexity+gemini",
+    "generatedAt": "2025-10-04T11:28:13.689Z"
+  },
+  {
+    "president": "Barack Obama",
+    "promise": "Negotiate and ensure the implementation of the Joint Comprehensive Plan of Action (JCPOA) to prevent Iran's nuclear development.",
+    "date": "2015-04-02",
+    "category": "Defense",
+    "status": "kept",
+    "evidence": [
+      "Joint Comprehensive Plan of Action (JCPOA)"
+    ],
+    "sources": [
+      "https://www.whitehouse.gov/the-press-office/2015/07/14/fact-sheet-joint-comprehensive-plan-action-jcpoa"
+    ],
+    "affectedIndustries": [],
+    "verified": true,
+    "credibilityLevel": "high",
+    "realSources": [
+      "https://www.whitehouse.gov/the-press-office/2013/06/25/fact-sheet-president-obama-s-climate-action-plan",
+      "https://www.congress.gov/congressional-hearings/2013/11/14/ACA-Implementation",
+      "https://www.whitehouse.gov/the-press-office/2014/01/28/president-barack-obamas-state-union-address",
+      "https://www.whitehouse.gov/the-press-office/2014/11/20/fact-sheet-immigration-accountability-executive-action",
+      "https://www.fcc.gov/restoring-internet-freedom",
+      "https://www.congress.gov/bill/114th-congress/house-bill/653",
+      "https://unfccc.int/process-and-meetings/the-paris-agreement/the-paris-agreement",
+      "https://www.federalregister.gov/documents/2015/04/01/2015-07641/improving-critical-infrastructure-cybersecurity",
+      "https://www.congress.gov/bill/111th-congress/house-bill/2965",
+      "https://www.whitehouse.gov/the-press-office/2015/07/14/fact-sheet-joint-comprehensive-plan-action-jcpoa"
+    ],
+    "dataSource": "perplexity+gemini",
+    "generatedAt": "2025-10-04T11:28:13.689Z"
+  },
+  {
+    "president": "Donald Trump",
+    "promise": "I will build a great wall on our southern border, and I’ll have Mexico pay for that wall.",
+    "date": "2015-06-16",
+    "category": "Immigration",
+    "status": "Partial",
+    "evidence": [
+      "Border wall construction funded by U.S. federal appropriations (H.R. 1158—FY2020/21 Consolidated Appropriations Act), not by Mexico. Over 450 miles of new and replacement barriers were built."
+    ],
+    "sources": [
+      "https://www.politifact.com/truth-o-meter/promises/trumpometer/promise/1400/build-wall-and-make-mexico-pay-it/"
+    ],
+    "affectedIndustries": [],
+    "verified": true,
+    "credibilityLevel": "high",
+    "realSources": [
+      "https://www.politifact.com/truth-o-meter/promises/trumpometer/promise/1400/build-wall-and-make-mexico-pay-it/",
+      "https://www.politifact.com/truth-o-meter/promises/trumpometer/promise/1403/repeal-and-replace-affordable-care-act/",
+      "https://www.congress.gov/bill/115th-congress/house-bill/1",
+      "https://www.congress.gov/bill/115th-congress/house-bill/1",
+      "https://trumpwhitehouse.archives.gov/presidential-actions/executive-order-protecting-nation-foreign-terrorist-entry-united-states/",
+      "https://trumpwhitehouse.archives.gov/briefings-statements/president-donald-j-trump-keeps-promise-opens-american-embassy-jerusalem-israel/",
+      "https://www.congress.gov/bill/116th-congress/house-bill/5430",
+      "https://dod.defense.gov/News/Article/Article/1789822/us-backed-forces-declare-victory-over-isis-in-syria/",
+      "https://trumpwhitehouse.archives.gov/presidential-actions/presidential-memorandum-regarding-withdrawal-united-states-trans-pacific-partnership-negotiations-agreement/",
+      "https://trumpwhitehouse.archives.gov/briefings-statements/statement-president-trump-paris-climate-accord/"
+    ],
+    "dataSource": "perplexity+gemini",
+    "generatedAt": "2025-10-04T11:29:03.766Z"
+  },
+  {
+    "president": "Donald Trump",
+    "promise": "Real change begins with immediately repealing and replacing the disaster known as Obamacare.",
+    "date": "2016-10-22",
+    "category": "Healthcare",
+    "status": "Broken",
+    "evidence": [
+      "The American Health Care Act (H.R. 1628) narrowly passed the House in 2017 but failed in the Senate. The ACA was not repealed."
+    ],
+    "sources": [
+      "https://www.politifact.com/truth-o-meter/promises/trumpometer/promise/1403/repeal-and-replace-affordable-care-act/"
+    ],
+    "affectedIndustries": [],
+    "verified": true,
+    "credibilityLevel": "high",
+    "realSources": [
+      "https://www.politifact.com/truth-o-meter/promises/trumpometer/promise/1400/build-wall-and-make-mexico-pay-it/",
+      "https://www.politifact.com/truth-o-meter/promises/trumpometer/promise/1403/repeal-and-replace-affordable-care-act/",
+      "https://www.congress.gov/bill/115th-congress/house-bill/1",
+      "https://www.congress.gov/bill/115th-congress/house-bill/1",
+      "https://trumpwhitehouse.archives.gov/presidential-actions/executive-order-protecting-nation-foreign-terrorist-entry-united-states/",
+      "https://trumpwhitehouse.archives.gov/briefings-statements/president-donald-j-trump-keeps-promise-opens-american-embassy-jerusalem-israel/",
+      "https://www.congress.gov/bill/116th-congress/house-bill/5430",
+      "https://dod.defense.gov/News/Article/Article/1789822/us-backed-forces-declare-victory-over-isis-in-syria/",
+      "https://trumpwhitehouse.archives.gov/presidential-actions/presidential-memorandum-regarding-withdrawal-united-states-trans-pacific-partnership-negotiations-agreement/",
+      "https://trumpwhitehouse.archives.gov/briefings-statements/statement-president-trump-paris-climate-accord/"
+    ],
+    "dataSource": "perplexity+gemini",
+    "generatedAt": "2025-10-04T11:29:03.766Z"
+  },
+  {
+    "president": "Donald Trump",
+    "promise": "Everybody is getting a tax cut, especially the middle class.",
+    "date": "2017-04-26",
+    "category": "Economy",
+    "status": "Kept",
+    "evidence": [
+      "Tax Cuts and Jobs Act, H.R. 1, signed into law December 22, 2017."
     ],
     "sources": [
       "https://www.congress.gov/bill/115th-congress/house-bill/1"
     ],
-    "affectedIndustries": [
-      {
-        "name": "All Industries",
-        "predictedImpact": "positive",
-        "confidence": 95,
-        "reasoning": "A significant reduction in corporate tax rates increases net profits for all profitable businesses, potentially leading to increased investment, dividends, or share buybacks."
-      }
-    ],
+    "affectedIndustries": [],
     "verified": true,
     "credibilityLevel": "high",
     "realSources": [
-      "https://www.congress.gov/bill/115th-congress/house-bill/1628",
-      "https://www.federalregister.gov/documents/2019/02/20/2019-03011/declaring-a-national-emergency-concerning-the-southern-border-of-the-united-states",
+      "https://www.politifact.com/truth-o-meter/promises/trumpometer/promise/1400/build-wall-and-make-mexico-pay-it/",
+      "https://www.politifact.com/truth-o-meter/promises/trumpometer/promise/1403/repeal-and-replace-affordable-care-act/",
       "https://www.congress.gov/bill/115th-congress/house-bill/1",
-      "https://www.state.gov/secretary-pompeos-remarks-on-the-u-s-notification-of-withdrawal-from-the-paris-agreement/",
-      "https://www.whitehouse.gov/people/neil-gorsuch/",
-      "https://www.whitehouse.gov/people/brett-m-kavanaugh/",
-      "https://www.supremecourt.gov/about/biographies.aspx",
-      "https://www.politifact.com/truth-o-meter/promises/trumpometer/"
+      "https://www.congress.gov/bill/115th-congress/house-bill/1",
+      "https://trumpwhitehouse.archives.gov/presidential-actions/executive-order-protecting-nation-foreign-terrorist-entry-united-states/",
+      "https://trumpwhitehouse.archives.gov/briefings-statements/president-donald-j-trump-keeps-promise-opens-american-embassy-jerusalem-israel/",
+      "https://www.congress.gov/bill/116th-congress/house-bill/5430",
+      "https://dod.defense.gov/News/Article/Article/1789822/us-backed-forces-declare-victory-over-isis-in-syria/",
+      "https://trumpwhitehouse.archives.gov/presidential-actions/presidential-memorandum-regarding-withdrawal-united-states-trans-pacific-partnership-negotiations-agreement/",
+      "https://trumpwhitehouse.archives.gov/briefings-statements/statement-president-trump-paris-climate-accord/"
     ],
     "dataSource": "perplexity+gemini",
-    "generatedAt": "2025-10-04T07:56:58.482Z"
+    "generatedAt": "2025-10-04T11:29:03.766Z"
   },
   {
     "president": "Donald Trump",
-    "promise": "We’re getting out” of the Paris Agreement.",
+    "promise": "The Trump Plan will lower the business tax rate from 35 percent to 21 percent, and eliminate the corporate alternative minimum tax.",
+    "date": "2017-09-27",
+    "category": "Economy",
+    "status": "Kept",
+    "evidence": [
+      "Tax Cuts and Jobs Act, H.R. 1, signed into law December 22, 2017."
+    ],
+    "sources": [
+      "https://www.congress.gov/bill/115th-congress/house-bill/1"
+    ],
+    "affectedIndustries": [],
+    "verified": true,
+    "credibilityLevel": "high",
+    "realSources": [
+      "https://www.politifact.com/truth-o-meter/promises/trumpometer/promise/1400/build-wall-and-make-mexico-pay-it/",
+      "https://www.politifact.com/truth-o-meter/promises/trumpometer/promise/1403/repeal-and-replace-affordable-care-act/",
+      "https://www.congress.gov/bill/115th-congress/house-bill/1",
+      "https://www.congress.gov/bill/115th-congress/house-bill/1",
+      "https://trumpwhitehouse.archives.gov/presidential-actions/executive-order-protecting-nation-foreign-terrorist-entry-united-states/",
+      "https://trumpwhitehouse.archives.gov/briefings-statements/president-donald-j-trump-keeps-promise-opens-american-embassy-jerusalem-israel/",
+      "https://www.congress.gov/bill/116th-congress/house-bill/5430",
+      "https://dod.defense.gov/News/Article/Article/1789822/us-backed-forces-declare-victory-over-isis-in-syria/",
+      "https://trumpwhitehouse.archives.gov/presidential-actions/presidential-memorandum-regarding-withdrawal-united-states-trans-pacific-partnership-negotiations-agreement/",
+      "https://trumpwhitehouse.archives.gov/briefings-statements/statement-president-trump-paris-climate-accord/"
+    ],
+    "dataSource": "perplexity+gemini",
+    "generatedAt": "2025-10-04T11:29:03.766Z"
+  },
+  {
+    "president": "Donald Trump",
+    "promise": "I will suspend immigration from terror-prone regions where vetting cannot safely occur.",
+    "date": "2015-12-07",
+    "category": "Immigration",
+    "status": "Kept",
+    "evidence": [
+      "Executive Order 13769 (January 27, 2017, “Protecting the Nation from Foreign Terrorist Entry into the United States”)"
+    ],
+    "sources": [
+      "https://trumpwhitehouse.archives.gov/presidential-actions/executive-order-protecting-nation-foreign-terrorist-entry-united-states/"
+    ],
+    "affectedIndustries": [],
+    "verified": true,
+    "credibilityLevel": "high",
+    "realSources": [
+      "https://www.politifact.com/truth-o-meter/promises/trumpometer/promise/1400/build-wall-and-make-mexico-pay-it/",
+      "https://www.politifact.com/truth-o-meter/promises/trumpometer/promise/1403/repeal-and-replace-affordable-care-act/",
+      "https://www.congress.gov/bill/115th-congress/house-bill/1",
+      "https://www.congress.gov/bill/115th-congress/house-bill/1",
+      "https://trumpwhitehouse.archives.gov/presidential-actions/executive-order-protecting-nation-foreign-terrorist-entry-united-states/",
+      "https://trumpwhitehouse.archives.gov/briefings-statements/president-donald-j-trump-keeps-promise-opens-american-embassy-jerusalem-israel/",
+      "https://www.congress.gov/bill/116th-congress/house-bill/5430",
+      "https://dod.defense.gov/News/Article/Article/1789822/us-backed-forces-declare-victory-over-isis-in-syria/",
+      "https://trumpwhitehouse.archives.gov/presidential-actions/presidential-memorandum-regarding-withdrawal-united-states-trans-pacific-partnership-negotiations-agreement/",
+      "https://trumpwhitehouse.archives.gov/briefings-statements/statement-president-trump-paris-climate-accord/"
+    ],
+    "dataSource": "perplexity+gemini",
+    "generatedAt": "2025-10-04T11:29:03.766Z"
+  },
+  {
+    "president": "Donald Trump",
+    "promise": "I will move the American Embassy to the eternal capital of the Jewish people, Jerusalem.",
+    "date": "2016-09-25",
+    "category": "Defense",
+    "status": "Kept",
+    "evidence": [
+      "Official announcement (White House statement), embassy officially moved May 14, 2018."
+    ],
+    "sources": [
+      "https://trumpwhitehouse.archives.gov/briefings-statements/president-donald-j-trump-keeps-promise-opens-american-embassy-jerusalem-israel/"
+    ],
+    "affectedIndustries": [],
+    "verified": true,
+    "credibilityLevel": "high",
+    "realSources": [
+      "https://www.politifact.com/truth-o-meter/promises/trumpometer/promise/1400/build-wall-and-make-mexico-pay-it/",
+      "https://www.politifact.com/truth-o-meter/promises/trumpometer/promise/1403/repeal-and-replace-affordable-care-act/",
+      "https://www.congress.gov/bill/115th-congress/house-bill/1",
+      "https://www.congress.gov/bill/115th-congress/house-bill/1",
+      "https://trumpwhitehouse.archives.gov/presidential-actions/executive-order-protecting-nation-foreign-terrorist-entry-united-states/",
+      "https://trumpwhitehouse.archives.gov/briefings-statements/president-donald-j-trump-keeps-promise-opens-american-embassy-jerusalem-israel/",
+      "https://www.congress.gov/bill/116th-congress/house-bill/5430",
+      "https://dod.defense.gov/News/Article/Article/1789822/us-backed-forces-declare-victory-over-isis-in-syria/",
+      "https://trumpwhitehouse.archives.gov/presidential-actions/presidential-memorandum-regarding-withdrawal-united-states-trans-pacific-partnership-negotiations-agreement/",
+      "https://trumpwhitehouse.archives.gov/briefings-statements/statement-president-trump-paris-climate-accord/"
+    ],
+    "dataSource": "perplexity+gemini",
+    "generatedAt": "2025-10-04T11:29:03.766Z"
+  },
+  {
+    "president": "Donald Trump",
+    "promise": "I promise to renegotiate NAFTA or withdraw from the deal.",
+    "date": "2016-06-28",
+    "category": "Trade",
+    "status": "Kept",
+    "evidence": [
+      "United States–Mexico–Canada Agreement (USMCA), H.R. 5430, signed January 29, 2020."
+    ],
+    "sources": [
+      "https://www.congress.gov/bill/116th-congress/house-bill/5430"
+    ],
+    "affectedIndustries": [],
+    "verified": true,
+    "credibilityLevel": "high",
+    "realSources": [
+      "https://www.politifact.com/truth-o-meter/promises/trumpometer/promise/1400/build-wall-and-make-mexico-pay-it/",
+      "https://www.politifact.com/truth-o-meter/promises/trumpometer/promise/1403/repeal-and-replace-affordable-care-act/",
+      "https://www.congress.gov/bill/115th-congress/house-bill/1",
+      "https://www.congress.gov/bill/115th-congress/house-bill/1",
+      "https://trumpwhitehouse.archives.gov/presidential-actions/executive-order-protecting-nation-foreign-terrorist-entry-united-states/",
+      "https://trumpwhitehouse.archives.gov/briefings-statements/president-donald-j-trump-keeps-promise-opens-american-embassy-jerusalem-israel/",
+      "https://www.congress.gov/bill/116th-congress/house-bill/5430",
+      "https://dod.defense.gov/News/Article/Article/1789822/us-backed-forces-declare-victory-over-isis-in-syria/",
+      "https://trumpwhitehouse.archives.gov/presidential-actions/presidential-memorandum-regarding-withdrawal-united-states-trans-pacific-partnership-negotiations-agreement/",
+      "https://trumpwhitehouse.archives.gov/briefings-statements/statement-president-trump-paris-climate-accord/"
+    ],
+    "dataSource": "perplexity+gemini",
+    "generatedAt": "2025-10-04T11:29:03.766Z"
+  },
+  {
+    "president": "Donald Trump",
+    "promise": "I will defeat ISIS quickly.",
+    "date": "2016-09-06",
+    "category": "Defense",
+    "status": "Partial",
+    "evidence": [
+      "U.S. Department of Defense announcement, March 2019: End of ISIS territorial control in Syria."
+    ],
+    "sources": [
+      "https://dod.defense.gov/News/Article/Article/1789822/us-backed-forces-declare-victory-over-isis-in-syria/"
+    ],
+    "affectedIndustries": [],
+    "verified": true,
+    "credibilityLevel": "high",
+    "realSources": [
+      "https://www.politifact.com/truth-o-meter/promises/trumpometer/promise/1400/build-wall-and-make-mexico-pay-it/",
+      "https://www.politifact.com/truth-o-meter/promises/trumpometer/promise/1403/repeal-and-replace-affordable-care-act/",
+      "https://www.congress.gov/bill/115th-congress/house-bill/1",
+      "https://www.congress.gov/bill/115th-congress/house-bill/1",
+      "https://trumpwhitehouse.archives.gov/presidential-actions/executive-order-protecting-nation-foreign-terrorist-entry-united-states/",
+      "https://trumpwhitehouse.archives.gov/briefings-statements/president-donald-j-trump-keeps-promise-opens-american-embassy-jerusalem-israel/",
+      "https://www.congress.gov/bill/116th-congress/house-bill/5430",
+      "https://dod.defense.gov/News/Article/Article/1789822/us-backed-forces-declare-victory-over-isis-in-syria/",
+      "https://trumpwhitehouse.archives.gov/presidential-actions/presidential-memorandum-regarding-withdrawal-united-states-trans-pacific-partnership-negotiations-agreement/",
+      "https://trumpwhitehouse.archives.gov/briefings-statements/statement-president-trump-paris-climate-accord/"
+    ],
+    "dataSource": "perplexity+gemini",
+    "generatedAt": "2025-10-04T11:29:03.766Z"
+  },
+  {
+    "president": "Donald Trump",
+    "promise": "Cancel the Trans-Pacific Partnership.",
+    "date": "2016-06-28",
+    "category": "Trade",
+    "status": "Kept",
+    "evidence": [
+      "Presidential Memorandum withdrawing the U.S. from TPP negotiations, signed January 23, 2017."
+    ],
+    "sources": [
+      "https://trumpwhitehouse.archives.gov/presidential-actions/presidential-memorandum-regarding-withdrawal-united-states-trans-pacific-partnership-negotiations-agreement/"
+    ],
+    "affectedIndustries": [],
+    "verified": true,
+    "credibilityLevel": "high",
+    "realSources": [
+      "https://www.politifact.com/truth-o-meter/promises/trumpometer/promise/1400/build-wall-and-make-mexico-pay-it/",
+      "https://www.politifact.com/truth-o-meter/promises/trumpometer/promise/1403/repeal-and-replace-affordable-care-act/",
+      "https://www.congress.gov/bill/115th-congress/house-bill/1",
+      "https://www.congress.gov/bill/115th-congress/house-bill/1",
+      "https://trumpwhitehouse.archives.gov/presidential-actions/executive-order-protecting-nation-foreign-terrorist-entry-united-states/",
+      "https://trumpwhitehouse.archives.gov/briefings-statements/president-donald-j-trump-keeps-promise-opens-american-embassy-jerusalem-israel/",
+      "https://www.congress.gov/bill/116th-congress/house-bill/5430",
+      "https://dod.defense.gov/News/Article/Article/1789822/us-backed-forces-declare-victory-over-isis-in-syria/",
+      "https://trumpwhitehouse.archives.gov/presidential-actions/presidential-memorandum-regarding-withdrawal-united-states-trans-pacific-partnership-negotiations-agreement/",
+      "https://trumpwhitehouse.archives.gov/briefings-statements/statement-president-trump-paris-climate-accord/"
+    ],
+    "dataSource": "perplexity+gemini",
+    "generatedAt": "2025-10-04T11:29:03.766Z"
+  },
+  {
+    "president": "Donald Trump",
+    "promise": "Withdraw from the Paris Climate Accord.",
     "date": "2017-06-01",
     "category": "Energy",
-    "status": "kept",
+    "status": "Kept",
     "evidence": [
-      "Formal withdrawal notification to United Nations (2017-06-01)",
-      "U.S. officially exited (2020-11-04)"
+      "Announcement text, official U.S. withdrawal per State Department"
     ],
     "sources": [
-      "https://www.state.gov/secretary-pompeos-remarks-on-the-u-s-notification-of-withdrawal-from-the-paris-agreement/"
+      "https://trumpwhitehouse.archives.gov/briefings-statements/statement-president-trump-paris-climate-accord/"
     ],
-    "affectedIndustries": [
-      {
-        "name": "Fossil Fuels (Oil, Gas, Coal)",
-        "predictedImpact": "positive",
-        "confidence": 85,
-        "reasoning": "Withdrawal from climate agreements often signals less stringent environmental regulations, potentially reducing compliance costs and boosting production for fossil fuel industries."
-      },
-      {
-        "name": "Renewable Energy",
-        "predictedImpact": "negative",
-        "confidence": 70,
-        "reasoning": "A diminished commitment to international climate goals could lead to reduced government support or incentives for renewable energy projects domestically."
-      }
-    ],
+    "affectedIndustries": [],
     "verified": true,
     "credibilityLevel": "high",
     "realSources": [
-      "https://www.congress.gov/bill/115th-congress/house-bill/1628",
-      "https://www.federalregister.gov/documents/2019/02/20/2019-03011/declaring-a-national-emergency-concerning-the-southern-border-of-the-united-states",
+      "https://www.politifact.com/truth-o-meter/promises/trumpometer/promise/1400/build-wall-and-make-mexico-pay-it/",
+      "https://www.politifact.com/truth-o-meter/promises/trumpometer/promise/1403/repeal-and-replace-affordable-care-act/",
       "https://www.congress.gov/bill/115th-congress/house-bill/1",
-      "https://www.state.gov/secretary-pompeos-remarks-on-the-u-s-notification-of-withdrawal-from-the-paris-agreement/",
-      "https://www.whitehouse.gov/people/neil-gorsuch/",
-      "https://www.whitehouse.gov/people/brett-m-kavanaugh/",
-      "https://www.supremecourt.gov/about/biographies.aspx",
-      "https://www.politifact.com/truth-o-meter/promises/trumpometer/"
+      "https://www.congress.gov/bill/115th-congress/house-bill/1",
+      "https://trumpwhitehouse.archives.gov/presidential-actions/executive-order-protecting-nation-foreign-terrorist-entry-united-states/",
+      "https://trumpwhitehouse.archives.gov/briefings-statements/president-donald-j-trump-keeps-promise-opens-american-embassy-jerusalem-israel/",
+      "https://www.congress.gov/bill/116th-congress/house-bill/5430",
+      "https://dod.defense.gov/News/Article/Article/1789822/us-backed-forces-declare-victory-over-isis-in-syria/",
+      "https://trumpwhitehouse.archives.gov/presidential-actions/presidential-memorandum-regarding-withdrawal-united-states-trans-pacific-partnership-negotiations-agreement/",
+      "https://trumpwhitehouse.archives.gov/briefings-statements/statement-president-trump-paris-climate-accord/"
     ],
     "dataSource": "perplexity+gemini",
-    "generatedAt": "2025-10-04T07:56:58.482Z"
-  },
-  {
-    "president": "Donald Trump",
-    "promise": "I’m looking to appoint judges very much in the mold of Justice Scalia… I will appoint only pro-life judges.",
-    "date": "2016-10-09",
-    "category": "Healthcare",
-    "status": "kept",
-    "evidence": [
-      "Appointment of Neil Gorsuch (2017)",
-      "Appointment of Brett Kavanaugh (2018)",
-      "Appointment of Amy Coney Barrett (2020)"
-    ],
-    "sources": [
-      "https://www.whitehouse.gov/people/neil-gorsuch/",
-      "https://www.whitehouse.gov/people/brett-m-kavanaugh/",
-      "https://www.supremecourt.gov/about/biographies.aspx"
-    ],
-    "affectedIndustries": [
-      {
-        "name": "Healthcare (Reproductive Services)",
-        "predictedImpact": "negative",
-        "confidence": 80,
-        "reasoning": "Appointment of conservative, 'pro-life' justices can lead to legal challenges or overturning of precedents like Roe v. Wade, directly impacting providers of reproductive healthcare services."
-      },
-      {
-        "name": "Legal Services",
-        "predictedImpact": "mixed",
-        "confidence": 70,
-        "reasoning": "A shift in judicial philosophy can lead to new legal challenges and interpretations across various sectors, increasing demand for legal services specializing in constitutional or regulatory law."
-      }
-    ],
-    "verified": true,
-    "credibilityLevel": "high",
-    "realSources": [
-      "https://www.congress.gov/bill/115th-congress/house-bill/1628",
-      "https://www.federalregister.gov/documents/2019/02/20/2019-03011/declaring-a-national-emergency-concerning-the-southern-border-of-the-united-states",
-      "https://www.congress.gov/bill/115th-congress/house-bill/1",
-      "https://www.state.gov/secretary-pompeos-remarks-on-the-u-s-notification-of-withdrawal-from-the-paris-agreement/",
-      "https://www.whitehouse.gov/people/neil-gorsuch/",
-      "https://www.whitehouse.gov/people/brett-m-kavanaugh/",
-      "https://www.supremecourt.gov/about/biographies.aspx",
-      "https://www.politifact.com/truth-o-meter/promises/trumpometer/"
-    ],
-    "dataSource": "perplexity+gemini",
-    "generatedAt": "2025-10-04T07:56:58.482Z"
+    "generatedAt": "2025-10-04T11:29:03.766Z"
   },
   {
     "president": "Joe Biden",
-    "promise": "Bring American combat troops back from Afghanistan by the end of [my] first term.",
-    "date": "2021-04-14",
-    "category": "Defense",
-    "status": "kept",
-    "evidence": [
-      "All U.S. combat forces out of Afghanistan by September 11, 2021",
-      "Last troops withdrew on August 30, 2021"
-    ],
-    "sources": [
-      "https://www.whitehouse.gov/briefing-room/speeches-remarks/2021/04/14/remarks-by-president-biden-on-the-way-forward-in-afghanistan/"
-    ],
-    "affectedIndustries": [
-      {
-        "name": "Defense Contractors",
-        "predictedImpact": "negative",
-        "confidence": 90,
-        "reasoning": "Reduced demand for support services, logistics, and equipment maintenance in the region."
-      },
-      {
-        "name": "Logistics & Transportation",
-        "predictedImpact": "negative",
-        "confidence": 85,
-        "reasoning": "Decreased need for transport services to/from Afghanistan for military personnel and supplies."
-      }
-    ],
-    "verified": true,
-    "credibilityLevel": "high",
-    "realSources": [
-      "https://www.whitehouse.gov/briefing-room/speeches-remarks/2021/04/14/remarks-by-president-biden-on-the-way-forward-in-afghanistan/",
-      "https://www.congress.gov/bill/117th-congress/house-bill/3684",
-      "https://www.whitehouse.gov/briefing-room/speeches-remarks/2021/02/04/remarks-by-president-biden-on-americas-place-in-the-world/",
-      "https://www.federalregister.gov/documents/2021/01/25/2021-01753/restoring-faith-in-our-legal-immigration-systems-and-strengthening-integration-and-inclusion-efforts-for",
-      "https://www.whitehouse.gov/briefing-room/presidential-actions/2021/01/28/executive-order-on-strengthening-medicaid-and-the-affordable-care-act/"
-    ],
-    "dataSource": "perplexity+gemini",
-    "generatedAt": "2025-10-04T07:57:43.619Z"
-  },
-  {
-    "president": "Joe Biden",
-    "promise": "Pass a historic investment in infrastructure—the Bipartisan Infrastructure Law.",
-    "date": "2021-06-24",
+    "promise": "Invest in a “once-in-a-generation” upgrade of America’s infrastructure, including roads, bridges, transit, water, and clean energy projects, with a focus on equitable job creation and long-term competitiveness.",
+    "date": "2021-11-15",
     "category": "Economy",
-    "status": "kept",
+    "status": "partial",
     "evidence": [
-      "The Infrastructure Investment and Jobs Act (H.R. 3684) was signed into law on 2021-11-15",
-      "Provided $1.2 trillion for infrastructure"
+      "Bipartisan Infrastructure Law (Infrastructure Investment and Jobs Act, H.R. 3684)"
     ],
     "sources": [
-      "https://www.congress.gov/bill/117th-congress/house-bill/3684"
+      "https://bidenwhitehouse.archives.gov/briefing-room/statements-releases/2025/01/15/the-biden-harris-administration-record/"
     ],
     "affectedIndustries": [
       {
         "name": "Construction",
         "predictedImpact": "positive",
         "confidence": 95,
-        "reasoning": "Direct investment in roads, bridges, public transit, and other infrastructure projects leads to increased work."
+        "reasoning": "Direct funding and launch of tens of thousands of infrastructure projects."
       },
       {
-        "name": "Materials & Mining",
+        "name": "Engineering Services",
         "predictedImpact": "positive",
         "confidence": 90,
-        "reasoning": "Increased demand for raw materials such as steel, concrete, asphalt, and aggregates."
+        "reasoning": "Increased demand for planning, design, and oversight of new infrastructure."
       },
       {
-        "name": "Engineering & Consulting",
+        "name": "Materials Manufacturing",
         "predictedImpact": "positive",
         "confidence": 90,
-        "reasoning": "Higher demand for design, planning, and project management services for new and upgraded infrastructure."
+        "reasoning": "Higher demand for steel, cement, asphalt, and other construction materials."
       },
       {
-        "name": "Utilities",
-        "predictedImpact": "positive",
-        "confidence": 85,
-        "reasoning": "Significant investment in improving water infrastructure and expanding broadband internet access."
-      }
-    ],
-    "verified": true,
-    "credibilityLevel": "high",
-    "realSources": [
-      "https://www.whitehouse.gov/briefing-room/speeches-remarks/2021/04/14/remarks-by-president-biden-on-the-way-forward-in-afghanistan/",
-      "https://www.congress.gov/bill/117th-congress/house-bill/3684",
-      "https://www.whitehouse.gov/briefing-room/speeches-remarks/2021/02/04/remarks-by-president-biden-on-americas-place-in-the-world/",
-      "https://www.federalregister.gov/documents/2021/01/25/2021-01753/restoring-faith-in-our-legal-immigration-systems-and-strengthening-integration-and-inclusion-efforts-for",
-      "https://www.whitehouse.gov/briefing-room/presidential-actions/2021/01/28/executive-order-on-strengthening-medicaid-and-the-affordable-care-act/"
-    ],
-    "dataSource": "perplexity+gemini",
-    "generatedAt": "2025-10-04T07:57:43.619Z"
-  },
-  {
-    "president": "Joe Biden",
-    "promise": "End U.S. support for offensive operations in the war in Yemen, including relevant arms sales.",
-    "date": "2021-02-04",
-    "category": "Defense",
-    "status": "partial",
-    "evidence": [
-      "Biden announced ending support for offensive operations and relevant arms sales",
-      "U.S. continued certain arms transfers and intelligence sharing"
-    ],
-    "sources": [
-      "https://www.whitehouse.gov/briefing-room/speeches-remarks/2021/02/04/remarks-by-president-biden-on-americas-place-in-the-world/"
-    ],
-    "affectedIndustries": [
-      {
-        "name": "Aerospace & Defense",
-        "predictedImpact": "negative",
-        "confidence": 80,
-        "reasoning": "Potential reduction in arms sales to U.S. allies involved in the Yemen conflict, particularly Saudi Arabia."
-      },
-      {
-        "name": "Government Contractors",
-        "predictedImpact": "negative",
-        "confidence": 70,
-        "reasoning": "Possible decrease in contracts related to logistical or intelligence support for offensive operations."
-      }
-    ],
-    "verified": true,
-    "credibilityLevel": "high",
-    "realSources": [
-      "https://www.whitehouse.gov/briefing-room/speeches-remarks/2021/04/14/remarks-by-president-biden-on-the-way-forward-in-afghanistan/",
-      "https://www.congress.gov/bill/117th-congress/house-bill/3684",
-      "https://www.whitehouse.gov/briefing-room/speeches-remarks/2021/02/04/remarks-by-president-biden-on-americas-place-in-the-world/",
-      "https://www.federalregister.gov/documents/2021/01/25/2021-01753/restoring-faith-in-our-legal-immigration-systems-and-strengthening-integration-and-inclusion-efforts-for",
-      "https://www.whitehouse.gov/briefing-room/presidential-actions/2021/01/28/executive-order-on-strengthening-medicaid-and-the-affordable-care-act/"
-    ],
-    "dataSource": "perplexity+gemini",
-    "generatedAt": "2025-10-04T07:57:43.619Z"
-  },
-  {
-    "president": "Joe Biden",
-    "promise": "Fortify and preserve the DACA program to protect Dreamers from deportation.",
-    "date": "2021-01-20",
-    "category": "Immigration",
-    "status": "kept",
-    "evidence": [
-      "Executive Order 14012 signed on 2021-01-20",
-      "Directed agencies to preserve and strengthen DACA protections"
-    ],
-    "sources": [
-      "https://www.federalregister.gov/documents/2021/01/25/2021-01753/restoring-faith-in-our-legal-immigration-systems-and-strengthening-integration-and-inclusion-efforts-for"
-    ],
-    "affectedIndustries": [
-      {
-        "name": "Legal Services",
+        "name": "Clean Energy",
         "predictedImpact": "positive",
         "confidence": 75,
-        "reasoning": "Continued need for legal assistance for DACA recipients for renewals and related immigration matters."
-      },
-      {
-        "name": "Education",
-        "predictedImpact": "stable/positive",
-        "confidence": 60,
-        "reasoning": "DACA recipients can continue pursuing higher education, providing stable enrollment for educational institutions."
-      },
-      {
-        "name": "Various Industries Employing DACA Recipients",
-        "predictedImpact": "stable",
-        "confidence": 70,
-        "reasoning": "Maintaining DACA ensures a stable and legal workforce for industries that employ recipients, preventing labor disruption."
+        "reasoning": "Specific mention of clean energy projects as part of infrastructure upgrades."
       }
     ],
     "verified": true,
     "credibilityLevel": "high",
     "realSources": [
-      "https://www.whitehouse.gov/briefing-room/speeches-remarks/2021/04/14/remarks-by-president-biden-on-the-way-forward-in-afghanistan/",
-      "https://www.congress.gov/bill/117th-congress/house-bill/3684",
-      "https://www.whitehouse.gov/briefing-room/speeches-remarks/2021/02/04/remarks-by-president-biden-on-americas-place-in-the-world/",
-      "https://www.federalregister.gov/documents/2021/01/25/2021-01753/restoring-faith-in-our-legal-immigration-systems-and-strengthening-integration-and-inclusion-efforts-for",
-      "https://www.whitehouse.gov/briefing-room/presidential-actions/2021/01/28/executive-order-on-strengthening-medicaid-and-the-affordable-care-act/"
+      "https://bidenwhitehouse.archives.gov/briefing-room/statements-releases/2025/01/15/the-biden-harris-administration-record/",
+      "https://bidenwhitehouse.archives.gov/briefing-room/statements-releases/2025/01/15/the-biden-harris-administration-record/",
+      "https://bidenwhitehouse.archives.gov/briefing-room/statements-releases/2025/01/15/the-biden-harris-administration-record/",
+      "https://bidenwhitehouse.archives.gov/briefing-room/statements-releases/2025/01/15/the-biden-harris-administration-record/",
+      "https://bidenwhitehouse.archives.gov/briefing-room/statements-releases/2025/01/15/the-biden-harris-administration-record/",
+      "https://bidenwhitehouse.archives.gov/briefing-room/statements-releases/2025/01/15/the-biden-harris-administration-record/",
+      "https://www.whitehouse.gov/wp-content/uploads/2024/03/budget_fy2025.pdf",
+      "https://www.whitehouse.gov/wp-content/uploads/2024/03/budget_fy2025.pdf",
+      "https://www.fp4america.org/biden-tracker/",
+      "https://www.fp4america.org/biden-tracker/"
     ],
     "dataSource": "perplexity+gemini",
-    "generatedAt": "2025-10-04T07:57:43.619Z"
+    "generatedAt": "2025-10-04T11:30:16.030Z"
   },
   {
     "president": "Joe Biden",
-    "promise": "Restore and build on the Affordable Care Act (Obamacare).",
-    "date": "2021-01-28",
-    "category": "Healthcare",
-    "status": "kept",
+    "promise": "Remove and replace all lead service lines nationwide to ensure safe drinking water, especially in disadvantaged communities.",
+    "date": "2021-11-15",
+    "category": "Economy",
+    "status": "partial",
     "evidence": [
-      "Executive Order 14009 signed on 2021-01-28 directs federal agencies to strengthen Medicaid and the ACA",
-      "The American Rescue Plan (H.R. 1319, signed 2021-03-11) further expanded ACA subsidies"
+      "Bipartisan Infrastructure Law (H.R. 3684), Section 50101, “Lead Service Line Replacement.”"
     ],
     "sources": [
-      "https://www.whitehouse.gov/briefing-room/presidential-actions/2021/01/28/executive-order-on-strengthening-medicaid-and-the-affordable-care-act/"
+      "https://bidenwhitehouse.archives.gov/briefing-room/statements-releases/2025/01/15/the-biden-harris-administration-record/"
     ],
     "affectedIndustries": [
       {
-        "name": "Health Insurance",
+        "name": "Water Utilities",
         "predictedImpact": "positive",
         "confidence": 95,
-        "reasoning": "Expansion of ACA subsidies and Medicaid enrollment increases the customer base and revenue for health insurers."
+        "reasoning": "Direct funding and mandates for upgrading water infrastructure."
       },
       {
-        "name": "Healthcare Providers",
+        "name": "Construction (Plumbing/Excavation)",
         "predictedImpact": "positive",
         "confidence": 90,
-        "reasoning": "Increased insured population leads to more covered patients, reducing uncompensated care and boosting revenue for hospitals and clinics."
+        "reasoning": "Increased work replacing lead service lines."
       },
       {
-        "name": "Pharmaceuticals",
+        "name": "Pipe Manufacturing (non-lead)",
         "predictedImpact": "positive",
-        "confidence": 70,
-        "reasoning": "More insured individuals can access prescription medications, potentially increasing demand and sales."
+        "confidence": 90,
+        "reasoning": "Increased demand for new, safe pipes to replace lead ones."
       }
     ],
     "verified": true,
     "credibilityLevel": "high",
     "realSources": [
-      "https://www.whitehouse.gov/briefing-room/speeches-remarks/2021/04/14/remarks-by-president-biden-on-the-way-forward-in-afghanistan/",
-      "https://www.congress.gov/bill/117th-congress/house-bill/3684",
-      "https://www.whitehouse.gov/briefing-room/speeches-remarks/2021/02/04/remarks-by-president-biden-on-americas-place-in-the-world/",
-      "https://www.federalregister.gov/documents/2021/01/25/2021-01753/restoring-faith-in-our-legal-immigration-systems-and-strengthening-integration-and-inclusion-efforts-for",
-      "https://www.whitehouse.gov/briefing-room/presidential-actions/2021/01/28/executive-order-on-strengthening-medicaid-and-the-affordable-care-act/"
+      "https://bidenwhitehouse.archives.gov/briefing-room/statements-releases/2025/01/15/the-biden-harris-administration-record/",
+      "https://bidenwhitehouse.archives.gov/briefing-room/statements-releases/2025/01/15/the-biden-harris-administration-record/",
+      "https://bidenwhitehouse.archives.gov/briefing-room/statements-releases/2025/01/15/the-biden-harris-administration-record/",
+      "https://bidenwhitehouse.archives.gov/briefing-room/statements-releases/2025/01/15/the-biden-harris-administration-record/",
+      "https://bidenwhitehouse.archives.gov/briefing-room/statements-releases/2025/01/15/the-biden-harris-administration-record/",
+      "https://bidenwhitehouse.archives.gov/briefing-room/statements-releases/2025/01/15/the-biden-harris-administration-record/",
+      "https://www.whitehouse.gov/wp-content/uploads/2024/03/budget_fy2025.pdf",
+      "https://www.whitehouse.gov/wp-content/uploads/2024/03/budget_fy2025.pdf",
+      "https://www.fp4america.org/biden-tracker/",
+      "https://www.fp4america.org/biden-tracker/"
     ],
     "dataSource": "perplexity+gemini",
-    "generatedAt": "2025-10-04T07:57:43.619Z"
+    "generatedAt": "2025-10-04T11:30:16.030Z"
+  },
+  {
+    "president": "Joe Biden",
+    "promise": "Connect every American household and small business to reliable, affordable, high-speed internet.",
+    "date": "2021-11-15",
+    "category": "Economy",
+    "status": "partial",
+    "evidence": [
+      "Bipartisan Infrastructure Law (H.R. 3684)",
+      "Affordable Connectivity Program"
+    ],
+    "sources": [
+      "https://bidenwhitehouse.archives.gov/briefing-room/statements-releases/2025/01/15/the-biden-harris-administration-record/"
+    ],
+    "affectedIndustries": [
+      {
+        "name": "Telecommunications",
+        "predictedImpact": "positive",
+        "confidence": 95,
+        "reasoning": "Increased customer base and infrastructure investment for ISPs and equipment providers."
+      },
+      {
+        "name": "Technology",
+        "predictedImpact": "positive",
+        "confidence": 80,
+        "reasoning": "Broader internet access facilitates adoption of digital services and devices."
+      },
+      {
+        "name": "Education Technology",
+        "predictedImpact": "positive",
+        "confidence": 75,
+        "reasoning": "Expanded internet access supports online learning tools and platforms."
+      }
+    ],
+    "verified": true,
+    "credibilityLevel": "high",
+    "realSources": [
+      "https://bidenwhitehouse.archives.gov/briefing-room/statements-releases/2025/01/15/the-biden-harris-administration-record/",
+      "https://bidenwhitehouse.archives.gov/briefing-room/statements-releases/2025/01/15/the-biden-harris-administration-record/",
+      "https://bidenwhitehouse.archives.gov/briefing-room/statements-releases/2025/01/15/the-biden-harris-administration-record/",
+      "https://bidenwhitehouse.archives.gov/briefing-room/statements-releases/2025/01/15/the-biden-harris-administration-record/",
+      "https://bidenwhitehouse.archives.gov/briefing-room/statements-releases/2025/01/15/the-biden-harris-administration-record/",
+      "https://bidenwhitehouse.archives.gov/briefing-room/statements-releases/2025/01/15/the-biden-harris-administration-record/",
+      "https://www.whitehouse.gov/wp-content/uploads/2024/03/budget_fy2025.pdf",
+      "https://www.whitehouse.gov/wp-content/uploads/2024/03/budget_fy2025.pdf",
+      "https://www.fp4america.org/biden-tracker/",
+      "https://www.fp4america.org/biden-tracker/"
+    ],
+    "dataSource": "perplexity+gemini",
+    "generatedAt": "2025-10-04T11:30:16.030Z"
+  },
+  {
+    "president": "Joe Biden",
+    "promise": "Make the largest investment in public transit in U.S. history, funding 4,600 low- and zero-emission buses and nearly 450 rail projects.",
+    "date": "2021-11-15",
+    "category": "Economy",
+    "status": "partial",
+    "evidence": [
+      "Bipartisan Infrastructure Law (H.R. 3684), Section 30001 et seq."
+    ],
+    "sources": [
+      "https://bidenwhitehouse.archives.gov/briefing-room/statements-releases/2025/01/15/the-biden-harris-administration-record/"
+    ],
+    "affectedIndustries": [
+      {
+        "name": "Public Transit Agencies",
+        "predictedImpact": "positive",
+        "confidence": 95,
+        "reasoning": "Direct funding for modernization, expansion, and purchase of new vehicles."
+      },
+      {
+        "name": "Bus Manufacturing",
+        "predictedImpact": "positive",
+        "confidence": 90,
+        "reasoning": "High demand for low- and zero-emission buses."
+      },
+      {
+        "name": "Rail Manufacturing/Construction",
+        "predictedImpact": "positive",
+        "confidence": 90,
+        "reasoning": "Significant investments in new rail projects and upgrades."
+      }
+    ],
+    "verified": true,
+    "credibilityLevel": "high",
+    "realSources": [
+      "https://bidenwhitehouse.archives.gov/briefing-room/statements-releases/2025/01/15/the-biden-harris-administration-record/",
+      "https://bidenwhitehouse.archives.gov/briefing-room/statements-releases/2025/01/15/the-biden-harris-administration-record/",
+      "https://bidenwhitehouse.archives.gov/briefing-room/statements-releases/2025/01/15/the-biden-harris-administration-record/",
+      "https://bidenwhitehouse.archives.gov/briefing-room/statements-releases/2025/01/15/the-biden-harris-administration-record/",
+      "https://bidenwhitehouse.archives.gov/briefing-room/statements-releases/2025/01/15/the-biden-harris-administration-record/",
+      "https://bidenwhitehouse.archives.gov/briefing-room/statements-releases/2025/01/15/the-biden-harris-administration-record/",
+      "https://www.whitehouse.gov/wp-content/uploads/2024/03/budget_fy2025.pdf",
+      "https://www.whitehouse.gov/wp-content/uploads/2024/03/budget_fy2025.pdf",
+      "https://www.fp4america.org/biden-tracker/",
+      "https://www.fp4america.org/biden-tracker/"
+    ],
+    "dataSource": "perplexity+gemini",
+    "generatedAt": "2025-10-04T11:30:16.030Z"
+  },
+  {
+    "president": "Joe Biden",
+    "promise": "Install EV charging stations every 50 miles along major U.S. highways and in communities nationwide.",
+    "date": "2021-11-15",
+    "category": "Energy",
+    "status": "partial",
+    "evidence": [
+      "Bipartisan Infrastructure Law (H.R. 3684)",
+      "National Electric Vehicle Infrastructure (NEVI) Formula Program"
+    ],
+    "sources": [
+      "https://bidenwhitehouse.archives.gov/briefing-room/statements-releases/2025/01/15/the-biden-harris-administration-record/"
+    ],
+    "affectedIndustries": [
+      {
+        "name": "Electric Vehicle (EV) Manufacturers",
+        "predictedImpact": "positive",
+        "confidence": 90,
+        "reasoning": "Addresses range anxiety, encouraging broader EV adoption."
+      },
+      {
+        "name": "EV Charging Equipment Manufacturers",
+        "predictedImpact": "positive",
+        "confidence": 95,
+        "reasoning": "Direct demand for charging stations and components."
+      },
+      {
+        "name": "Construction (Electrical Contractors)",
+        "predictedImpact": "positive",
+        "confidence": 90,
+        "reasoning": "Installation and maintenance of new charging infrastructure."
+      },
+      {
+        "name": "Utilities (Electricity Providers)",
+        "predictedImpact": "positive",
+        "confidence": 75,
+        "reasoning": "Increased electricity demand from a growing EV fleet."
+      }
+    ],
+    "verified": true,
+    "credibilityLevel": "high",
+    "realSources": [
+      "https://bidenwhitehouse.archives.gov/briefing-room/statements-releases/2025/01/15/the-biden-harris-administration-record/",
+      "https://bidenwhitehouse.archives.gov/briefing-room/statements-releases/2025/01/15/the-biden-harris-administration-record/",
+      "https://bidenwhitehouse.archives.gov/briefing-room/statements-releases/2025/01/15/the-biden-harris-administration-record/",
+      "https://bidenwhitehouse.archives.gov/briefing-room/statements-releases/2025/01/15/the-biden-harris-administration-record/",
+      "https://bidenwhitehouse.archives.gov/briefing-room/statements-releases/2025/01/15/the-biden-harris-administration-record/",
+      "https://bidenwhitehouse.archives.gov/briefing-room/statements-releases/2025/01/15/the-biden-harris-administration-record/",
+      "https://www.whitehouse.gov/wp-content/uploads/2024/03/budget_fy2025.pdf",
+      "https://www.whitehouse.gov/wp-content/uploads/2024/03/budget_fy2025.pdf",
+      "https://www.fp4america.org/biden-tracker/",
+      "https://www.fp4america.org/biden-tracker/"
+    ],
+    "dataSource": "perplexity+gemini",
+    "generatedAt": "2025-10-04T11:30:16.030Z"
+  },
+  {
+    "president": "Joe Biden",
+    "promise": "Enact the largest-ever investment in clean energy, climate action, and environmental justice, to cut pollution and lower energy and health care costs.",
+    "date": "2022-08-16",
+    "category": "Energy",
+    "status": "kept",
+    "evidence": [
+      "Inflation Reduction Act (H.R. 5376)"
+    ],
+    "sources": [
+      "https://bidenwhitehouse.archives.gov/briefing-room/statements-releases/2025/01/15/the-biden-harris-administration-record/"
+    ],
+    "affectedIndustries": [
+      {
+        "name": "Renewable Energy (Solar, Wind)",
+        "predictedImpact": "positive",
+        "confidence": 95,
+        "reasoning": "Significant tax credits, subsidies, and grants for clean energy projects."
+      },
+      {
+        "name": "Electric Vehicle (EV) Manufacturing",
+        "predictedImpact": "positive",
+        "confidence": 90,
+        "reasoning": "Tax credits for EV purchases and manufacturing."
+      },
+      {
+        "name": "Energy Efficiency (Home Improvements)",
+        "predictedImpact": "positive",
+        "confidence": 90,
+        "reasoning": "Rebates and tax credits for homeowners to improve energy efficiency."
+      },
+      {
+        "name": "Healthcare (Pharmaceuticals)",
+        "predictedImpact": "mixed",
+        "confidence": 80,
+        "reasoning": "Allows Medicare to negotiate drug prices, potentially impacting pharmaceutical revenues while lowering costs for consumers."
+      }
+    ],
+    "verified": true,
+    "credibilityLevel": "high",
+    "realSources": [
+      "https://bidenwhitehouse.archives.gov/briefing-room/statements-releases/2025/01/15/the-biden-harris-administration-record/",
+      "https://bidenwhitehouse.archives.gov/briefing-room/statements-releases/2025/01/15/the-biden-harris-administration-record/",
+      "https://bidenwhitehouse.archives.gov/briefing-room/statements-releases/2025/01/15/the-biden-harris-administration-record/",
+      "https://bidenwhitehouse.archives.gov/briefing-room/statements-releases/2025/01/15/the-biden-harris-administration-record/",
+      "https://bidenwhitehouse.archives.gov/briefing-room/statements-releases/2025/01/15/the-biden-harris-administration-record/",
+      "https://bidenwhitehouse.archives.gov/briefing-room/statements-releases/2025/01/15/the-biden-harris-administration-record/",
+      "https://www.whitehouse.gov/wp-content/uploads/2024/03/budget_fy2025.pdf",
+      "https://www.whitehouse.gov/wp-content/uploads/2024/03/budget_fy2025.pdf",
+      "https://www.fp4america.org/biden-tracker/",
+      "https://www.fp4america.org/biden-tracker/"
+    ],
+    "dataSource": "perplexity+gemini",
+    "generatedAt": "2025-10-04T11:30:16.030Z"
+  },
+  {
+    "president": "Joe Biden",
+    "promise": "Restore the expanded Child Tax Credit, which cut child poverty nearly in half in 2021, and support families with high-quality, affordable childcare.",
+    "date": "2023",
+    "category": "Economy",
+    "status": "partial",
+    "evidence": [
+      "American Rescue Plan (H.R. 1319, 2021)",
+      "FY2025 budget proposal"
+    ],
+    "sources": [
+      "https://www.whitehouse.gov/wp-content/uploads/2024/03/budget_fy2025.pdf"
+    ],
+    "affectedIndustries": [
+      {
+        "name": "Retail (Consumer Goods)",
+        "predictedImpact": "positive",
+        "confidence": 90,
+        "reasoning": "Increased disposable income for families, boosting consumer spending."
+      },
+      {
+        "name": "Childcare Services",
+        "predictedImpact": "positive",
+        "confidence": 85,
+        "reasoning": "Increased affordability and potential demand for high-quality childcare."
+      },
+      {
+        "name": "Food & Beverage",
+        "predictedImpact": "positive",
+        "confidence": 80,
+        "reasoning": "Families have more financial resources for essential needs."
+      }
+    ],
+    "verified": true,
+    "credibilityLevel": "high",
+    "realSources": [
+      "https://bidenwhitehouse.archives.gov/briefing-room/statements-releases/2025/01/15/the-biden-harris-administration-record/",
+      "https://bidenwhitehouse.archives.gov/briefing-room/statements-releases/2025/01/15/the-biden-harris-administration-record/",
+      "https://bidenwhitehouse.archives.gov/briefing-room/statements-releases/2025/01/15/the-biden-harris-administration-record/",
+      "https://bidenwhitehouse.archives.gov/briefing-room/statements-releases/2025/01/15/the-biden-harris-administration-record/",
+      "https://bidenwhitehouse.archives.gov/briefing-room/statements-releases/2025/01/15/the-biden-harris-administration-record/",
+      "https://bidenwhitehouse.archives.gov/briefing-room/statements-releases/2025/01/15/the-biden-harris-administration-record/",
+      "https://www.whitehouse.gov/wp-content/uploads/2024/03/budget_fy2025.pdf",
+      "https://www.whitehouse.gov/wp-content/uploads/2024/03/budget_fy2025.pdf",
+      "https://www.fp4america.org/biden-tracker/",
+      "https://www.fp4america.org/biden-tracker/"
+    ],
+    "dataSource": "perplexity+gemini",
+    "generatedAt": "2025-10-04T11:30:16.030Z"
+  },
+  {
+    "president": "Joe Biden",
+    "promise": "Cancel some federal student loan debt and ensure forgiven loans are not taxed as income.",
+    "date": "2022",
+    "category": "Education",
+    "status": "partial",
+    "evidence": [
+      "American Rescue Plan (H.R. 1319)",
+      "multiple executive actions",
+      "FY2025 budget"
+    ],
+    "sources": [
+      "https://www.whitehouse.gov/wp-content/uploads/2024/03/budget_fy2025.pdf"
+    ],
+    "affectedIndustries": [
+      {
+        "name": "Consumer Spending/Retail",
+        "predictedImpact": "positive",
+        "confidence": 90,
+        "reasoning": "Borrowers with canceled debt have increased disposable income."
+      },
+      {
+        "name": "Real Estate",
+        "predictedImpact": "positive",
+        "confidence": 60,
+        "reasoning": "Debt relief could enable some borrowers to save for down payments or qualify for mortgages."
+      },
+      {
+        "name": "Higher Education",
+        "predictedImpact": "neutral",
+        "confidence": 60,
+        "reasoning": "Broader cancellation was blocked, but existing relief could subtly influence future student borrowing or enrollment patterns."
+      }
+    ],
+    "verified": true,
+    "credibilityLevel": "high",
+    "realSources": [
+      "https://bidenwhitehouse.archives.gov/briefing-room/statements-releases/2025/01/15/the-biden-harris-administration-record/",
+      "https://bidenwhitehouse.archives.gov/briefing-room/statements-releases/2025/01/15/the-biden-harris-administration-record/",
+      "https://bidenwhitehouse.archives.gov/briefing-room/statements-releases/2025/01/15/the-biden-harris-administration-record/",
+      "https://bidenwhitehouse.archives.gov/briefing-room/statements-releases/2025/01/15/the-biden-harris-administration-record/",
+      "https://bidenwhitehouse.archives.gov/briefing-room/statements-releases/2025/01/15/the-biden-harris-administration-record/",
+      "https://bidenwhitehouse.archives.gov/briefing-room/statements-releases/2025/01/15/the-biden-harris-administration-record/",
+      "https://www.whitehouse.gov/wp-content/uploads/2024/03/budget_fy2025.pdf",
+      "https://www.whitehouse.gov/wp-content/uploads/2024/03/budget_fy2025.pdf",
+      "https://www.fp4america.org/biden-tracker/",
+      "https://www.fp4america.org/biden-tracker/"
+    ],
+    "dataSource": "perplexity+gemini",
+    "generatedAt": "2025-10-04T11:30:16.030Z"
+  },
+  {
+    "president": "Joe Biden",
+    "promise": "Strengthen “Buy American” rules so federal dollars support U.S. manufacturing and jobs, including raising domestic content thresholds.",
+    "date": "2021-01-25",
+    "category": "Economy",
+    "status": "partial",
+    "evidence": [
+      "Executive Order 14005, “Ensuring the Future Is Made in All of America by All of America’s Workers,” 2021-01-25"
+    ],
+    "sources": [
+      "https://www.fp4america.org/biden-tracker/"
+    ],
+    "affectedIndustries": [
+      {
+        "name": "Manufacturing (U.S. based)",
+        "predictedImpact": "positive",
+        "confidence": 95,
+        "reasoning": "Increased federal procurement of domestically produced goods and components."
+      },
+      {
+        "name": "Defense Contractors (U.S. based)",
+        "predictedImpact": "positive",
+        "confidence": 90,
+        "reasoning": "Directly impacts suppliers to the federal government, often in defense."
+      },
+      {
+        "name": "International Trade (Importers)",
+        "predictedImpact": "negative",
+        "confidence": 75,
+        "reasoning": "Potentially reduced federal demand for foreign goods and services."
+      }
+    ],
+    "verified": true,
+    "credibilityLevel": "high",
+    "realSources": [
+      "https://bidenwhitehouse.archives.gov/briefing-room/statements-releases/2025/01/15/the-biden-harris-administration-record/",
+      "https://bidenwhitehouse.archives.gov/briefing-room/statements-releases/2025/01/15/the-biden-harris-administration-record/",
+      "https://bidenwhitehouse.archives.gov/briefing-room/statements-releases/2025/01/15/the-biden-harris-administration-record/",
+      "https://bidenwhitehouse.archives.gov/briefing-room/statements-releases/2025/01/15/the-biden-harris-administration-record/",
+      "https://bidenwhitehouse.archives.gov/briefing-room/statements-releases/2025/01/15/the-biden-harris-administration-record/",
+      "https://bidenwhitehouse.archives.gov/briefing-room/statements-releases/2025/01/15/the-biden-harris-administration-record/",
+      "https://www.whitehouse.gov/wp-content/uploads/2024/03/budget_fy2025.pdf",
+      "https://www.whitehouse.gov/wp-content/uploads/2024/03/budget_fy2025.pdf",
+      "https://www.fp4america.org/biden-tracker/",
+      "https://www.fp4america.org/biden-tracker/"
+    ],
+    "dataSource": "perplexity+gemini",
+    "generatedAt": "2025-10-04T11:30:16.030Z"
+  },
+  {
+    "president": "Joe Biden",
+    "promise": "Ensure any new U.S.-U.K. trade deal respects the Good Friday Agreement, protecting peace in Northern Ireland.",
+    "date": "2020",
+    "category": "Trade",
+    "status": "kept",
+    "evidence": [
+      "Public statements",
+      "diplomatic cables",
+      "official White House declarations"
+    ],
+    "sources": [
+      "https://www.fp4america.org/biden-tracker/"
+    ],
+    "affectedIndustries": [
+      {
+        "name": "International Trade (U.S.-U.K.)",
+        "predictedImpact": "neutral",
+        "confidence": 85,
+        "reasoning": "The condition on the Good Friday Agreement has effectively delayed or halted the advancement of a new comprehensive trade deal, deferring potential new opportunities."
+      },
+      {
+        "name": "Irish/Northern Irish Industries",
+        "predictedImpact": "positive",
+        "confidence": 80,
+        "reasoning": "Supports stability and minimizes trade disruption in the region by prioritizing the peace agreement."
+      },
+      {
+        "name": "Diplomacy/Foreign Relations",
+        "predictedImpact": "positive",
+        "confidence": 90,
+        "reasoning": "Reinforces U.S. commitment to international agreements and peace processes."
+      }
+    ],
+    "verified": true,
+    "credibilityLevel": "high",
+    "realSources": [
+      "https://bidenwhitehouse.archives.gov/briefing-room/statements-releases/2025/01/15/the-biden-harris-administration-record/",
+      "https://bidenwhitehouse.archives.gov/briefing-room/statements-releases/2025/01/15/the-biden-harris-administration-record/",
+      "https://bidenwhitehouse.archives.gov/briefing-room/statements-releases/2025/01/15/the-biden-harris-administration-record/",
+      "https://bidenwhitehouse.archives.gov/briefing-room/statements-releases/2025/01/15/the-biden-harris-administration-record/",
+      "https://bidenwhitehouse.archives.gov/briefing-room/statements-releases/2025/01/15/the-biden-harris-administration-record/",
+      "https://bidenwhitehouse.archives.gov/briefing-room/statements-releases/2025/01/15/the-biden-harris-administration-record/",
+      "https://www.whitehouse.gov/wp-content/uploads/2024/03/budget_fy2025.pdf",
+      "https://www.whitehouse.gov/wp-content/uploads/2024/03/budget_fy2025.pdf",
+      "https://www.fp4america.org/biden-tracker/",
+      "https://www.fp4america.org/biden-tracker/"
+    ],
+    "dataSource": "perplexity+gemini",
+    "generatedAt": "2025-10-04T11:30:16.030Z"
   }
 ]

@@ -49,7 +49,7 @@ app.get('/api/promises', async (req, res) => {
 // Generate new promises
 app.get('/api/promises/generate', async (req, res) => {
   try {
-    const count = parseInt(req.query.count) || 5;
+    const count = parseInt(req.query.count) || 10;
     
     console.log(`Starting promise generation (${count} per president)...`);
     
