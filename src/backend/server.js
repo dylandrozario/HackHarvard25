@@ -9,6 +9,7 @@ import { analyzePromise } from './services/gemini.js';
 import { verifyPromise } from './services/perplexity.js';
 import { analyzeCombinedPromises, getPromiseStatistics } from './services/combinedAnalysis.js';
 import { evaluateResponse, validateWithReloop, quickBiasCheck } from './services/biasChecker.js';
+import { multiAiBiasCheck, quickMultiAiCheck } from './services/multiAiBiasChecker.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -31,7 +32,8 @@ app.get('/', (req, res) => {
       'POST /api/analyze-promise': 'Analyze specific promise',
       'POST /api/analyze-combined': 'Analyze multiple promises with overall score and verdict',
       'POST /api/analyze-combined-validated': 'Analyze promises with bias detection and auto-reloop',
-      'POST /api/bias-check': 'Check a response for bias and quality issues',
+      'POST /api/bias-check': 'Check a response for bias and quality issues (single AI)',
+      'POST /api/multi-ai-bias-check': 'Check response with multiple AIs (Gemini + Cloudflare)',
       'GET /api/stats': 'Get dashboard statistics',
       'GET /api/system-prompt': 'Get VoteVerify system prompt for analysis'
     }
@@ -240,16 +242,24 @@ app.post('/api/analyze-combined-validated', async (req, res) => {
     );
     
     if (result.success) {
+      // Handle both single-AI and multi-AI evaluation formats
+      const evaluation = result.evaluation;
+      const biasScore = evaluation.biasDetection?.score ?? evaluation.averageScores?.bias ?? 0;
+      const hallucinationScore = evaluation.hallucinationDetection?.score ?? evaluation.averageScores?.hallucination ?? 0;
+      const satisfactionScore = evaluation.overallSatisfaction?.score ?? evaluation.averageScores?.satisfaction ?? 0;
+      
       res.json({
         success: true,
         validated: true,
         ...result.response,
         qualityCheck: {
-          biasScore: result.evaluation.biasDetection.score,
-          hallucinationScore: result.evaluation.hallucinationDetection.score,
-          satisfactionScore: result.evaluation.overallSatisfaction.score,
+          biasScore: biasScore,
+          hallucinationScore: hallucinationScore,
+          satisfactionScore: satisfactionScore,
           decision: result.evaluation.finalDecision.action,
-          attempts: result.attempts
+          attempts: result.attempts,
+          bestAttemptSelected: result.bestAttemptSelected || false,
+          bestAttemptNumber: result.bestAttemptNumber || null
         },
         warning: result.warning || null
       });
@@ -300,6 +310,42 @@ app.post('/api/bias-check', async (req, res) => {
     console.error('Bias check failed:', error);
     res.status(500).json({ 
       error: 'Failed to check for bias',
+      message: error.message 
+    });
+  }
+});
+
+// Multi-AI bias check (Gemini + Cloudflare consensus)
+app.post('/api/multi-ai-bias-check', async (req, res) => {
+  try {
+    const { response, context = 'Promise analysis' } = req.body;
+    
+    if (!response) {
+      return res.status(400).json({ 
+        error: 'Response required',
+        message: 'Please provide a response object or text to evaluate'
+      });
+    }
+    
+    console.log(`Running multi-AI bias check on: ${context}`);
+    
+    const result = await multiAiBiasCheck(response, context);
+    
+    res.json({
+      success: true,
+      method: 'multi-ai-consensus',
+      passed: result.passed,
+      needsReloop: result.needsReloop,
+      rejected: result.rejected,
+      consensus: result.consensus,
+      individualEvaluations: result.evaluations,
+      checkedAt: result.timestamp
+    });
+    
+  } catch (error) {
+    console.error('Multi-AI bias check failed:', error);
+    res.status(500).json({ 
+      error: 'Failed to perform multi-AI bias check',
       message: error.message 
     });
   }
@@ -360,8 +406,18 @@ app.get('/api/stats', async (req, res) => {
       broken: promises.filter(p => p.status === 'broken').length,
       partial: promises.filter(p => p.status === 'partial').length,
       verified: promises.filter(p => p.verified).length,
+      withStockData: promises.filter(p => p.actualMarketImpact && p.actualMarketImpact.industries).length,
       byPresident: {},
-      byCategory: {}
+      byCategory: {},
+      biasDetection: {
+        multiAiEnabled: !!(process.env.CLOUDFLARE_ACCOUNT_ID && process.env.CLOUDFLARE_API_TOKEN),
+        models: !!(process.env.CLOUDFLARE_ACCOUNT_ID && process.env.CLOUDFLARE_API_TOKEN) 
+          ? ['gemini-2.5-flash', 'llama-3.1-8b-instruct']
+          : ['gemini-2.5-flash'],
+        method: !!(process.env.CLOUDFLARE_ACCOUNT_ID && process.env.CLOUDFLARE_API_TOKEN)
+          ? 'multi-ai-consensus'
+          : 'single-ai'
+      }
     };
     
     promises.forEach(p => {
