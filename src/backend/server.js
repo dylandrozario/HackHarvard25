@@ -224,7 +224,7 @@ app.post('/api/analyze-combined-validated', async (req, res) => {
     
     // Generator function that can be called multiple times if reloop needed
     const generateAnalysis = async (previousEvaluation) => {
-      console.log('🤖 Generating analysis...');
+      console.log('Generating analysis...');
       
       // Get basic statistics
       const stats = getPromiseStatistics(promises);
@@ -642,16 +642,16 @@ app.post('/api/validate-sample', async (req, res) => {
         
         if (decision === 'approve') {
           results.passed++;
-          console.log(`  ✅ APPROVED`);
+          console.log(`   APPROVED`);
         } else if (decision === 'approve_with_warning') {
           results.warned++;
-          console.log(`  ⚠️  APPROVED WITH WARNING`);
+          console.log(`   APPROVED WITH WARNING`);
         } else if (decision === 'reloop') {
           results.failed++;
-          console.log(`  ❌ RELOOP NEEDED`);
+          console.log(`   RELOOP NEEDED`);
         } else {
           results.failed++;
-          console.log(`  ❌ REJECTED`);
+          console.log(`   REJECTED`);
         }
         
         results.details.push({
@@ -668,7 +668,7 @@ app.post('/api/validate-sample', async (req, res) => {
         await new Promise(resolve => setTimeout(resolve, 2000));
         
       } catch (error) {
-        console.error(`  ❌ ERROR: ${error.message}`);
+        console.error(`   ERROR: ${error.message}`);
         results.failed++;
       }
     }
@@ -676,7 +676,7 @@ app.post('/api/validate-sample', async (req, res) => {
     // Calculate pass rate
     const passRate = (results.passed + results.warned) / results.total;
     
-    console.log(`\n📊 Results: ${results.passed} approved, ${results.warned} warned, ${results.failed} failed`);
+    console.log(`\nResults: ${results.passed} approved, ${results.warned} warned, ${results.failed} failed`);
     console.log(`Pass rate: ${(passRate * 100).toFixed(1)}%`);
     
     const success = passRate >= qualityThreshold;
