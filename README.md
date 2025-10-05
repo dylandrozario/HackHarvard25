@@ -20,32 +20,27 @@ Votify helps voters hold politicians accountable by tracking campaign promises a
 ### Landing Page
 *[Screenshot: Hero section with "AI-Powered Political Promise Tracker" tagline]*
 
-![Landing Page](docs/screenshots/landing-hero.png)
+![Landing Page](src/img/landing.png)
 
 ### Dashboard Overview
 *[Screenshot: Full dashboard with 40 promise cards, filters, and stats]*
 
-![Dashboard](docs/screenshots/dashboard-overview.png)
+![Dashboard](src/img/dashboard_overview.png.png)
 
-### Promise Details Modal
-*[Screenshot: Detailed promise view with evidence, sources, and analysis]*
+### Promise Analysis & Multi-AI Validation
+*[Screenshot: Promise detail modal showing evidence, sources, and multi-AI bias detection results]*
 
-![Promise Detail](docs/screenshots/promise-detail.png)
+![Promise Detail & Validation](src/img/promise_details.png.png)
 
-### Filter & Stats
-*[Screenshot: Dashboard filtered by president showing dynamic accountability score]*
+### Policy Impact Details
+*[Screenshot: Promise showing predicted vs actual industry impacts with credibility assessment]*
 
-![Filters](docs/screenshots/filters-stats.png)
+![Policy Impact](src/img/impact_details.png)
 
-### Multi-AI Validation
-*[Screenshot: Bias detection results showing Gemini + Cloudflare consensus]*
+### Market Performance Chart
+*[Screenshot: Stock market chart showing industry performance after policy implementation]*
 
-![Validation](docs/screenshots/multi-ai-validation.png)
-
-### Mobile Responsive
-*[Screenshot: Dashboard on mobile device]*
-
-![Mobile View](docs/screenshots/mobile-responsive.png)
+![Market Chart](src/img/market_performance.png)
 
 ## Tech Stack
 
