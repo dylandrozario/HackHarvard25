@@ -1,170 +1,268 @@
-# GovCheck - AI-Powered Government Fact Checking
+# Votify - AI-Powered Political Promise Tracker
 
-A modern, responsive website for government document fact-checking built with vanilla HTML, CSS, and JavaScript.
+Track political promises with AI-verified sources and real-time accountability metrics.
 
-## 🏛️ About GovCheck
+## Overview
 
-GovCheck is an AI-powered platform that helps citizens, journalists, and government professionals fact-check government documents, speeches, and policies. Our platform provides instant verification against official sources and tracks policy impacts over time.
+Votify helps voters hold politicians accountable by tracking campaign promises against actual legislative actions. Using multi-AI verification (Perplexity + Gemini), we analyze 40+ verified promises from recent U.S. presidents to show which promises were kept, broken, or partially fulfilled.
 
-## ✨ Features
+## Features
 
-- **AI-Powered Fact Checking**: Verify claims against official government databases
-- **False Promise Detection**: Identify unfulfilled campaign promises and commitments
-- **Sector Tagging**: Automatically categorize policies by economic sectors
-- **Stock Price Analysis**: Track government announcement effects on markets
-- **Policy Impact Tracking**: Monitor real-world effects of legislation over time
-- **AI-Powered Insights**: Advanced ML for government transparency analysis
+- **Multi-AI Verification**: Promises verified through Perplexity API (source finding) and Gemini API (analysis)
+- **Bias Detection**: Multi-AI consensus validation (Gemini + Cloudflare Workers AI) with automatic reloop
+- **Government Source Validation**: Every promise linked to official sources (Congress.gov, WhiteHouse.gov, etc.)
+- **Real-Time Dashboard**: Filter promises by president, status, or policy category
+- **Stock Market Impact**: Real market data showing how promises affected industry sectors
+- **Credibility Scoring**: Each promise rated for source quality and verification level
 
-## 🚀 Getting Started
+## Screenshots
+
+### Landing Page
+*[Screenshot: Hero section with "AI-Powered Political Promise Tracker" tagline]*
+
+![Landing Page](docs/screenshots/landing-hero.png)
+
+### Dashboard Overview
+*[Screenshot: Full dashboard with 40 promise cards, filters, and stats]*
+
+![Dashboard](docs/screenshots/dashboard-overview.png)
+
+### Promise Details Modal
+*[Screenshot: Detailed promise view with evidence, sources, and analysis]*
+
+![Promise Detail](docs/screenshots/promise-detail.png)
+
+### Filter & Stats
+*[Screenshot: Dashboard filtered by president showing dynamic accountability score]*
+
+![Filters](docs/screenshots/filters-stats.png)
+
+### Multi-AI Validation
+*[Screenshot: Bias detection results showing Gemini + Cloudflare consensus]*
+
+![Validation](docs/screenshots/multi-ai-validation.png)
+
+### Mobile Responsive
+*[Screenshot: Dashboard on mobile device]*
+
+![Mobile View](docs/screenshots/mobile-responsive.png)
+
+## Tech Stack
+
+**Frontend:**
+- Vanilla JavaScript
+- Tailwind CSS (CDN)
+- Responsive design (mobile-first)
+
+**Tech Stack:**
+- Node.js 16+ with ES Modules
+- Express.js for REST API
+- Perplexity AI API
+- Google Gemini 2.5 Flash API
+- Cloudflare Workers AI (optional - for multi-AI validation)
+- Python 3.8+ (for validation scripts)
+
+**Data:**
+- 40 verified promises (10 per president: Bush, Obama, Trump, Biden)
+- Real government sources with credibility ratings
+- Stock market impact data (Yahoo Finance via yfinance)
+- JSON-based promise storage
+
+## Quick Start
 
 ### Prerequisites
+- Node.js 16+ 
+- Perplexity API key
+- Google Gemini API key
 
-No special requirements! This is a vanilla web project that runs in any modern browser.
+### Installation
 
-### Installation & Setup
-
-1. **Clone the repository**:
+1. **Clone the repository:**
    ```bash
-   git clone https://github.com/dylandrozario/HackHarvard25.git
-   cd HackHarvard25
+   git clone https://github.com/yourusername/votify.git
+   cd votify
    ```
 
-2. **Open the website**:
-   - Simply open `src/frontend/landing.html` in any web browser
-   - Or use a local server for development:
-     ```bash
-     # Using Python
-     python -m http.server 8000
-     
-     # Using Node.js (if you have it installed)
-     npx serve .
-     
-     # Using PHP
-     php -S localhost:8000
-     ```
+2. **Install dependencies:**
+   ```bash
+   cd src/backend
+   npm install
+   ```
 
-3. **Access the website**:
-   - If opening directly: Double-click `src/frontend/landing.html`
-   - If using a server: Navigate to `http://localhost:8000/src/frontend/landing.html`
+3. **Set up environment variables:**
+   ```bash
+   # Create .env file in src/backend/
+   PERPLEXITY_API_KEY=your_perplexity_key
+   GEMINI_API_KEY=your_gemini_key
+   ```
 
-## 📁 Project Structure
+4. **Start the server:**
+   ```bash
+   node server.js
+   ```
+
+5. **Open the app:**
+   Navigate to `http://localhost:3000/landing.html`
+
+## Project Structure
 
 ```
-HackHarvard25/
-├── README.md                    # This file
+votify/
 ├── src/
 │   ├── frontend/
-│   │   ├── landing.html         # Main landing page
-│   │   ├── dashboard.html       # Political figures dashboard
-│   │   ├── financial-dashboard.html # Stock analysis dashboard
-│   │   ├── compare.html         # Politician comparison page
-│   │   ├── styles.css           # All CSS styles and responsive design
-│   │   └── script.js            # JavaScript functionality and animations
+│   │   ├── landing.html          # Landing page
+│   │   ├── dashboard.html        # Main promise tracker
+│   │   └── styles/               # CSS files
 │   └── backend/
-│       ├── server.js            # Express.js backend server
-│       ├── services/            # AI service integrations
-│       └── data/                # JSON data files
+│       ├── server.js             # Express server
+│       ├── services/
+│       │   ├── perplexity.js     # Promise discovery
+│       │   ├── gemini.js         # Promise analysis
+│       │   └── dataGenerator.js  # Data pipeline
+│       └── data/
+│           └── promises.json     # Verified promises database
+├── README.md
+└── package.json
 ```
 
-## 🎨 Technologies Used
+## API Endpoints
 
-- **HTML5**: Semantic markup and modern web standards
-- **CSS3**: Advanced styling with Flexbox, Grid, and animations
-- **Vanilla JavaScript**: Interactive features without frameworks
-- **Responsive Design**: Mobile-first approach with media queries
-- **CSS Animations**: Smooth transitions and micro-interactions
+### Core Endpoints
 
-## 🌟 Key Features
+**Promise Management:**
+```bash
+GET  /api/promises                    # Get all verified promises
+GET  /api/promises/generate           # Generate new promises (admin)
+GET  /api/promises/enrich             # Add stock market data
+POST /api/analyze-promise             # Analyze specific promise
+POST /api/analyze-combined            # Analyze multiple promises
+POST /api/analyze-combined-validated  # Analyze with bias detection + auto-reloop
+GET  /api/stats                       # Get dashboard statistics
+```
 
-### Navigation
-- Fixed navigation bar with glassmorphism effect
-- Smooth scrolling to sections
-- Responsive mobile menu
+**Validation & Quality Control:**
+```bash
+POST /api/validate-promise            # Python VoteVerify validation (1-5 and 0-100 scores)
+POST /api/validate-sample             # Statistical sampling validation
+POST /api/bias-check                  # Single-AI bias detection (Gemini)
+POST /api/multi-ai-bias-check         # Multi-AI consensus (Gemini + Cloudflare)
+```
 
-### Hero Section
-- Dark theme with gradient backgrounds
-- Animated typing effect for the main title
-- Interactive demo browser window
-- User avatar showcase with counter animation
+**Market Analysis:**
+```bash
+POST /api/market-chart                # Generate market impact chart for policy
+```
 
-### Features Section
-- Three-column feature grid
-- Icon animations and hover effects
-- "How it works" explanation
+**System:**
+```bash
+GET  /api/system-prompt               # Get VoteVerify system prompt
+GET  /                                # API documentation
+```
 
-### Use Cases
-- Sliding politician tags animation
-- Interactive click handlers
-- Dark theme with purple accents
+### Example API Usage
 
-### Technology Stack
-- Six feature cards with hover animations
-- Code block with syntax highlighting
-- Fact-checking results display
+**Get All Promises:**
+```bash
+curl http://localhost:3000/api/promises
+```
 
-### Social Showcase
-- Grid layout with testimonial cards
-- Interactive close buttons
-- Like counters and engagement metrics
+**Analyze Promise with Bias Detection:**
+```bash
+curl -X POST http://localhost:3000/api/analyze-combined-validated \
+  -H "Content-Type: application/json" \
+  -d '{
+    "promises": [...],
+    "president": "Barack Obama",
+    "maxAttempts": 3
+  }'
+```
 
-### Call-to-Action
-- Clean, centered design
-- Primary and secondary buttons
-- Responsive button layout
+**Multi-AI Bias Check:**
+```bash
+curl -X POST http://localhost:3000/api/multi-ai-bias-check \
+  -H "Content-Type: application/json" \
+  -d '{
+    "response": "...",
+    "context": "Promise analysis"
+  }'
+```
 
-### Footer
-- Social media icons with hover effects
-- Copyright information
-- Clean, minimal design
+## How It Works
 
-## 📱 Responsive Design
+1. **Promise Discovery**: Perplexity AI searches for campaign promises with government sources
+2. **Verification**: Gemini AI validates promises against official records
+3. **Analysis**: Each promise gets:
+   - Status (kept/broken/partial)
+   - Evidence from government sources
+   - Credibility score (high/medium/low)
+   - Industry impact predictions
+4. **Dashboard**: Users filter and explore verified promises with real-time stats
 
-The website is fully responsive and optimized for:
-- **Desktop**: Full feature set with multi-column layouts
-- **Tablet**: Adaptive grids and touch-friendly interactions
-- **Mobile**: Single-column layout with optimized spacing
+## Data Quality
 
-## 🎯 Browser Support
+- **Source Verification**: All promises linked to official government websites
+- **Credibility Ratings**: High/Medium/Low based on source quality
+- **Multi-AI Validation**: Cross-checked between Perplexity and Gemini
+- **Industry Impact**: Economic sector analysis for each promise
 
-- Chrome (latest)
+## Key Statistics
+
+- 40 verified promises across 4 presidents
+- 100% sourced from official government records
+- Average credibility score: High
+- Categories: Healthcare, Economy, Immigration, Energy, Defense, Education
+
+## Browser Support
+
+- Chrome/Edge (latest)
 - Firefox (latest)
 - Safari (latest)
-- Edge (latest)
-- Mobile browsers (iOS Safari, Chrome Mobile)
+- Mobile browsers (iOS/Android)
 
-## 🚀 Performance
+## Development
 
-- **No build process required**: Direct HTML/CSS/JS execution
-- **Fast loading**: Optimized assets and minimal dependencies
-- **Smooth animations**: CSS-based animations for better performance
-- **Lightweight**: No framework overhead
+### Adding New Promises
 
-## 🔧 Development
+```bash
+# Generate 5 new promises per president
+curl http://localhost:3000/api/promises/generate?count=5
+```
 
-### Making Changes
+### Running Tests
 
-1. **Edit HTML**: Modify files in `src/frontend/` for content and structure
-2. **Edit Styles**: Update `src/frontend/styles.css` for visual changes
-3. **Edit JavaScript**: Modify `src/frontend/script.js` for functionality
+```bash
+npm test
+```
 
-### Adding New Features
+### Building for Production
 
-1. **New Section**: Add HTML structure to the appropriate HTML file in `src/frontend/`
-2. **Styling**: Add CSS rules to `src/frontend/styles.css`
-3. **Interactivity**: Add JavaScript functions to `src/frontend/script.js`
+```bash
+npm run build
+```
 
-## 📄 License
+## Contributing
 
-This project is open source and available under the [MIT License](LICENSE).
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit changes (`git commit -m 'Add AmazingFeature'`)
+4. Push to branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
 
-## 🤝 Contributing
+## Team
 
-Contributions are welcome! Please feel free to submit a Pull Request.
+Built at HackHarvard 2025 by [Your Team Name]
 
-## 📞 Contact
+## License
 
-For questions or support, please open an issue on GitHub.
+MIT License - see LICENSE file for details
+
+## Acknowledgments
+
+- Perplexity AI for promise discovery
+- Google Gemini for promise analysis
+- Congress.gov for official legislative data
+- HackHarvard 2025 organizers
 
 ---
 
-**GovCheck** - Making government transparency accessible through AI-powered fact-checking.
+**Votify** - Making political accountability transparent through AI.
