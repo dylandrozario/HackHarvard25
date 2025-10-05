@@ -42,7 +42,7 @@ const log = {
   warning: (text) => console.log(`${colors.yellow}⚠️  ${text}${colors.reset}`),
   data: (label, value) => console.log(`${colors.dim}${label}:${colors.reset} ${colors.bright}${value}${colors.reset}`),
   section: (text) => console.log(`\n${colors.bright}${colors.magenta}${text}${colors.reset}`),
-  stock: (text) => console.log(`${colors.cyan}📈 ${text}${colors.reset}`),
+  stock: (text) => console.log(`${colors.cyan}${text}${colors.reset}`),
 };
 
 // Load promises from cache
@@ -113,7 +113,7 @@ function displayPromise(promise, index, total) {
   
   // Display sources and credibility
   if (promise.realSources && promise.realSources.length > 0) {
-    log.section('🔗 SOURCES & CITATIONS');
+    log.section('SOURCES & CITATIONS');
     console.log(`  ${colors.dim}Credibility: ${promise.credibilityLevel || 'unknown'}${colors.reset}`);
     console.log(`  ${colors.dim}Verified: ${promise.verified ? 'Yes ✓' : 'No'}${colors.reset}\n`);
     promise.realSources.slice(0, 5).forEach((source, i) => {
@@ -123,7 +123,7 @@ function displayPromise(promise, index, total) {
       console.log(`  ${colors.dim}... and ${promise.realSources.length - 5} more sources${colors.reset}`);
     }
   } else if (promise.sources && promise.sources.length > 0) {
-    log.section('🔗 SOURCES');
+    log.section('SOURCES');
     console.log(`  ${colors.dim}Credibility: ${promise.credibilityLevel || 'unknown'}${colors.reset}\n`);
     promise.sources.slice(0, 5).forEach((source, i) => {
       console.log(`  ${i + 1}. ${colors.cyan}${source}${colors.reset}`);
@@ -135,7 +135,7 @@ function displayPromise(promise, index, total) {
   
   // Display affected industries (predictions)
   if (promise.affectedIndustries && promise.affectedIndustries.length > 0) {
-    log.section('📊 PREDICTED INDUSTRY IMPACT');
+    log.section(' PREDICTED INDUSTRY IMPACT');
     promise.affectedIndustries.forEach((industry, i) => {
       console.log(`\n  ${i + 1}. ${colors.bright}${industry.name}${colors.reset}`);
       console.log(`     Predicted: ${industry.predictedImpact} (confidence: ${industry.confidence}%)`);
@@ -145,7 +145,7 @@ function displayPromise(promise, index, total) {
   
   // Display actual market impact
   if (promise.actualMarketImpact && promise.actualMarketImpact.industries && promise.actualMarketImpact.industries.length > 0) {
-    log.section('📈 ACTUAL STOCK MARKET PERFORMANCE');
+    log.section(' ACTUAL STOCK MARKET PERFORMANCE');
     
     promise.actualMarketImpact.industries.forEach((industry, i) => {
       console.log(`\n  ${i + 1}. ${colors.bright}${industry.industry}${colors.reset}`);
@@ -186,12 +186,12 @@ function displayStats(promises, presidentName) {
     p.actualMarketImpact.industries.length > 0
   ).length;
   
-  log.section('📊 SUMMARY STATISTICS');
+  log.section(' SUMMARY STATISTICS');
   console.log(`\n  Total promises: ${colors.bright}${promises.length}${colors.reset}`);
   console.log(`  ${colors.green}✓ Kept: ${kept}${colors.reset}`);
   console.log(`  ${colors.red}✗ Broken: ${broken}${colors.reset}`);
   console.log(`  ${colors.yellow}◐ Partial: ${partial}${colors.reset}`);
-  console.log(`  ${colors.cyan}📈 With stock data: ${withStock}${colors.reset}`);
+  console.log(`  ${colors.cyan}With stock data: ${withStock}${colors.reset}`);
 }
 
 // Get detailed analysis from VoteVerify
@@ -201,7 +201,7 @@ async function getDetailedAnalysis(promise) {
   try {
     // Generator function for reloop
     const generateAnalysis = async (previousEvaluation) => {
-      console.log(`${colors.dim}🤖 Generating AI analysis...${colors.reset}`);
+      console.log(`${colors.dim}Generating AI analysis...${colors.reset}`);
       return await analyzePromise(promise);
     };
     
@@ -228,7 +228,7 @@ async function getDetailedAnalysis(promise) {
     // Use the validated analysis
     const analysis = result.response;
     
-    log.section('🔍 VOTEVERIFY DETAILED ANALYSIS');
+    log.section(' VOTEVERIFY DETAILED ANALYSIS');
     console.log(`\n${analysis.analysis}\n`);
     
     if (analysis.confidence) {
@@ -246,7 +246,7 @@ async function getDetailedAnalysis(promise) {
     
     // Also show promise original sources
     if (promise.realSources && promise.realSources.length > 0) {
-      log.section('🔗 PROMISE ORIGINAL SOURCES');
+      log.section('PROMISE ORIGINAL SOURCES');
       console.log(`  ${colors.dim}Verified by Perplexity + Gemini${colors.reset}`);
       console.log(`  ${colors.dim}Credibility: ${promise.credibilityLevel || 'unknown'}${colors.reset}\n`);
       promise.realSources.slice(0, 5).forEach((source, i) => {
@@ -302,13 +302,13 @@ async function getCombinedAnalysis(promises, presidentName) {
     const result = data.analysis;
     
     // Display results
-    log.header(`📊 OVERALL ASSESSMENT: ${presidentName.toUpperCase()}`);
+    log.header(` OVERALL ASSESSMENT: ${presidentName.toUpperCase()}`);
     
     console.log(`\n${colors.bright}Overall Score: ${result.overallScore}/100${colors.reset}`);
     console.log(`${colors.bright}Overall Rating: ${result.overallRating}/5${colors.reset}`);
     console.log(`${colors.bright}Confidence: ${result.confidence}${colors.reset}\n`);
     
-    log.section('📈 PROMISE BREAKDOWN');
+    log.section(' PROMISE BREAKDOWN');
     console.log(`  Total Promises: ${result.promiseBreakdown.total}`);
     console.log(`  ${colors.green}✓ Kept: ${result.promiseBreakdown.kept}${colors.reset}`);
     console.log(`  ${colors.red}✗ Broken: ${result.promiseBreakdown.broken}${colors.reset}`);
@@ -316,7 +316,7 @@ async function getCombinedAnalysis(promises, presidentName) {
     console.log(`  Keep Rate: ${result.promiseBreakdown.keepRate}%`);
     
     if (result.marketAccuracy) {
-      log.section('📈 MARKET PREDICTION ACCURACY');
+      log.section(' MARKET PREDICTION ACCURACY');
       const market = result.marketAccuracy;
       console.log(`  Total Predictions: ${market.totalPredictions}`);
       console.log(`  ${colors.green}✓ Correct: ${market.correct}${colors.reset}`);
@@ -326,7 +326,7 @@ async function getCombinedAnalysis(promises, presidentName) {
     }
     
     if (result.categoryAnalysis && result.categoryAnalysis.length > 0) {
-      log.section('📋 CATEGORY PERFORMANCE');
+      log.section(' CATEGORY PERFORMANCE');
       result.categoryAnalysis.forEach(cat => {
         const perf = cat.performance === 'good' ? colors.green : 
                      cat.performance === 'fair' ? colors.yellow : colors.red;
@@ -335,20 +335,20 @@ async function getCombinedAnalysis(promises, presidentName) {
       console.log();
     }
     
-    log.section('🎯 STRENGTHS');
+    log.section('STRENGTHS');
     result.strengths.forEach((s, i) => {
       console.log(`  ${i + 1}. ${colors.green}${s}${colors.reset}`);
     });
     
-    log.section('⚠️  WEAKNESSES');
+    log.section('WEAKNESSES');
     result.weaknesses.forEach((w, i) => {
       console.log(`  ${i + 1}. ${colors.red}${w}${colors.reset}`);
     });
     
-    log.section('🔢 SCORE JUSTIFICATION');
+    log.section('SCORE JUSTIFICATION');
     console.log(`\n${result.scoreJustification}\n`);
     
-    log.section('🏛️  FINAL VERDICT');
+    log.section('FINAL VERDICT');
     console.log(`\n${result.verdict}\n`);
     
     console.log(`${colors.dim}Generated at: ${result.analysisDate}${colors.reset}\n`);
@@ -368,7 +368,7 @@ async function startChat() {
   });
   
   // Welcome message
-  log.header('🗳️  VOTEVERIFY INTERACTIVE CHAT');
+  log.header('VOTEVERIFY INTERACTIVE CHAT');
   console.log('Ask me about any U.S. President\'s promises, fulfillment, and market impact!\n');
   console.log(`${colors.dim}Commands:${colors.reset}`);
   console.log('  - Type a president\'s name (e.g., "Biden", "Obama", "Trump")');
@@ -415,7 +415,7 @@ async function startChat() {
     
     if (trimmed === 'list') {
       const presidents = [...new Set(promises.map(p => p.president))];
-      log.section('📋 AVAILABLE PRESIDENTS');
+      log.section(' AVAILABLE PRESIDENTS');
       presidents.forEach((pres, i) => {
         const count = promises.filter(p => p.president === pres).length;
         console.log(`  ${i + 1}. ${pres} (${count} promise${count > 1 ? 's' : ''})`);
@@ -472,7 +472,7 @@ async function startChat() {
     
     currentPromises = found;
     
-    log.header(`🗳️  ${found[0].president.toUpperCase()} - PROMISES TRACKER`);
+    log.header(`${found[0].president.toUpperCase()} - PROMISES TRACKER`);
     
     // Display each promise
     found.forEach((promise, index) => {
@@ -482,7 +482,7 @@ async function startChat() {
     // Display statistics
     displayStats(found, input);
     
-    console.log(`\n${colors.dim}💡 Tips:${colors.reset}`);
+    console.log(`\n${colors.dim}Tips:${colors.reset}`);
     console.log(`${colors.dim}   • Type "analyze <number>" for detailed AI analysis of a specific promise${colors.reset}`);
     console.log(`${colors.dim}   • Type "overall" for combined analysis and overall score across all ${found.length} promises${colors.reset}\n`);
     
