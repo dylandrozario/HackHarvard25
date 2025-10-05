@@ -17,7 +17,7 @@ Votify helps voters hold politicians accountable by tracking campaign promises a
 
 ## Screenshots
 
-## Architecture Overview
+### Architecture Overview
 *[Screenshot: Backend architecture overview]*
 
 ![Architecture Overview](src/img/architecture_overview.png)
