@@ -1,8 +1,0 @@
-# VoteVerify - Python Dependencies
-
-# Google Gemini API
-google-genai>=1.41.0
-
-# Stock Market Analysis
-yfinance>=0.2.48
-
