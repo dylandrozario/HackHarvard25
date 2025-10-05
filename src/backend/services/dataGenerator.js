@@ -5,12 +5,13 @@ export async function generateVerifiedPromises(options = {}) {
   const { promisesPerPresident = 5 } = options;
   
   const presidents = [
-    { name: 'George W. Bush', start: 2001, end: 2008 },
-    { name: 'Barack Obama', start: 2009, end: 2016 },
-    { name: 'Donald Trump', start: 2017, end: 2020 },
-    { name: 'Joe Biden', start: 2021, end: 2024 }
+    { name: 'Bill Clinton', start: 1993, end: 2001 },
+    { name: 'George W. Bush', start: 2001, end: 2009 },
+    { name: 'Barack Obama', start: 2009, end: 2017 }, 
+    { name: 'Donald Trump', start: 2017, end: 2021 },
+    { name: 'Joe Biden', start: 2021, end: 2025 }
   ];
-  
+
   const allPromises = [];
   
   for (const pres of presidents) {

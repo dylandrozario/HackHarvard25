@@ -770,15 +770,15 @@
                     <h3 class="font-semibold text-blue-900 mb-3">🔍 Quality Assurance Results</h3>
                     <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
                         <div class="text-center">
-                            <div class="text-lg font-bold ${qualityCheck.biasScore >= 0.8 ? 'text-green-600' : qualityCheck.biasScore >= 0.6 ? 'text-yellow-600' : 'text-red-600'}">${Math.round(qualityCheck.biasScore * 100)}%</div>
+                            <div class="text-lg font-bold ${qualityCheck.biasScore <= 0.3 ? 'text-green-600' : qualityCheck.biasScore <= 0.5 ? 'text-yellow-600' : 'text-red-600'}">${Math.round(qualityCheck.biasScore * 100)}%</div>
                             <div class="text-xs text-blue-700">Bias Frequency</div>
                         </div>
                         <div class="text-center">
-                            <div class="text-lg font-bold ${qualityCheck.hallucinationScore >= 0.8 ? 'text-green-600' : qualityCheck.hallucinationScore >= 0.6 ? 'text-yellow-600' : 'text-red-600'}">${Math.round(qualityCheck.hallucinationScore * 100)}%</div>
+                            <div class="text-lg font-bold ${qualityCheck.hallucinationScore <= 0.05 ? 'text-green-600' : qualityCheck.hallucinationScore <= 0.1 ? 'text-yellow-600' : 'text-red-600'}">${Math.round(qualityCheck.hallucinationScore * 100)}%</div>
                             <div class="text-xs text-blue-700">Hallucination Rate</div>
                         </div>
                         <div class="text-center">
-                            <div class="text-lg font-bold ${qualityCheck.satisfactionScore >= 0.8 ? 'text-green-600' : qualityCheck.satisfactionScore >= 0.6 ? 'text-yellow-600' : 'text-red-600'}">${Math.round(qualityCheck.satisfactionScore * 100)}%</div>
+                            <div class="text-lg font-bold ${qualityCheck.satisfactionScore >= 0.8 ? 'text-green-600' : qualityCheck.satisfactionScore >= 0.75 ? 'text-yellow-600' : 'text-red-600'}">${Math.round(qualityCheck.satisfactionScore * 100)}%</div>
                             <div class="text-xs text-blue-700">Overall Quality</div>
                         </div>
                         <div class="text-center">
@@ -808,13 +808,13 @@
                         <div class="text-2xl font-bold text-green-600">${keptPromises}</div>
                         <div class="text-sm text-green-600">Kept (${totalPromises > 0 ? Math.round((keptPromises/totalPromises)*100) : 0}%)</div>
                     </div>
-                    <div class="bg-red-50 p-4 rounded-lg text-center">
-                        <div class="text-2xl font-bold text-red-600">${brokenPromises}</div>
-                        <div class="text-sm text-red-600">Broken (${totalPromises > 0 ? Math.round((brokenPromises/totalPromises)*100) : 0}%)</div>
-                    </div>
                     <div class="bg-yellow-50 p-4 rounded-lg text-center">
                         <div class="text-2xl font-bold text-yellow-600">${partialPromises}</div>
                         <div class="text-sm text-yellow-600">Partial (${totalPromises > 0 ? Math.round((partialPromises/totalPromises)*100) : 0}%)</div>
+                    </div>
+                    <div class="bg-red-50 p-4 rounded-lg text-center">
+                        <div class="text-2xl font-bold text-red-600">${brokenPromises}</div>
+                        <div class="text-sm text-red-600">Broken (${totalPromises > 0 ? Math.round((brokenPromises/totalPromises)*100) : 0}%)</div>
                     </div>
                 </div>
 
