@@ -48,7 +48,7 @@ function getBiasCheckerPrompt() {
  * Evaluate response using Gemini
  */
 async function evaluateWithGemini(response, context) {
-  console.log('🔷 Gemini evaluation started...');
+  console.log('Gemini evaluation started...');
   
   const systemPrompt = getBiasCheckerPrompt();
   const responseText = typeof response === 'string' 
@@ -67,7 +67,7 @@ async function evaluateWithGemini(response, context) {
     const cleaned = text.replace(/```json\n?/g, '').replace(/\n?```/g, '').trim();
     const evaluation = JSON.parse(cleaned);
     
-    console.log(`🔷 Gemini: Bias=${evaluation.biasDetection.score}/100, Hallucination=${evaluation.hallucinationDetection.score}/100, Satisfaction=${evaluation.overallSatisfaction.score}/100`);
+    console.log(`Gemini: Bias=${evaluation.biasDetection.score}/100, Hallucination=${evaluation.hallucinationDetection.score}/100, Satisfaction=${evaluation.overallSatisfaction.score}/100`);
     
     return {
       model: 'gemini-2.5-flash',
@@ -76,7 +76,7 @@ async function evaluateWithGemini(response, context) {
     };
     
   } catch (error) {
-    console.error('🔷 Gemini evaluation failed:', error.message);
+    console.error('Gemini evaluation failed:', error.message);
     return {
       model: 'gemini-2.5-flash',
       evaluation: null,
@@ -90,7 +90,7 @@ async function evaluateWithGemini(response, context) {
  * Evaluate response using Cloudflare Workers AI (Llama 3.1)
  */
 async function evaluateWithCloudflare(response, context) {
-  console.log('☁️  Cloudflare AI evaluation started...');
+  console.log('Cloudflare AI evaluation started...');
   
   const systemPrompt = getBiasCheckerPrompt();
   const responseText = typeof response === 'string' 
@@ -137,7 +137,7 @@ async function evaluateWithCloudflare(response, context) {
       console.log('⚠️  Cloudflare reported 0% hallucination - this may indicate evaluation issues');
     }
     
-    console.log(`☁️  Cloudflare (${CF_MODEL}): Bias=${evaluation.biasDetection.score}/100, Hallucination=${evaluation.hallucinationDetection.score}/100, Satisfaction=${evaluation.overallSatisfaction.score}/100`);
+    console.log(`Cloudflare (${CF_MODEL}): Bias=${evaluation.biasDetection.score}/100, Hallucination=${evaluation.hallucinationDetection.score}/100, Satisfaction=${evaluation.overallSatisfaction.score}/100`);
     
     return {
       model: CF_MODEL.replace('@cf/meta/', ''),  // Clean model name
@@ -146,7 +146,7 @@ async function evaluateWithCloudflare(response, context) {
     };
     
   } catch (error) {
-    console.error('☁️  Cloudflare evaluation failed:', error.message);
+    console.error('Cloudflare evaluation failed:', error.message);
     return {
       model: CF_MODEL.replace('@cf/meta/', ''),  // Clean model name
       evaluation: null,
@@ -296,7 +296,7 @@ function calculateConsensus(evaluations) {
  * @returns {Object} Multi-AI consensus evaluation
  */
 export async function multiAiBiasCheck(response, context = '') {
-  console.log('🔍 Multi-AI Bias Check Starting...');
+  console.log('Multi-AI Bias Check Starting...');
   console.log(`   Models: Gemini 2.5 Flash + Cloudflare (${CF_MODEL.replace('@cf/meta/', '')})`);
   console.log(`   Context: ${context}\n`);
   
@@ -312,7 +312,7 @@ export async function multiAiBiasCheck(response, context = '') {
   const consensus = calculateConsensus(evaluations);
   
   // Log results
-  console.log('\n📊 MULTI-AI CONSENSUS:');
+  console.log('\nMULTI-AI CONSENSUS:');
   console.log(`   Models evaluated: ${consensus.modelsUsed}/${consensus.totalModels}`);
   console.log(`   Consensus Bias: ${consensus.averageScores.bias}/100 (range: ${consensus.scoreRanges.bias.min}-${consensus.scoreRanges.bias.max})`);
   console.log(`   Consensus Hallucination: ${consensus.averageScores.hallucination}/100 (range: ${consensus.scoreRanges.hallucination.min}-${consensus.scoreRanges.hallucination.max})`);
