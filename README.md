@@ -23,7 +23,7 @@ Votify helps voters hold politicians accountable by tracking campaign promises a
 ![Architecture Overview](src/img/architecture_overview.png)
 
 ### Landing Page
-*[Screenshot: Landing paeg with "AI-Powered Political Promise Tracker" tagline]*
+*[Screenshot: Landing page with "AI-Powered Political Promise Tracker" tagline]*
 
 ![Landing Page](src/img/landing.png)
 
@@ -221,7 +221,6 @@ curl -X POST http://localhost:3000/api/multi-ai-bias-check \
 - Chrome/Edge (latest)
 - Firefox (latest)
 - Safari (latest)
-- Mobile browsers (iOS/Android)
 
 ## Development
 
@@ -256,10 +255,10 @@ npm run build
 
 Built at HackHarvard 2025 by:
 
-[Blessing Amoah](https://github.com/BlessingAmoah) - Prompt Engineering
-[Peter Yuk](https://github.com/dyuk01) - Backend Development
-[Araf Latif](https://github.com/ARAFLATIF) - Frontend Development
-[Dylan D'rozario](https://github.com/dylandrozario) - Frontend Development
+[Blessing Amoah](https://github.com/BlessingAmoah) - Prompt Engineering<br>
+[Peter Yuk](https://github.com/dyuk01) - Backend Development<br>
+[Araf Latif](https://github.com/ARAFLATIF) - Frontend Development<br>
+[Dylan D'rozario](https://github.com/dylandrozario) - Frontend Development<br>
 
 ## License
 
