@@ -17,20 +17,25 @@ Votify helps voters hold politicians accountable by tracking campaign promises a
 
 ## Screenshots
 
+## Architecture Overview
+*[Screenshot: Backend architecture overview]*
+
+![Architecture Overview](src/img/architecture_overview.png)
+
 ### Landing Page
-*[Screenshot: Hero section with "AI-Powered Political Promise Tracker" tagline]*
+*[Screenshot: Landing paeg with "AI-Powered Political Promise Tracker" tagline]*
 
 ![Landing Page](src/img/landing.png)
 
 ### Dashboard Overview
-*[Screenshot: Full dashboard with 40 promise cards, filters, and stats]*
+*[Screenshot: Full dashboard with 25 promise cards, filters, and stats]*
 
-![Dashboard](src/img/dashboard_overview.png.png)
+![Dashboard](src/img/dashboard_overview.png)
 
 ### Promise Analysis & Multi-AI Validation
 *[Screenshot: Promise detail modal showing evidence, sources, and multi-AI bias detection results]*
 
-![Promise Detail & Validation](src/img/promise_details.png.png)
+![Promise Detail & Validation](src/img/promise_details.png)
 
 ### Policy Impact Details
 *[Screenshot: Promise showing predicted vs actual industry impacts with credibility assessment]*
@@ -58,7 +63,7 @@ Votify helps voters hold politicians accountable by tracking campaign promises a
 - Python 3.8+ (for validation scripts)
 
 **Data:**
-- 40 verified promises (10 per president: Bush, Obama, Trump, Biden)
+- 25 verified promises (5 per president: Clinton, Bush, Obama, Trump, Biden)
 - Real government sources with credibility ratings
 - Stock market impact data (Yahoo Finance via yfinance)
 - JSON-based promise storage
@@ -69,6 +74,8 @@ Votify helps voters hold politicians accountable by tracking campaign promises a
 - Node.js 16+ 
 - Perplexity API key
 - Google Gemini API key
+- Cloudflare API key
+- Cloudflare Account ID
 
 ### Installation
 
@@ -89,6 +96,8 @@ Votify helps voters hold politicians accountable by tracking campaign promises a
    # Create .env file in src/backend/
    PERPLEXITY_API_KEY=your_perplexity_key
    GEMINI_API_KEY=your_gemini_key
+   CLOUDFLARE_API_TOKEN=your_cloudflare_key
+   CLOUDFLARE_ACCOUNT_ID=your_cloudflare_id
    ```
 
 4. **Start the server:**
@@ -245,7 +254,12 @@ npm run build
 
 ## Team
 
-Built at HackHarvard 2025 by [Your Team Name]
+Built at HackHarvard 2025 by:
+
+[Blessing Amoah](https://github.com/BlessingAmoah) - Prompt Engineering
+[Peter Yuk](https://github.com/dyuk01) - Backend Development
+[Araf Latif](https://github.com/ARAFLATIF) - Frontend Development
+[Dylan D'rozario](https://github.com/dylandrozario) - Frontend Development
 
 ## License
 
