@@ -218,7 +218,7 @@ export async function validateWithReloop(generateFn, context, maxAttempts = 3) {
         console.log('Improvements needed:', evaluation.finalDecision.improvementNeeded);
         
         if (attempts < maxAttempts) {
-          console.log('\n⏳ Regenerating with improvements...');
+          console.log('\nRegenerating with improvements...');
           await new Promise(resolve => setTimeout(resolve, 2000)); // Brief pause
         } else {
           console.log('\n⚠️  Max attempts reached - selecting best attempt from history...');
@@ -245,7 +245,7 @@ export async function validateWithReloop(generateFn, context, maxAttempts = 3) {
           
           const bestAttempt = scoredAttempts[0];
           
-          console.log(`📊 Best attempt: #${bestAttempt.attempt}/${maxAttempts}`);
+          console.log(`Best attempt: #${bestAttempt.attempt}/${maxAttempts}`);
           console.log(`   Quality score: ${bestAttempt.qualityScore.toFixed(1)}/200`);
           console.log(`   Bias: ${bestAttempt.metrics.bias}/100`);
           console.log(`   Hallucination: ${bestAttempt.metrics.hallucination}/100`);
@@ -309,7 +309,7 @@ export async function quickBiasCheck(response, context = '', forceMultiAi = fals
   try {
     // Use multi-AI if enabled or forced
     if (MULTI_AI_ENABLED || forceMultiAi) {
-      console.log('🔄 Using Multi-AI bias detection (Gemini + Cloudflare)');
+      console.log('Using Multi-AI bias detection (Gemini + Cloudflare)');
       
       // Dynamically import to avoid circular dependency
       const { quickMultiAiCheck } = await import('./multiAiBiasChecker.js');
@@ -326,7 +326,7 @@ export async function quickBiasCheck(response, context = '', forceMultiAi = fals
     }
     
     // Fallback to single-AI (Gemini only)
-    console.log('🔷 Using Single-AI bias detection (Gemini only)');
+    console.log('Using Single-AI bias detection (Gemini only)');
     const evaluation = await evaluateResponse(response, context);
     const action = evaluation.finalDecision.action;
     
