@@ -52,7 +52,7 @@ Votify helps voters hold politicians accountable by tracking campaign promises a
 **Frontend:**
 - Vanilla JavaScript
 - Tailwind CSS (CDN)
-- Responsive design (mobile-first)
+- Responsive design
 
 **Tech Stack:**
 - Node.js 16+ with ES Modules
@@ -211,7 +211,7 @@ curl -X POST http://localhost:3000/api/multi-ai-bias-check \
 
 ## Key Statistics
 
-- 40 verified promises across 4 presidents
+- 25 verified promises across 5 presidents
 - 100% sourced from official government records
 - Average credibility score: High
 - Categories: Healthcare, Economy, Immigration, Energy, Defense, Education
@@ -228,13 +228,7 @@ curl -X POST http://localhost:3000/api/multi-ai-bias-check \
 
 ```bash
 # Generate 5 new promises per president
-curl http://localhost:3000/api/promises/generate?count=5
-```
-
-### Running Tests
-
-```bash
-npm test
+curl http://localhost:3000/api/promises/generate
 ```
 
 ### Building for Production
